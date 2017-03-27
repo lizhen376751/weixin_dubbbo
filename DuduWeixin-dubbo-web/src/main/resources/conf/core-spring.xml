@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+	   default-lazy-init="true">
+
+	<!-- 自动加载配置文件 -->
+	<bean id="DuduFrameworkConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name = "systemPropertiesMode" value = "2" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath*:META-INF/app.properties</value>
+				<value>file:*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 开启组件扫描 -->
+	<context:component-scan base-package = "com.dudu"/>
+	<!-- 开器注解处理器 -->
+	<context:annotation-config />
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<dubbo:annotation package="com.dudu" />
+
+	<dubbo:application name = "DuduWeixinDubbo" />
+	<dubbo:protocol name="dubbo" port="${dubbo.application.port}"   host = "${dubbo.application.host}" />
+	<dubbo:registry address="${dubbo.registry.address}" />
+
+	<!-- 开启AOP -->
+	<aop:aspectj-autoproxy />
+
+	<!-- 开启事务注解驱动 -->
+	<tx:annotation-driven />
+
+	<!-- 配置druid监控spring jdbc -->
+	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+</beans>
