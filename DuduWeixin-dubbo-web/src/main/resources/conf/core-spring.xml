@@ -13,6 +13,13 @@
        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
 	   default-lazy-init="true">
 
+	<!--
+       核心配置文件用于加载 classpath下所有properties文件
+       设置相关spring 基础设置
+       其余配置文件按格式加载设置
+       dubbo.xsd为dubbo的schema文件  勿删
+     -->
+
 	<!-- 自动加载配置文件 -->
 	<bean id="DuduFrameworkConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name = "systemPropertiesMode" value = "2" />
@@ -33,16 +40,43 @@
 
 	<dubbo:annotation package="com.dudu" />
 
-	<dubbo:application name = "DuduWeixinDubbo" />
+	<dubbo:application name = "Tonghangquan" />
 	<dubbo:protocol name="dubbo" port="${dubbo.application.port}"   host = "${dubbo.application.host}" />
 	<dubbo:registry address="${dubbo.registry.address}" />
 
 	<!-- 开启AOP -->
 	<aop:aspectj-autoproxy />
 
+	<bean id="DataSource_weixin" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<property name="name" value="weixin"/>
+		<property name="url" value="${duduweixin_dubbo.url}"/>
+		<property name="username" value="${duduweixin_dubbo.username}"/>
+		<property name="password" value="${duduweixin_dubbo.password}"/>
+		<!-- initialSize: 初始化连接  -->
+		<property name="filters" value="stat,wall,log4j" />
+	</bean>
+
 	<!-- 开启事务注解驱动 -->
 	<tx:annotation-driven />
 
 	<!-- 配置druid监控spring jdbc -->
 	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="DataSource_weixin" />
+	</bean>
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="DataSource_weixin" />
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml"  />
+		<property name="mapperLocations" value="classpath*:com/dudu/soa/**/mapping/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.dudu.soa.**.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+
 </beans>
