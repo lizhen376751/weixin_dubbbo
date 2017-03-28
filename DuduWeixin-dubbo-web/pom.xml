@@ -13,6 +13,23 @@
     <packaging>jar</packaging>
 
     <dependencies>
+
+        <dependency> <!-- 刚刚引入log4j -->
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring</artifactId>
+                    <groupId>org.springframework</groupId>  <!-- 用于排除dubbo引用冲突 -->
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <dependency>
             <groupId>com.dudu.soa</groupId>
             <artifactId>DuduFramework-parent-dubbo</artifactId>

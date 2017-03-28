@@ -518,4 +518,41 @@ public class ShopInfo implements Serializable {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    /**
+     *
+     * @return 实体类以字符串的形式输出
+     */
+    @Override
+    public String toString() {
+        return "ShopInfo{" +
+                "id='" + id + '\'' +
+                ", shopName='" + shopName + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
+                ", state='" + state + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", tel='" + tel + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", serviceContent='" + serviceContent + '\'' +
+                ", hardware=" + hardware +
+                ", environment=" + environment +
+                ", artificer=" + artificer +
+                ", service=" + service +
+                ", introduction='" + introduction + '\'' +
+                ", imgListView='" + imgListView + '\'' +
+                ", imgBig='" + imgBig + '\'' +
+                ", imgIntroduct='" + imgIntroduct + '\'' +
+                ", shopStrength='" + shopStrength + '\'' +
+                ", renqi=" + renqi +
+                ", pingjia=" + pingjia +
+                ", wXtoken='" + wXtoken + '\'' +
+                ", wXAppId='" + wXAppId + '\'' +
+                ", wXAppSecret='" + wXAppSecret + '\'' +
+                ", welcomeImg='" + welcomeImg + '\'' +
+                ", welcomeTxt='" + welcomeTxt + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }
