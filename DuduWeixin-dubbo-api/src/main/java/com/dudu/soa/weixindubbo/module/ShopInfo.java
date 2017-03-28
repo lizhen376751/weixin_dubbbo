@@ -11,7 +11,7 @@ public class ShopInfo implements Serializable {
      */
     private String id;
     /**
-     *店铺名称
+     * 店铺名称
      */
     private String shopName;
     /**
@@ -27,19 +27,19 @@ public class ShopInfo implements Serializable {
      */
     private String state;
     /**
-     *地址
+     * 地址
      */
     private String address;
     /**
-     *城市区号
+     * 城市区号
      */
     private String city;
     /**
-     *电话
+     * 电话
      */
     private String tel;
     /**
-     *手机
+     * 手机
      */
     private String mobile;
     /**
@@ -63,11 +63,11 @@ public class ShopInfo implements Serializable {
      */
     private Float service;
     /**
-     *店铺介绍
+     * 店铺介绍
      */
     private String introduction;
     /**
-     *图片
+     * 图片
      */
     private String imgListView;
     /**
@@ -75,7 +75,7 @@ public class ShopInfo implements Serializable {
      */
     private String imgBig;
     /**
-     *图片介绍
+     * 图片介绍
      */
     private String imgIntroduct;
     /**
@@ -83,19 +83,19 @@ public class ShopInfo implements Serializable {
      */
     private String shopStrength;
     /**
-     *人气
+     * 人气
      */
     private int renqi;
     /**
-     *评价
+     * 评价
      */
     private int pingjia;
     /**
-     *微信token
+     * 微信token
      */
     private String wXtoken;
     /**
-     *微信wXAppId
+     * 微信wXAppId
      */
     private String wXAppId;
     /**
@@ -103,33 +103,33 @@ public class ShopInfo implements Serializable {
      */
     private String wXAppSecret;
     /**
-     *欢迎图片
+     * 欢迎图片
      */
     private String welcomeImg;
     /**
-     *欢迎文字
+     * 欢迎文字
      */
     private String welcomeTxt;
     /**
-     *路径
+     * 路径
      */
     private String url;
 
     /**
-     *
      * @return id
      */
     public String getId() {
         return id;
     }
+
     /**
      * @param id id
      */
     public void setId(String id) {
         this.id = id;
     }
+
     /**
-     *
      * @return shopName
      */
     public String getShopName() {
@@ -137,14 +137,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param shopName shopName
      */
     public void setShopName(String shopName) {
         this.shopName = shopName;
     }
+
     /**
-     *
      * @return lat
      */
     public String getLat() {
@@ -152,14 +151,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param lat lat
      */
     public void setLat(String lat) {
         this.lat = lat;
     }
+
     /**
-     *
      * @return lon
      */
     public String getLon() {
@@ -167,14 +165,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param lon lon
      */
     public void setLon(String lon) {
         this.lon = lon;
     }
+
     /**
-     *
      * @return state
      */
     public String getState() {
@@ -182,14 +179,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param state state
      */
     public void setState(String state) {
         this.state = state;
     }
+
     /**
-     *
      * @return address
      */
     public String getAddress() {
@@ -197,14 +193,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param address address
      */
     public void setAddress(String address) {
         this.address = address;
     }
+
     /**
-     *
      * @return city
      */
     public String getCity() {
@@ -212,14 +207,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param city city
      */
     public void setCity(String city) {
         this.city = city;
     }
+
     /**
-     *
      * @return tel
      */
     public String getTel() {
@@ -227,14 +221,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param tel tel
      */
     public void setTel(String tel) {
         this.tel = tel;
     }
+
     /**
-     *
      * @return mobile
      */
     public String getMobile() {
@@ -242,14 +235,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param mobile mobile
      */
     public void setMobile(String mobile) {
         this.mobile = mobile;
     }
+
     /**
-     *
      * @return serviceContent
      */
     public String getServiceContent() {
@@ -257,14 +249,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param serviceContent serviceContent
      */
     public void setServiceContent(String serviceContent) {
         this.serviceContent = serviceContent;
     }
+
     /**
-     *
      * @return hardware
      */
     public Float getHardware() {
@@ -272,14 +263,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param hardware hardware
      */
     public void setHardware(Float hardware) {
         this.hardware = hardware;
     }
+
     /**
-     *
      * @return environment
      */
     public Float getEnvironment() {
@@ -287,14 +277,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param environment environment
      */
     public void setEnvironment(Float environment) {
         this.environment = environment;
     }
+
     /**
-     *
      * @return artificer
      */
     public Float getArtificer() {
@@ -302,14 +291,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param artificer artificer
      */
     public void setArtificer(Float artificer) {
         this.artificer = artificer;
     }
+
     /**
-     *
      * @return service
      */
     public Float getService() {
@@ -317,14 +305,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param service service
      */
     public void setService(Float service) {
         this.service = service;
     }
+
     /**
-     *
      * @return introduction
      */
     public String getIntroduction() {
@@ -332,14 +319,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param introduction introduction
      */
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
+
     /**
-     *
      * @return imgListView
      */
     public String getImgListView() {
@@ -347,14 +333,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param imgListView imgListView
      */
     public void setImgListView(String imgListView) {
         this.imgListView = imgListView;
     }
+
     /**
-     *
      * @return imgBig
      */
     public String getImgBig() {
@@ -362,14 +347,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param imgBig imgBig
      */
     public void setImgBig(String imgBig) {
         this.imgBig = imgBig;
     }
+
     /**
-     *
      * @return imgIntroduct
      */
     public String getImgIntroduct() {
@@ -377,14 +361,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param imgIntroduct imgIntroduct
      */
     public void setImgIntroduct(String imgIntroduct) {
         this.imgIntroduct = imgIntroduct;
     }
+
     /**
-     *
      * @return shopStrength
      */
     public String getShopStrength() {
@@ -392,14 +375,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param shopStrength shopStrength
      */
     public void setShopStrength(String shopStrength) {
         this.shopStrength = shopStrength;
     }
+
     /**
-     *
      * @return renqi
      */
     public int getRenqi() {
@@ -407,14 +389,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param renqi renqi
      */
     public void setRenqi(int renqi) {
         this.renqi = renqi;
     }
+
     /**
-     *
      * @return pingjia
      */
     public int getPingjia() {
@@ -422,14 +403,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param pingjia pingjia
      */
     public void setPingjia(int pingjia) {
         this.pingjia = pingjia;
     }
+
     /**
-     *
      * @return wXtoken
      */
     public String getwXtoken() {
@@ -437,14 +417,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param wXtoken wXtoken
      */
     public void setwXtoken(String wXtoken) {
         this.wXtoken = wXtoken;
     }
+
     /**
-     *
      * @return wXAppId
      */
     public String getwXAppId() {
@@ -452,14 +431,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param wXAppId wXAppId
      */
     public void setwXAppId(String wXAppId) {
         this.wXAppId = wXAppId;
     }
+
     /**
-     *
      * @return wXAppSecret
      */
     public String getwXAppSecret() {
@@ -467,14 +445,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param wXAppSecret wXAppSecret
      */
     public void setwXAppSecret(String wXAppSecret) {
         this.wXAppSecret = wXAppSecret;
     }
+
     /**
-     *
      * @return welcomeImg
      */
     public String getWelcomeImg() {
@@ -482,14 +459,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param welcomeImg welcomeImg
      */
     public void setWelcomeImg(String welcomeImg) {
         this.welcomeImg = welcomeImg;
     }
+
     /**
-     *
      * @return welcomeTxt
      */
     public String getWelcomeTxt() {
@@ -497,14 +473,13 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param welcomeTxt welcomeTxt
      */
     public void setWelcomeTxt(String welcomeTxt) {
         this.welcomeTxt = welcomeTxt;
     }
+
     /**
-     *
      * @return url
      */
     public String getUrl() {
@@ -512,7 +487,6 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @param url url
      */
     public void setUrl(String url) {
@@ -520,39 +494,37 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     *
      * @return 实体类以字符串的形式输出
      */
     @Override
     public String toString() {
-        return "ShopInfo{" +
-                "id='" + id + '\'' +
-                ", shopName='" + shopName + '\'' +
-                ", lat='" + lat + '\'' +
-                ", lon='" + lon + '\'' +
-                ", state='" + state + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", tel='" + tel + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", serviceContent='" + serviceContent + '\'' +
-                ", hardware=" + hardware +
-                ", environment=" + environment +
-                ", artificer=" + artificer +
-                ", service=" + service +
-                ", introduction='" + introduction + '\'' +
-                ", imgListView='" + imgListView + '\'' +
-                ", imgBig='" + imgBig + '\'' +
-                ", imgIntroduct='" + imgIntroduct + '\'' +
-                ", shopStrength='" + shopStrength + '\'' +
-                ", renqi=" + renqi +
-                ", pingjia=" + pingjia +
-                ", wXtoken='" + wXtoken + '\'' +
-                ", wXAppId='" + wXAppId + '\'' +
-                ", wXAppSecret='" + wXAppSecret + '\'' +
-                ", welcomeImg='" + welcomeImg + '\'' +
-                ", welcomeTxt='" + welcomeTxt + '\'' +
-                ", url='" + url + '\'' +
-                '}';
+        return "ShopInfo{"
+                + "id='" + id + '\''
+                + ", shopName='" + shopName + '\''
+                + ", lat='" + lat + '\''
+                + ", lon='" + lon + '\''
+                + ", state='" + state + '\''
+                + ", address='" + address + '\''
+                + ", city='" + city + '\''
+                + ", tel='" + tel + '\''
+                + ", mobile='" + mobile + '\''
+                + ", serviceContent='" + serviceContent + '\''
+                + ", hardware=" + hardware
+                + ", environment=" + environment
+                + ", artificer=" + artificer
+                + ", service=" + service
+                + ", introduction='" + introduction + '\''
+                + ", imgListView='" + imgListView + '\''
+                + ", imgBig='" + imgBig + '\''
+                + ", imgIntroduct='" + imgIntroduct + '\''
+                + ", shopStrength='" + shopStrength + '\''
+                + ", renqi=" + renqi
+                + ", pingjia=" + pingjia
+                + ", wXtoken='" + wXtoken + '\''
+                + ", wXAppId='" + wXAppId + '\''
+                + ", wXAppSecret='" + wXAppSecret + '\''
+                + ", welcomeImg='" + welcomeImg + '\''
+                + ", welcomeTxt='" + welcomeTxt + '\''
+                + ", url='" + url + "}";
     }
 }

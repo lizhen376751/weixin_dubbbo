@@ -11,7 +11,7 @@ public interface ShopInfoDao {
     /**
      *
      * @param id 店铺代码
-     * @return
+     * @return ShopInfo实体类
      */
     ShopInfo getShopInfo(String id);
 }
