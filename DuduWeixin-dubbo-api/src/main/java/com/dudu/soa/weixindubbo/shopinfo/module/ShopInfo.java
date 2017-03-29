@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.module;
+package com.dudu.soa.weixindubbo.shopinfo.module;
 
 import java.io.Serializable;
 

@@ -1,9 +1,9 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.dudu.soa.weixindubbo.mapper.ShopInfoDao">
+<mapper namespace="com.dudu.soa.weixindubbo.shopinfo.mapper.ShopInfoDao">
 
-    <resultMap type="com.dudu.soa.weixindubbo.module.ShopInfo" id="shopInfo">
+    <resultMap type="com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo" id="shopInfo">
 
         <result property="id" column="ID"/>
         <result property="shopName" column="ShopName"/>

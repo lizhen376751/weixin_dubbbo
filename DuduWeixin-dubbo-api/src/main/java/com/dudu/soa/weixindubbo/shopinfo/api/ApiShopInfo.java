@@ -1,6 +1,6 @@
-package com.dudu.soa.weixindubbo.api;
+package com.dudu.soa.weixindubbo.shopinfo.api;
 
-import com.dudu.soa.weixindubbo.module.ShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 
 /**
  * 店铺信息接口

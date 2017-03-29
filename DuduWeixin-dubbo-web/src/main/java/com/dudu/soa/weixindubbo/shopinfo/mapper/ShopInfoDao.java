@@ -1,7 +1,7 @@
-package com.dudu.soa.weixindubbo.mapper;
+package com.dudu.soa.weixindubbo.shopinfo.mapper;
 
 
-import com.dudu.soa.weixindubbo.module.ShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 
 /**
  * Created by Administrator on 2017/3/28.

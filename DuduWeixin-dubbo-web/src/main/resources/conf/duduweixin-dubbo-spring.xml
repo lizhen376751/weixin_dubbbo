@@ -10,6 +10,6 @@
 	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
 	   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
 	   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
-	<dubbo:service interface="com.dudu.soa.weixindubbo.api.ApiShopInfo"  ref = "shopInfoService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.shopinfo.api.ApiShopInfo" ref = "shopInfoService" version = "1.0" owner = "lizhen"/>
 
 </beans>

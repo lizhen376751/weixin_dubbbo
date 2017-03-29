@@ -1,8 +1,8 @@
-package com.dudu.soa.weixindubbo.service;
+package com.dudu.soa.weixindubbo.shopinfo.service;
 
-import com.dudu.soa.weixindubbo.api.ApiShopInfo;
-import com.dudu.soa.weixindubbo.mapper.ShopInfoDao;
-import com.dudu.soa.weixindubbo.module.ShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.api.ApiShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.mapper.ShopInfoDao;
+import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
