@@ -1,13 +1,11 @@
-package com.dudu.soa.weixindubbo.smssend.api;
+package com.dudu.soa.weixindubbo.smssend.mapper;
 
 import com.dudu.soa.weixindubbo.smssend.module.SmsSend;
 
 /**
  * Created by Administrator on 2017/3/29.
- * 短信验证码及密码修改记录
  */
-
-public interface ApiSmsSend {
+public interface SmsSendDao {
     /**
      * 获取验证码实体类
      * @param smsSend 验证码信息
@@ -20,5 +18,4 @@ public interface ApiSmsSend {
      * @param smsSend 验证码信息
      */
     void addSmsSend(SmsSend smsSend);
-
 }
