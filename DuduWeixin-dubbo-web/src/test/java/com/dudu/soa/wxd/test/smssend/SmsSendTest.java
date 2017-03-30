@@ -10,12 +10,9 @@ import java.util.Date;
 
 
 /**
- * Created by Administrator on 2017/3/29.
+ * Created by lizhen on 2017/3/29.
  */
 public class SmsSendTest extends TestBase {
-    /**
-     * 引入service
-     */
     @Autowired
     private SmsSendService smsSendService;
 

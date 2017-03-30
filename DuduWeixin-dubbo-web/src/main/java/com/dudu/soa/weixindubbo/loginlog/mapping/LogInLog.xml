@@ -1,0 +1,90 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dudu.soa.weixindubbo.loginlog.mapper.LogInLogDao">
+
+    <resultMap type="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" id="loginlog">
+        <id property="id" column="id"></id>
+        <result property="openid" column="openid"/>
+        <result property="plateNumber" column="plateNumber"/>
+        <result property="lmcode" column="lmcode"/>
+        <result property="userid" column="userid"/>
+    </resultMap>
+
+    <insert id="addLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" useGeneratedKeys="true"
+            keyProperty="id" flushCache="true">
+        INSERT INTO
+        DDWX_loginlog (
+        openid,
+        plateNumber,
+        lmcode,
+        userid
+
+        )
+        VALUES (
+        #{openid},
+        #{plateNumber},
+        #{lmcode},
+        #{userid}
+
+        )
+    </insert>
+
+
+
+    <select id="getLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" resultMap="loginlog">
+        select top 1
+        id,
+        openid,
+        plateNumber,
+        lmcode,
+        userid
+        from
+        DDWX_loginlog
+        WHERE 1=1
+        <trim  suffixOverrides="">
+
+            <if test="lmcode !=null and lmcode != ''">
+               AND lmcode = #{lmcode}
+            </if>
+
+            <if test="plateNumber !=null and plateNumber != ''">
+                AND plateNumber = #{plateNumber}
+            </if>
+            <if test="openid !=null and openid != ''">
+                AND openid = #{openid}
+            </if>
+
+            <if test="userid !=null and userid != ''">
+                AND userid = #{userid}
+            </if>
+        </trim>
+
+
+    </select>
+
+
+    <delete id="deleLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog">
+        delete from DDWX_loginlog
+        where openid=#{openid}
+
+    </delete>
+
+
+    <update id="updateLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" flushCache="true">
+        update DDWX_loginlog
+        <trim prefix="set" suffixOverrides=",">
+            <if test="plateNumber !=null and plateNumber != ''">
+                plateNumber = #{plateNumber},
+            </if>
+            <if test="openid !=null and openid != ''">
+                openid = #{openid}
+            </if>
+        </trim>
+        where
+        id=#{id}
+
+
+    </update>
+
+
+</mapper>
