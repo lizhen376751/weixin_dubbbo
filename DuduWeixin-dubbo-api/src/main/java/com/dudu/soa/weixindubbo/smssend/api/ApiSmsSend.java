@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.smssend.api;
 
-import com.dudu.soa.weixindubbo.smssend.module.SmsSend;
+
+import com.dudu.soa.weixindubbo.smssend.module.SmsSendLog;
 
 /**
  * Created by Administrator on 2017/3/29.
@@ -13,12 +14,12 @@ public interface ApiSmsSend {
      * @param smsSend 验证码信息
      * @return
      */
-    SmsSend getSmsSend(SmsSend smsSend);
+    SmsSendLog getSmsSend(SmsSendLog smsSend);
 
     /**
      * 新增验证码
      * @param smsSend 验证码信息
      */
-    void addSmsSend(SmsSend smsSend);
+    void addSmsSend(SmsSendLog smsSend);
 
 }

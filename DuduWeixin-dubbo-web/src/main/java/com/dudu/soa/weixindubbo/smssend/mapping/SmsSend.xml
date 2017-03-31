@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dudu.soa.weixindubbo.smssend.mapper.SmsSendDao">
 
-    <resultMap type="com.dudu.soa.weixindubbo.smssend.module.SmsSend" id="smssend">
+    <resultMap type="com.dudu.soa.weixindubbo.smssend.module.SmsSendLog" id="smssend">
         <id property="id" column="id"></id>
         <result property="serviceType" column="serviceType"/>
         <result property="mobilePhone" column="mobilePhone"/>
@@ -13,7 +13,7 @@
         <result property="lmcode" column="lmcode"/>
     </resultMap>
 
-    <insert id="addSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSend" useGeneratedKeys="true"
+    <insert id="addSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSendLog" useGeneratedKeys="true"
             keyProperty="id" flushCache="true">
         INSERT INTO
         DDWX_SMSSend (
@@ -35,7 +35,7 @@
     </insert>
 
 
-    <select id="getSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSend" resultMap="smssend">
+    <select id="getSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSendLog" resultMap="smssend">
         select top 1
         id,
         serviceType,
