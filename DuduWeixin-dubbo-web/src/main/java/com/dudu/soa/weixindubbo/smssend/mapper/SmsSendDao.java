@@ -18,4 +18,9 @@ public interface SmsSendDao {
      * @param smsSendLog 验证码信息
      */
     void addSmsSend(SmsSendLog smsSendLog);
+    /**
+     * 删除短信验证码
+     * @param smsSend 验证码信息
+     */
+    void deleteSmsSend(SmsSendLog smsSend);
 }

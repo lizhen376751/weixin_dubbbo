@@ -54,4 +54,13 @@
 
     </select>
 
+
+    <delete id="deleteSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSendLog">
+        delete from DDWX_SMSSend
+        where serviceType=#{serviceType}
+        AND mobilePhone=#{mobilePhone}
+        AND plateNumber=#{plateNumber}
+        AND lmcode=#{lmcode}
+    </delete>
+
 </mapper>

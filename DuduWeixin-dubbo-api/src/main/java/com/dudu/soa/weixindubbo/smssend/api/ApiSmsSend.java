@@ -12,7 +12,7 @@ public interface ApiSmsSend {
     /**
      * 获取验证码实体类
      * @param smsSend 验证码信息
-     * @return
+     * @return 验证码实体类
      */
     SmsSendLog getSmsSend(SmsSendLog smsSend);
 
@@ -21,5 +21,11 @@ public interface ApiSmsSend {
      * @param smsSend 验证码信息
      */
     void addSmsSend(SmsSendLog smsSend);
+
+    /**
+     * 删除短信验证码
+     * @param smsSend 验证码信息
+     */
+    void deleteSmsSend(SmsSendLog smsSend);
 
 }

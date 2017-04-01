@@ -29,4 +29,9 @@ public class SmsSendService implements ApiSmsSend {
     public void addSmsSend(SmsSendLog smsSend) {
         smsSendDao.addSmsSend(smsSend);
     }
+
+    @Override
+    public void deleteSmsSend(SmsSendLog smsSend) {
+        smsSendDao.deleteSmsSend(smsSend);
+    }
 }

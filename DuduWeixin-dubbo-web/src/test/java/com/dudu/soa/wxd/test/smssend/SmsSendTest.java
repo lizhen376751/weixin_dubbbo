@@ -47,8 +47,19 @@ public class SmsSendTest extends TestBase {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-
     }
 
+    @Test
+    public void deleteSmsSend() {
+        try{
+            SmsSendLog smsSend = new SmsSendLog();
+            smsSend.setMobilePhone("18560042032");
+            smsSend.setPlateNumber("鲁A556644");
+            smsSend.setServiceType("验证码");
+            smsSend.setLmcode("cs000");
+            smsSendService.deleteSmsSend(smsSend);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }
