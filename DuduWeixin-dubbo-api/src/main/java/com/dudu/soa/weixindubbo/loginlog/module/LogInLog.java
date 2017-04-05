@@ -1,10 +1,12 @@
 package com.dudu.soa.weixindubbo.loginlog.module;
 
+import java.io.Serializable;
+
 /**
  * Created by lizhen on 2017/3/30.
  */
 
-public class LogInLog {
+public class LogInLog implements Serializable{
     /**
      * 主键id
      */

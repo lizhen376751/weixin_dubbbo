@@ -1,10 +1,12 @@
 package com.dudu.soa.weixindubbo.user.module;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/3/29.
  */
 
-public class User {
+public class User implements Serializable{
     /**
      * 主键id
      */

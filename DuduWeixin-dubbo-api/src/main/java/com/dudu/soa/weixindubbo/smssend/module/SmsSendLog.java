@@ -1,12 +1,13 @@
 package com.dudu.soa.weixindubbo.smssend.module;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by Administrator on 2017/3/29.
  */
 
-public class SmsSendLog {
+public class SmsSendLog implements Serializable{
     /**
      * 主键id
      */
