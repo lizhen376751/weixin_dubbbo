@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by Administrator on 2017/3/29.
  */
 
-public class SmsSendLog implements Serializable{
+public class SmsSendLog implements Serializable {
     /**
      * 主键id
      */
@@ -36,6 +36,7 @@ public class SmsSendLog implements Serializable{
      * 联盟code
      */
     private String lmcode;
+
     /**
      * @return id
      */
@@ -109,7 +110,6 @@ public class SmsSendLog implements Serializable{
     }
 
     /**
-     *
      * @return plateNumber
      */
     public String getPlateNumber() {
@@ -117,7 +117,6 @@ public class SmsSendLog implements Serializable{
     }
 
     /**
-     *
      * @param plateNumber plateNumber
      */
     public void setPlateNumber(String plateNumber) {
@@ -125,7 +124,6 @@ public class SmsSendLog implements Serializable{
     }
 
     /**
-     *
      * @return lmcode
      */
     public String getLmcode() {
@@ -133,7 +131,6 @@ public class SmsSendLog implements Serializable{
     }
 
     /**
-     *
      * @param lmcode lmcode
      */
     public void setLmcode(String lmcode) {
@@ -141,7 +138,6 @@ public class SmsSendLog implements Serializable{
     }
 
     /**
-     *
      * @return 实体类转换成字符串
      */
     @Override

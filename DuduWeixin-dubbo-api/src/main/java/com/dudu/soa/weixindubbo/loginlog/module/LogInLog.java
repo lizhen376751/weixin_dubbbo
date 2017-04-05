@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by lizhen on 2017/3/30.
  */
 
-public class LogInLog implements Serializable{
+public class LogInLog implements Serializable {
     /**
      * 主键id
      */
@@ -29,7 +29,6 @@ public class LogInLog implements Serializable{
     private int userid;
 
     /**
-     *
      * @return id
      */
     public int getId() {
@@ -37,7 +36,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @param id id
      */
     public void setId(int id) {
@@ -45,7 +43,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @return openid
      */
     public String getOpenid() {
@@ -53,7 +50,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @param openid openid
      */
     public void setOpenid(String openid) {
@@ -61,7 +57,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @return plateNumber
      */
     public String getPlateNumber() {
@@ -69,7 +64,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @param plateNumber plateNumber
      */
     public void setPlateNumber(String plateNumber) {
@@ -77,7 +71,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @return lmcode
      */
     public String getLmcode() {
@@ -85,7 +78,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @param lmcode lmcode
      */
     public void setLmcode(String lmcode) {
@@ -93,7 +85,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @return userid
      */
     public int getUserid() {
@@ -101,7 +92,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @param userid userid
      */
     public void setUserid(int userid) {
@@ -109,7 +99,6 @@ public class LogInLog implements Serializable{
     }
 
     /**
-     *
      * @return 实体类以字符串的形式输出
      */
     @Override
