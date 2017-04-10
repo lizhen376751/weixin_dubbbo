@@ -20,6 +20,7 @@ public class SmsSendTest extends TestBase {
     public void getSmsSend() {
         try{
             SmsSendLog smsSend = new SmsSendLog();
+            smsSend.setId(0);
             smsSend.setMobilePhone("18560042032");
             smsSend.setPlateNumber("鲁A556644");
             smsSend.setLmcode("cs000");
