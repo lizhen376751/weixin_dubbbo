@@ -18,12 +18,13 @@ import java.net.URL;
 
 
 /**
+ * 已经合并到AdvancedUtilService
  * Created by lizhen on 2017/3/15.
  * 公众平台通用接口工具类
  */
 public final class WeixinUtil {
     private WeixinUtil() {
-    };
+    }
 
     /**
      * 发起https请求并获取结果
