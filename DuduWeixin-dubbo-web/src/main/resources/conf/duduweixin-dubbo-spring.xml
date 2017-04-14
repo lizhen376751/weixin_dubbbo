@@ -19,6 +19,6 @@
 	<!--用户信息接口-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.user.api.ApiUser" ref = "userService" version = "1.0" owner = "lizhen"/>
 	<!--微信获取用户信息接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.api.ApiWeiXindUtil" ref = "advancedUtilService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.api.ApiWeiXindUtil" ref = "weChatTask" version = "1.0" owner = "lizhen"/>
 
 </beans>

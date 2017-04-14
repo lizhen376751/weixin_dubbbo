@@ -13,7 +13,18 @@
     <packaging>jar</packaging>
 
     <dependencies>
-
+        <!--用于xml解析-->
+        <!--<dependency>-->
+            <!--<groupId>com.thoughtworks.xstream</groupId>-->
+            <!--<artifactId>xstream</artifactId>-->
+            <!--<version>1.4.7</version>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.6</version>
+        </dependency>
         <dependency> <!-- 刚刚引入log4j -->
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>

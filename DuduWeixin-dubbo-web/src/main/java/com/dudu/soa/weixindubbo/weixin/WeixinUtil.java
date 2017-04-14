@@ -6,6 +6,16 @@ package com.dudu.soa.weixindubbo.weixin;
  * 公众平台通用接口工具类
  */
 public final class WeixinUtil {
+//    /**
+//     * TODO 封装成接口 需要将获取到的token放到数据库里面
+//     * 获取access_token的接口地址（GET） 限2000（次/天）
+//     */
+//    public static final String TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
+//    /**
+//     * 菜单创建（POST） 限100（次/天）
+//     */
+//    private static String mENUCREATURL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
+//
 //    private WeixinUtil() {
 //    }
 //
@@ -76,15 +86,9 @@ public final class WeixinUtil {
 //    }
 //
 //    /**
-//     * TODO 封装成接口 需要将获取到的token放到数据库里面
-//     * 获取access_token的接口地址（GET） 限2000（次/天）
-//     */
-//    public static final  String TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
-//
-//    /**
 //     * 获取access_token
 //     *
-//     * @param appid 凭证
+//     * @param appid     凭证
 //     * @param appsecret 密钥
 //     * @return AccessToken
 //     */
@@ -109,14 +113,9 @@ public final class WeixinUtil {
 //    }
 //
 //    /**
-//     *  菜单创建（POST） 限100（次/天）
-//     */
-//    private static  String mENUCREATURL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
-//
-//    /**
 //     * 创建菜单
 //     *
-//     * @param menu 菜单实例
+//     * @param menu        菜单实例
 //     * @param accessToken 有效的access_token
 //     * @return 0表示成功，其他值表示失败
 //     */

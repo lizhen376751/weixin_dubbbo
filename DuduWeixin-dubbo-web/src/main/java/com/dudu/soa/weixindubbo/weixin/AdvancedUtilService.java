@@ -2,10 +2,10 @@ package com.dudu.soa.weixindubbo.weixin;
 
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.dudu.soa.weixindubbo.weixin.api.ApiWeiXindUtil;
+
 import com.dudu.soa.weixindubbo.weixin.module.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.module.Menu;
-import com.dudu.soa.weixindubbo.weixin.module.WeixinOauth2Token;
+
 import org.springframework.stereotype.Service;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -24,7 +24,7 @@ import java.net.URL;
  * Created by lizhen on 2017/3/15.
  */
 @Service
-public class AdvancedUtilService implements ApiWeiXindUtil {
+public class AdvancedUtilService  {
 
     /**
      * 获取网页授权AccessToken
@@ -34,33 +34,33 @@ public class AdvancedUtilService implements ApiWeiXindUtil {
      * @param code      微信code
      * @return WeixinOauth2Token
      */
-    @Override
-    public WeixinOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
-        WeixinOauth2Token wat = null;
-        String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
-        requestUrl = requestUrl.replace("APPID", appId);
-        requestUrl = requestUrl.replace("SECRET", appSecret);
-        requestUrl = requestUrl.replace("CODE", code);
-
-        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
-        if (null != jsonObject) {
-            try {
-                wat = new WeixinOauth2Token();
-                wat.setAccessToken(jsonObject.getString("access_token"));
-                wat.setExpiresIn(jsonObject.getIntValue("expires_in"));
-                wat.setRefreshToken(jsonObject.getString("refresh_token"));
-                wat.setOpenId(jsonObject.getString("openid"));
-                //System.out.println(jsonObject.getString("openid"));
-                wat.setScope(jsonObject.getString("scope"));
-            } catch (Exception e) {
-                wat = null;
-                int errorCode = jsonObject.getIntValue("errcode");
-                String errorMsg = jsonObject.getString("errmsg");
-//                log.error("��ȡ��ҳ��Ȩƾ֤ʧ�� errcode:{} errmsg:{}", errorCode, errorMsg);
-            }
-        }
-        return wat;
-    }
+//    @Override
+//    public WeixinOauth2Token getOauth2AccessToken(String appId, String appSecret, String code) {
+//        WeixinOauth2Token wat = null;
+//        String requestUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+//        requestUrl = requestUrl.replace("APPID", appId);
+//        requestUrl = requestUrl.replace("SECRET", appSecret);
+//        requestUrl = requestUrl.replace("CODE", code);
+//
+//        JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
+//        if (null != jsonObject) {
+//            try {
+//                wat = new WeixinOauth2Token();
+//                wat.setAccessToken(jsonObject.getString("access_token"));
+//                wat.setExpiresIn(jsonObject.getIntValue("expires_in"));
+//                wat.setRefreshToken(jsonObject.getString("refresh_token"));
+//                wat.setOpenId(jsonObject.getString("openid"));
+//                //System.out.println(jsonObject.getString("openid"));
+//                wat.setScope(jsonObject.getString("scope"));
+//            } catch (Exception e) {
+//                wat = null;
+//                int errorCode = jsonObject.getIntValue("errcode");
+//                String errorMsg = jsonObject.getString("errmsg");
+////                log.error("��ȡ��ҳ��Ȩƾ֤ʧ�� errcode:{} errmsg:{}", errorCode, errorMsg);
+//            }
+//        }
+//        return wat;
+//    }
 
     /**
      * 发起https请求并获取结果
@@ -142,7 +142,6 @@ public class AdvancedUtilService implements ApiWeiXindUtil {
      * @param appsecret 密钥
      * @return AccessToken
      */
-    @Override
     public AccessToken getAccessToken(String appid, String appsecret) {
         AccessToken accessToken = null;
 
@@ -175,7 +174,6 @@ public class AdvancedUtilService implements ApiWeiXindUtil {
      * @param accessToken 有效的access_token
      * @return 0表示成功，其他值表示失败
      */
-    @Override
     public  int createMenu(Menu menu, String accessToken) {
         int result = 0;
 

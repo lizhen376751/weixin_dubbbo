@@ -3,9 +3,9 @@ package com.dudu.soa.weixindubbo.weixin.module;
 import java.io.Serializable;
 
 /**
- * 通过code换取网页授权access_token
+ * 通过code换取网页授权access_token及用户的openid
  */
-public class WeixinOauth2Token implements Serializable{
+public class OauthOpenIdToken implements Serializable{
     /**
      * 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同
      */

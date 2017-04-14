@@ -1,18 +1,29 @@
 package com.dudu.soa.weixindubbo.weixin.module;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 
 /**
- * ���Ӱ�ť������ť��
- * 
+ * button
  */
 public class ComplexButton extends Button {
-	private Button[] sub_button;
-	public Button[] getSub_button() {
-		return sub_button;
-	}
+    /**
+     * 二级按钮
+     */
+    @JSONField(name = "sub_button")
+    private Button[] subbutton;
 
-	public void setSub_button(Button[] sub_button) {
-		this.sub_button = sub_button;
-	}
+    /**
+     * @return subbutton
+     */
+    public Button[] getSubbutton() {
+        return subbutton;
+    }
+
+    /**
+     * @param subbutton subbutton
+     */
+    public void setSubbutton(Button[] subbutton) {
+        this.subbutton = subbutton;
+    }
 }
