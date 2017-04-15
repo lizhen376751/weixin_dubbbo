@@ -21,7 +21,6 @@ import java.util.Map;
 public class WeChatTask implements ApiWeiXindUtil {
 
     /**
-     * /
      * 获取到开发者的token
      *
      * @param appid  appid
@@ -116,7 +115,6 @@ public class WeChatTask implements ApiWeiXindUtil {
         String nickname = JSONObject.parseObject(s).getString("nickname");
         //TODO 需要新建实体类,作为返回数据
 
-
     }
-
+//TODO 配置url的方法
 }

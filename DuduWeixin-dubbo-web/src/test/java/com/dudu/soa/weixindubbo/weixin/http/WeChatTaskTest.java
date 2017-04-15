@@ -89,11 +89,15 @@ public class WeChatTaskTest extends TestBase {
         btn32.setType("view");
         btn32.setUrl(COMMONURL + "_lianMengActivity" + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
 
-//        CommonButton btn33 = new CommonButton();
-//        btn33.setName("车友会");
-//        btn33.setType("view");
-//        btn33.setUrl(Constant.COMMONURL + "_lianMengActivity" + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
-//
+        CommonButton btn33 = new CommonButton();
+        btn33.setName("车友会");
+        btn33.setType("view");
+        btn33.setUrl("http://wx.duduchewang.cn/weixincore/daoHang/service/daohangindex.jsp?shopcode=CS000&openid=oSsYXwMun4NrZE8b_OQi6kMaPyg4");
+
+        CommonButton btn35 = new CommonButton();
+        btn35.setName("服务导航");
+        btn35.setType("view");
+        btn35.setUrl("http://4ec43db5.ngrok.io/fuwudaohang");
 
         CommonButton btn34 = new CommonButton();
         btn34.setName("退出账号");
@@ -107,7 +111,7 @@ public class WeChatTaskTest extends TestBase {
 
         ComplexButton mainBtn2 = new ComplexButton();
         mainBtn2.setName("服务");
-        mainBtn2.setSubbutton(new CommonButton[]{btn21, btn24});
+        mainBtn2.setSubbutton(new CommonButton[]{btn21,btn33,btn35, btn24});
 
         ComplexButton mainBtn3 = new ComplexButton();
         mainBtn3.setName("活动");
