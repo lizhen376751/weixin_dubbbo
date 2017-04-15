@@ -15,7 +15,7 @@ import java.util.Map;
 
 
 /**
- *关于微信的服务
+ * 关于微信的服务
  */
 @Service
 public class WeChatTask implements ApiWeiXindUtil {
@@ -67,11 +67,9 @@ public class WeChatTask implements ApiWeiXindUtil {
         String rs = HttpUtils.sendPostJson(url, jsonMenu);
         System.out.println("创建菜单成功!");
     }
-/**
- *
- */
+
     /**
-     * 获取用户信息
+     * 获取网页授权access_token及用户的openID
      *
      * @param appId     微信appId
      * @param appSecret 微信appSecret
@@ -91,4 +89,34 @@ public class WeChatTask implements ApiWeiXindUtil {
         System.out.println("获取openid=========================" + s);
         return null;
     }
+
+    /**
+     * 获取用户的基本信息
+     *
+     * @param appid  微信appId
+     * @param secret 微信appSecret
+     * @param code   微信code
+     * @throws Exception 异常
+     */
+    public void getWeiXinUserInfo(String appid, String secret, String code) throws Exception {
+
+        //1.获取开发者的access_token
+        AccessToken tokengetTicket = this.getTokengetTicket(appid, secret);
+        String token = tokengetTicket.getToken();
+        //2.获取openid
+        OauthOpenIdToken oauthAccessToken = this.getOauthAccessToken(appid, secret, code);
+        String openId = oauthAccessToken.getOpenId();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("lang", "zh_CN");
+        params.put("access_token", token);
+        params.put("openid", openId);
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/user/info";
+        String s = HttpUtils.sendGet(requestUrl, params);
+        //获取用户的昵称
+        String nickname = JSONObject.parseObject(s).getString("nickname");
+        //TODO 需要新建实体类,作为返回数据
+
+
+    }
+
 }
