@@ -24,7 +24,10 @@ public class WeixinActionMethodDefine {
      * 是否必须AccessToken
      */
     private boolean isNeedAccssToken = true;
-
+    /**
+     * 是否需要appid和seret
+     */
+    private boolean isNeedAppid = true;
     /**
      * 资源路径
      */
@@ -60,8 +63,8 @@ public class WeixinActionMethodDefine {
      */
     @Override
     public String toString() {
-        return "httpMethod:" + httpMethod + ",paramterContentType:" + paramterContentType + ",isNeedAccssToken:" + isNeedAccssToken + ",uri:" + uri
-                + ",weixinBaseParamter:" + weixinBaseParamter + ",actionConfigParamter:" + actionConfigParamter + ",requestBusinessParamters:" + requestBusinessParamters
+        return "httpMethod:" + httpMethod + ",paramterContentType:" + paramterContentType + ",isNeedAccssToken:" + isNeedAccssToken + ",isNeedAppid:" + isNeedAppid
+                + ",uri:" + uri + ",weixinBaseParamter:" + weixinBaseParamter + ",actionConfigParamter:" + actionConfigParamter + ",requestBusinessParamters:" + requestBusinessParamters
                 + ",exceptionHandler:" + exceptionHandler + ",actionPostParamter:" + actionPostParamter;
     }
 
@@ -116,6 +119,24 @@ public class WeixinActionMethodDefine {
      */
     public WeixinActionMethodDefine setIsNeedAccssToken(boolean isNeedAccssToken) {
         this.isNeedAccssToken = isNeedAccssToken;
+        return this;
+    }
+
+    /**
+     * 获取 是否需要appid和seret
+     * @return isNeedAppid 是否需要appid和seret
+     */
+    public boolean isIsNeedAppid() {
+        return this.isNeedAppid;
+    }
+
+    /**
+     * 设置 是否需要appid和seret
+     * @param isNeedAppid 是否需要appid和seret
+     * @return 返回 WeixinActionMethodDefine(微信方法定义)
+     */
+    public WeixinActionMethodDefine setIsNeedAppid(boolean isNeedAppid) {
+        this.isNeedAppid = isNeedAppid;
         return this;
     }
 

@@ -1,9 +1,11 @@
 package com.dudu.soa.weixindubbo.weixin.api;
 
 
-
 import com.dudu.soa.weixindubbo.weixin.module.Menu;
 import com.dudu.soa.weixindubbo.weixin.module.OauthOpenIdToken;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 /**
  * 微信的接口
@@ -19,7 +21,7 @@ public interface ApiWeiXindUtil {
      * @param code      微信code
      * @return WeixinOauth2Token
      */
-    OauthOpenIdToken getOauthAccessToken(String appId, String appSecret, String code) throws Exception;
+    OauthOpenIdToken getOauthAccessToken(String code) throws Exception;
 
     /**
      * 获取开发者的access_token
@@ -34,10 +36,8 @@ public interface ApiWeiXindUtil {
     /**
      * 创建菜单
      *
-     * @param menu   菜单实例
-     * @param appid  有效的access_token
-     * @param secret secret
+     * @param menu 菜单实例
      * @return 0表示成功，其他值表示失败
      */
-    void createMenu(String appid, String secret, Menu menu) throws Exception;
+    void createMenu(Menu menu) throws IOException, URISyntaxException;
 }

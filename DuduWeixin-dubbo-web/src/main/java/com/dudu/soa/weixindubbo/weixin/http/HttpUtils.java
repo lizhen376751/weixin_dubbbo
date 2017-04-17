@@ -46,11 +46,11 @@ public final class HttpUtils {
     /**
      * 微信的appid
      */
-    private static final String APPID = "wxf0af72edbe855d28";
+    public static final String APPID = "wxf0af72edbe855d28";
     /**
      * 微信的secret
      */
-    private static final String APPSECRET = "fa12f20abeabc7c8ca3ebe777ceb2229";
+    public static final String APPSECRET = "fa12f20abeabc7c8ca3ebe777ceb2229";
     /**
      * 微信基础url共同的
      */
@@ -108,14 +108,14 @@ public final class HttpUtils {
         }
         //4. 读 response
         inputStream = response.getEntity().getContent();
+        //6. 对得到后的内容进行处理
+        String result = getJsonStringFromGZIP(inputStream);
         if (inputStream != null) {
             //关闭输入流
             inputStream.close();
         }
         //5. 释放连接。无论执行方法是否成功，都必须释放连接
         request.releaseConnection();
-        //6. 对得到后的内容进行处理
-        String result = getJsonStringFromGZIP(inputStream);
         return result;
 
     }
@@ -353,7 +353,7 @@ public final class HttpUtils {
         sb.append(actionMethodDefine.getUri());
         sb.append("?");
         //判断是否需要appid和secret
-        if (actionMethodDefine.isIsNeedAccssToken()) {
+        if (actionMethodDefine.isIsNeedAppid()) {
             sb.append("appid").append("=").append(APPID).append("&");
             sb.append("secret").append("=").append(APPSECRET).append("&");
         }
