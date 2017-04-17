@@ -10,6 +10,7 @@ import java.util.Map;
  * Created by Administrator on 2017/4/13.
  */
 public class WeixinActionMethodDefine {
+//    https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKE
     /**
      * HTTP方法
      */
@@ -27,26 +28,30 @@ public class WeixinActionMethodDefine {
     /**
      * 资源路径
      */
-    private String uri;
+    private String uri; //类似于: /cgi-bin/template/api_set_industry
     /**
      * 基础参数
      */
-    private WeixinBaseParamter weixinBaseParamter;
+    private WeixinBaseParamter weixinBaseParamter; //类似于:grant_type=client_credential
 
     /**
      * 接口基础配置参数
      */
-    private Map<String, String> actionConfigParamter = new HashMap<String, String>();
+    private Map<String, String> actionConfigParamter = new HashMap<String, String>(); //appid之类的
 
 
     /**
      * 接口所需业务参数
      */
-    private List<String> requestBusinessParamters = new ArrayList<String>();
+    private List<String> requestBusinessParamters = new ArrayList<String>(); //post请求的参数
     /**
      * 默认异常处理器
      */
     private WeixinExceptionHandler exceptionHandler;
+    /**
+     * 接口post的参数
+     */
+    private Map<String, String> actionPostParamter = new HashMap<String, String>(); //appid之类的
 
 
     /**
@@ -57,7 +62,7 @@ public class WeixinActionMethodDefine {
     public String toString() {
         return "httpMethod:" + httpMethod + ",paramterContentType:" + paramterContentType + ",isNeedAccssToken:" + isNeedAccssToken + ",uri:" + uri
                 + ",weixinBaseParamter:" + weixinBaseParamter + ",actionConfigParamter:" + actionConfigParamter + ",requestBusinessParamters:" + requestBusinessParamters
-                + ",exceptionHandler:" + exceptionHandler;
+                + ",exceptionHandler:" + exceptionHandler + ",actionPostParamter:" + actionPostParamter;
     }
 
     /**
@@ -242,6 +247,45 @@ public class WeixinActionMethodDefine {
      */
     public WeixinActionMethodDefine setExceptionHandler(WeixinExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
+        return this;
+    }
+
+    /**
+     * 新增设置 接口post的参数
+     * @param key 接口post的参数 元素 key
+     * @param value 接口post的参数 元素 value
+     * @return WeixinActionMethodDefine(微信方法定义)
+     */
+    public WeixinActionMethodDefine putActionPostParamter(String key, String value) {
+        this.actionPostParamter.put(key, value);
+        return this;
+    }
+
+    /**
+     * 批量新增设置 接口post的参数
+     * @param actionPostParamter 接口post的参数 元素集合
+     * @return WeixinActionMethodDefine(微信方法定义)
+     */
+    public WeixinActionMethodDefine putAllActionPostParamter(Map<String, String> actionPostParamter) {
+        this.actionPostParamter.putAll(actionPostParamter);
+        return this;
+    }
+
+    /**
+     * 获取 接口post的参数
+     * @return actionPostParamter 接口post的参数
+     */
+    public Map<String, String> getActionPostParamter() {
+        return this.actionPostParamter;
+    }
+
+    /**
+     * 设置 接口post的参数
+     * @param actionPostParamter 接口post的参数
+     * @return 返回 WeixinActionMethodDefine(微信方法定义)
+     */
+    public WeixinActionMethodDefine setActionPostParamter(Map<String, String> actionPostParamter) {
+        this.actionPostParamter = actionPostParamter;
         return this;
     }
 }

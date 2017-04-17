@@ -1,5 +1,9 @@
 package com.dudu.soa.weixindubbo.weixin.http;
 
+import com.dudu.soa.weixindubbo.weixin.WeixinActionFactory;
+import com.dudu.soa.weixindubbo.weixin.base.HttpMethod;
+import com.dudu.soa.weixindubbo.weixin.base.ParamterContentType;
+import com.dudu.soa.weixindubbo.weixin.base.WeixinActionMethodDefine;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -7,6 +11,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -21,6 +26,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -37,6 +43,145 @@ public final class HttpUtils {
     private HttpUtils() {
     }
 
+    /**
+     * 微信的appid
+     */
+    private static final String APPID = "wxf0af72edbe855d28";
+    /**
+     * 微信的secret
+     */
+    private static final String APPSECRET = "fa12f20abeabc7c8ca3ebe777ceb2229";
+    /**
+     * 微信基础url共同的
+     */
+    private static final String BASE_URL = "https://api.weixin.qq.com";
+
+    /**
+     * get和post请求入口
+     *
+     * @param actionMethodDefine 入参实体类
+     * @return 字符串
+     * @throws URISyntaxException 异常
+     * @throws IOException        网络异常
+     */
+    public static String request(WeixinActionMethodDefine actionMethodDefine) throws URISyntaxException, IOException {
+        InputStream inputStream = null;
+        //获取请求参数
+        Map<String, String> params = actionMethodDefine.getActionConfigParamter();
+        //获取参数集合
+        Set<String> set = params.keySet();
+        //获取post请求参数
+        Map<String, String> actionPostParamter = actionMethodDefine.getActionPostParamter();
+        //获取post参数集合
+        Set<String> postset = actionPostParamter.keySet();
+        //获取请求方式
+        HttpMethod httpMethod = actionMethodDefine.getHttpMethod();
+        //获取请求什么样的数据
+        ParamterContentType paramterContentType = actionMethodDefine.getParamterContentType();
+        // 1. 创建 HttpClient 的实例
+        HttpClient client = new DefaultHttpClient();
+        //2. 创建某种连接方法的实例,构造函数中传入待连接的地址
+        HttpRequestBase request = null;
+        HttpResponse response = null;
+        //构建参数
+        String actionURL = HttpUtils.getActionURL(actionMethodDefine);
+        if (httpMethod.equals(HttpMethod.GET)) {
+            request = new HttpGet();
+            //将参传入
+            request.setURI(new URI(actionURL));
+            request.setHeader("Accept-Encoding", "gzip");
+            // 3. 调用第一步中创建好的实例的 execute 方法来执行第二步中创建好的 method 实例
+            response = client.execute(request);
+        } else if (httpMethod.equals(HttpMethod.POST)) {
+            //在发送post请求时用该list来存放参数(类似于key和value)
+            List<NameValuePair> list = new ArrayList<NameValuePair>();
+            //遍历set集合
+            for (String key : postset) {
+                //存入list里面
+                list.add(new BasicNameValuePair(key, params.get(key)));
+            }
+            HttpPost request1 = new HttpPost(actionURL);
+            request1.setHeader("Accept-Encoding", "gzip");
+            request1.setEntity(new UrlEncodedFormEntity(list, HTTP.UTF_8));
+            // 3. 调用第一步中创建好的实例的 execute 方法来执行第二步中创建好的 method 实例
+            response = client.execute(request1);
+        }
+        //4. 读 response
+        inputStream = response.getEntity().getContent();
+        if (inputStream != null) {
+            //关闭输入流
+            inputStream.close();
+        }
+        //5. 释放连接。无论执行方法是否成功，都必须释放连接
+        request.releaseConnection();
+        //6. 对得到后的内容进行处理
+        String result = getJsonStringFromGZIP(inputStream);
+        return result;
+
+    }
+
+
+    /**
+     * @param urls   urls
+     * @param params params
+     * @return String
+     * @throws ClientProtocolException ClientProtocolException
+     * @throws IOException             IOException
+     * @Description: http post请求json数据(入参和接受都是json,如:创建菜单)
+     * @author
+     * @date
+     */
+    public static String sendPostJson(String urls, String params)
+            throws ClientProtocolException, IOException {
+        HttpPost request = new HttpPost(urls);
+
+        StringEntity se = new StringEntity(params, HTTP.UTF_8);
+        request.setEntity(se);
+        // 发送请求
+        HttpResponse httpResponse = new DefaultHttpClient().execute(request);
+        // 得到应答的字符串，这也是一个 JSON 格式保存的数据
+        String retSrc = EntityUtils.toString(httpResponse.getEntity());
+        request.releaseConnection();
+        System.out.println("创建菜单=========================" + retSrc);
+        return retSrc;
+
+    }
+
+    /**
+     * 发送微信消息
+     *
+     * @param urlStr  urlStr
+     * @param xmlInfo xmlInfo
+     * @return String
+     * @Description: http请求发送xml内容
+     */
+    public static String sendXmlPost(String urlStr, String xmlInfo) {
+        // xmlInfo xml具体字符串
+        try {
+            URL url = new URL(urlStr);
+            URLConnection con = url.openConnection();
+            con.setDoOutput(true);
+            con.setRequestProperty("Pragma:", "no-cache");
+            con.setRequestProperty("Cache-Control", "no-cache");
+            con.setRequestProperty("Content-Type", "text/xml");
+            OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
+            out.write(new String(xmlInfo.getBytes("utf-8")));
+            out.flush();
+            out.close();
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String lines = "";
+            for (String line = br.readLine(); line != null; line = br.readLine()) {
+                lines = lines + line;
+            }
+            return lines; // 返回请求结果
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "fail";
+    }
+    //暂时被取代=======================================================
 
     /**
      * @param reqUrl reqUrl
@@ -127,69 +272,12 @@ public final class HttpUtils {
             throw new Exception("发送未知异常");
         }
     }
+    //===================================================================
 
     /**
-     * @param urls   urls
-     * @param params params
-     * @return String
-     * @throws ClientProtocolException ClientProtocolException
-     * @throws IOException             IOException
-     * @Description: http post请求json数据
-     * @author
-     * @date
-     */
-    public static String sendPostJson(String urls, String params)
-            throws ClientProtocolException, IOException {
-        HttpPost request = new HttpPost(urls);
-
-        StringEntity se = new StringEntity(params, HTTP.UTF_8);
-        request.setEntity(se);
-        // 发送请求
-        HttpResponse httpResponse = new DefaultHttpClient().execute(request);
-        // 得到应答的字符串，这也是一个 JSON 格式保存的数据
-        String retSrc = EntityUtils.toString(httpResponse.getEntity());
-        request.releaseConnection();
-        System.out.println("创建菜单=========================" + retSrc);
-        return retSrc;
-
-    }
-
-    /**
-     * 发送微信消息
-     * @param urlStr  urlStr
-     * @param xmlInfo xmlInfo
-     * @return String
-     * @Description: http请求发送xml内容
-     */
-    public static String sendXmlPost(String urlStr, String xmlInfo) {
-        // xmlInfo xml具体字符串
-        try {
-            URL url = new URL(urlStr);
-            URLConnection con = url.openConnection();
-            con.setDoOutput(true);
-            con.setRequestProperty("Pragma:", "no-cache");
-            con.setRequestProperty("Cache-Control", "no-cache");
-            con.setRequestProperty("Content-Type", "text/xml");
-            OutputStreamWriter out = new OutputStreamWriter(con.getOutputStream());
-            out.write(new String(xmlInfo.getBytes("utf-8")));
-            out.flush();
-            out.close();
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String lines = "";
-            for (String line = br.readLine(); line != null; line = br.readLine()) {
-                lines = lines + line;
-            }
-            return lines; // 返回请求结果
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "fail";
-    }
-
-    /**
-     * @param is is
+     * 对请求结果进行格式处理
+     *
+     * @param is 请求结果字符流
      * @return String
      */
     private static String getJsonStringFromGZIP(InputStream is) {
@@ -251,5 +339,35 @@ public final class HttpUtils {
             query.append(String.format("%s=%s&", key, params.get(key)));
         }
         return reqUrl + "?" + query.toString();
+    }
+
+    /**
+     * 获取业务接口请求URL
+     *
+     * @param actionMethodDefine 业务接口定义
+     * @return 请求URL
+     */
+    public static String getActionURL(WeixinActionMethodDefine actionMethodDefine) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(BASE_URL);
+        sb.append(actionMethodDefine.getUri());
+        sb.append("?");
+        //判断是否需要appid和secret
+        if (actionMethodDefine.isIsNeedAccssToken()) {
+            sb.append("appid").append("=").append(APPID).append("&");
+            sb.append("secret").append("=").append(APPSECRET).append("&");
+        }
+        //遍历参数,添加到url上
+        for (String key : actionMethodDefine.getActionConfigParamter().keySet()) {
+            sb.append(key).append("=").append(actionMethodDefine.getActionConfigParamter().get(key)).append("&");
+        }
+        //判断是否需要access_token
+        if (actionMethodDefine.isIsNeedAccssToken()) {
+            sb.append("access_token").append("=").append(WeixinActionFactory.getAccessToken().getToken());
+            return sb.toString();
+        } else {
+            //将最后一个&去掉
+            return sb.substring(0, sb.length() - 1);
+        }
     }
 }
