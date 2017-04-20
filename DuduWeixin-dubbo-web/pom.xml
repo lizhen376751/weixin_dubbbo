@@ -90,7 +90,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>**/*.xml</include>
-                    <include>**/app.properties</include>
+                    <include>**/*.properties</include>
                 </includes>
                 <excludes>
                     <exclude>logback.xml</exclude>
@@ -101,7 +101,6 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>*.properties</include>
                     <include>logback.xml</include>
                 </includes>
             </resource>
