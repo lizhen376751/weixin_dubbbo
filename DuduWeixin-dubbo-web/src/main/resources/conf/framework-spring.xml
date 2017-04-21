@@ -91,7 +91,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="DataSource_weixin" />
 		<property name="configLocation" value="classpath:conf/mybatis-config.xml"  />
-		<property name="mapperLocations" value="classpath*:com/dudu/soa/weixindubbo/*/mapping/*.xml" />
+		<property name="mapperLocations" value="classpath*:com/dudu/soa/weixindubbo/**/mapping/*.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
