@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding = "UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dudu.soa.weixindubbo.weixin.weixinconfig.mapper.WeiXinConfigDao">
+
+    <resultMap type="com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig" id="weixinconfig">
+        <id property="id" column="id"></id>
+        <result property="code" column="code"/>
+        <result property="appid" column="appid"/>
+        <result property="appserect" column="appserect"/>
+    </resultMap>
+
+    <insert id="addWeiXinConfig" parameterType="com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig"
+            useGeneratedKeys="true"
+            keyProperty="id" flushCache="true">
+        INSERT INTO
+        DDWX_Config (
+        code,
+        appid,
+        appserect
+        )
+        VALUES (
+        #{code},
+        #{appid},
+        #{appserect}
+
+        )
+    </insert>
+
+
+    <select id="getWeiXinConfig" parameterType="String" resultMap="weixinconfig">
+        select
+        id,
+        code,
+        appid,
+        appserect
+        from
+        DDWX_Config
+        WHERE
+        code=#{code}
+
+    </select>
+
+
+    <delete id="deleteWeiXinConfig" parameterType="com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig"
+            flushCache="true">
+        delete from DDWX_Config
+        where code=#{code}
+
+    </delete>
+
+
+    <update id="updateWeiXinConfig" parameterType="com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig"
+            flushCache="true">
+        update DDWX_Config
+        <trim prefix="set" suffixOverrides=",">
+            <if test="appserect !=null and appserect != ''">
+                appserect = #{appserect},
+            </if>
+
+            <if test="appid !=null and appid != ''">
+                appid = #{appid}
+            </if>
+        </trim>
+        where
+        code=#{code}
+
+
+    </update>
+
+
+</mapper>
