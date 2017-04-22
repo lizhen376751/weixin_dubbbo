@@ -1,9 +1,8 @@
-package com.dudu.soa.weixindubbo.weixin.http;
+package com.dudu.soa.weixindubbo.weixin.http.service;
 
-import com.dudu.soa.weixindubbo.weixin.WeixinActionFactory;
-import com.dudu.soa.weixindubbo.weixin.base.HttpMethod;
-import com.dudu.soa.weixindubbo.weixin.base.ParamterContentType;
-import com.dudu.soa.weixindubbo.weixin.base.WeixinActionMethodDefine;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.ParamterContentType;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -36,25 +35,32 @@ import java.util.Set;
 import java.util.zip.GZIPInputStream;
 
 /**
+ * 微信基础通讯的包装
  * Created by lizhen on 2017/4/14.
  */
-
 public final class HttpUtils {
-    private HttpUtils() {
-    }
-
     /**
      * 微信的appid
      */
-    public static final String APPID = "wxf0af72edbe855d28";
+//    public static final String APPID = "wxf0af72edbe855d28"; //嘟嘟车网测试平台的
+//    public static final String APPID = "wxd4e76e01e4a6e3b7"; //个人测试平台的
+    public static final String APPID = "wx91ee3b29615c49c7"; //易璐邦
     /**
-     * 微信的secret
+     * 微信开发者的appSecret
      */
-    public static final String APPSECRET = "fa12f20abeabc7c8ca3ebe777ceb2229";
+//    public static final String APPSERECT = "fa12f20abeabc7c8ca3ebe777ceb2229"; //嘟嘟车网测试平台的
+//    public static final String APPSERECT = "dd1e044b9208d43a5a31238e5ee053c7"; //个人测试使用的
+    public static final String APPSERECT = "2e2a94909cf9fca29cccc111bf7896f5"; //易路邦
     /**
      * 微信基础url共同的
      */
     private static final String BASE_URL = "https://api.weixin.qq.com";
+
+    /**
+     * 隐藏工具类
+     */
+    private HttpUtils() {
+    }
 
     /**
      * get和post请求入口
@@ -120,7 +126,6 @@ public final class HttpUtils {
 
     }
 
-
     /**
      * @param urls   urls
      * @param params params
@@ -128,8 +133,6 @@ public final class HttpUtils {
      * @throws ClientProtocolException ClientProtocolException
      * @throws IOException             IOException
      * @Description: http post请求json数据(入参和接受都是json,如:创建菜单)
-     * @author
-     * @date
      */
     public static String sendPostJson(String urls, String params)
             throws ClientProtocolException, IOException {
@@ -181,7 +184,6 @@ public final class HttpUtils {
         }
         return "fail";
     }
-    //暂时被取代=======================================================
 
     /**
      * @param reqUrl reqUrl
@@ -272,7 +274,6 @@ public final class HttpUtils {
             throw new Exception("发送未知异常");
         }
     }
-    //===================================================================
 
     /**
      * 对请求结果进行格式处理
@@ -324,6 +325,7 @@ public final class HttpUtils {
     private static int getShort(byte[] data) {
         return (data[0] << 8) | data[1] & 0xFF;
     }
+    //暂时被取代=======================================================
 
     /**
      * 构建get方式的url
@@ -348,26 +350,37 @@ public final class HttpUtils {
      * @return 请求URL
      */
     public static String getActionURL(WeixinActionMethodDefine actionMethodDefine) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(BASE_URL);
-        sb.append(actionMethodDefine.getUri());
-        sb.append("?");
-        //判断是否需要appid和secret
-        if (actionMethodDefine.isIsNeedAppid()) {
-            sb.append("appid").append("=").append(APPID).append("&");
-            sb.append("secret").append("=").append(APPSECRET).append("&");
+        try {
+            StringBuilder sb = new StringBuilder();
+            sb.append(BASE_URL);
+            sb.append(actionMethodDefine.getUri());
+            sb.append("?");
+            //TODO 后期就可以去掉,当做参数传入进来(创建菜单和获取token)
+            if (actionMethodDefine.isIsNeedAppid()) {
+                String appid = actionMethodDefine.getWeixinBaseParamter().getAppid();
+                String secret = actionMethodDefine.getWeixinBaseParamter().getSecret();
+                sb.append("appid").append("=").append(appid).append("&");
+                sb.append("secret").append("=").append(secret).append("&");
+            }
+            //遍历基础参数,添加到url上
+            for (String key : actionMethodDefine.getActionConfigParamter().keySet()) {
+                sb.append(key).append("=").append(actionMethodDefine.getActionConfigParamter().get(key)).append("&");
+            }
+            //判断是否需要access_token
+            if (actionMethodDefine.isIsNeedAccssToken()) {
+                String token = actionMethodDefine.getWeixinBaseParamter().getToken();
+                sb.append("access_token").append("=").append(token);
+                return sb.toString();
+            } else {
+                //将最后一个&去掉
+                return sb.substring(0, sb.length() - 1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        //遍历参数,添加到url上
-        for (String key : actionMethodDefine.getActionConfigParamter().keySet()) {
-            sb.append(key).append("=").append(actionMethodDefine.getActionConfigParamter().get(key)).append("&");
-        }
-        //判断是否需要access_token
-        if (actionMethodDefine.isIsNeedAccssToken()) {
-            sb.append("access_token").append("=").append(WeixinActionFactory.getAccessToken().getToken());
-            return sb.toString();
-        } else {
-            //将最后一个&去掉
-            return sb.substring(0, sb.length() - 1);
-        }
+        return null;
     }
+    //===================================================================
+
+
 }

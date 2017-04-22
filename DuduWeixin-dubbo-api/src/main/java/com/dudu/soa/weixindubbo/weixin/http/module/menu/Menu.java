@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.weixin.module;
+package com.dudu.soa.weixindubbo.weixin.http.module.menu;
 
 
 import java.io.Serializable;

@@ -1,8 +1,9 @@
-package com.dudu.soa.weixindubbo.weixin.module;
+package com.dudu.soa.weixindubbo.weixin.http.module.parammodule;
 
 import java.io.Serializable;
 
 /**
+ *
  * 通过code换取网页授权access_token及用户的openid
  */
 public class OauthOpenIdToken implements Serializable{
@@ -27,7 +28,7 @@ public class OauthOpenIdToken implements Serializable{
      */
     private String scope;
     /**
-     * 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段。
+     * 别名暂时用不到
      */
     private String nickname;
 
@@ -102,14 +103,14 @@ public class OauthOpenIdToken implements Serializable{
     }
 
     /**
-     * @return 不知道
+     * @return 别名
      */
     public String getNickname() {
         return nickname;
     }
 
     /**
-     * @param nickname 不知道
+     * @param nickname 别名
      */
     public void setNickname(String nickname) {
         nickname = nickname;

@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.weixin.base;
+package com.dudu.soa.weixindubbo.weixin.http.module.http;
 
 /**
  * Created by Administrator on 2017/4/13.

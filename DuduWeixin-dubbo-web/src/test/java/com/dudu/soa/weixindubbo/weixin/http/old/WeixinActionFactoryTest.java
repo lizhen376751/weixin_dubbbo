@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.weixin;
+package com.dudu.soa.weixindubbo.weixin.http.old;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.commons.logger.LogUtil;

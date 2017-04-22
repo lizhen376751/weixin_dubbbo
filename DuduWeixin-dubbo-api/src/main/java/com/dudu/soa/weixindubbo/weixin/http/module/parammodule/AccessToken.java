@@ -1,9 +1,10 @@
-package com.dudu.soa.weixindubbo.weixin.base;
+package com.dudu.soa.weixindubbo.weixin.http.module.parammodule;
 
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2017/4/14.
+ * 开发者的token的实体类
+ * Created by lizhen on 2017/4/14.
  */
 public class AccessToken implements Serializable {
 
@@ -20,9 +21,10 @@ public class AccessToken implements Serializable {
      */
     private long createTime = System.currentTimeMillis();
 
+
     /**
-     *  AccessToken(Created by Administrator on 2017414.) 字符串形式
-     * @return AccessToken(Created by Administrator on 2017414.)字符串
+     *  AccessToken(开发者的token的实体类) 字符串形式
+     * @return AccessToken(开发者的token的实体类)字符串
      */
     @Override
     public String toString() {
@@ -40,7 +42,7 @@ public class AccessToken implements Serializable {
     /**
      * 设置 token
      * @param token token
-     * @return 返回 AccessToken(Created by Administrator on 2017414.)
+     * @return 返回 AccessToken(开发者的token的实体类)
      */
     public AccessToken setToken(String token) {
         this.token = token;
@@ -58,7 +60,7 @@ public class AccessToken implements Serializable {
     /**
      * 设置 有效时间
      * @param expiresIn 有效时间
-     * @return 返回 AccessToken(Created by Administrator on 2017414.)
+     * @return 返回 AccessToken(开发者的token的实体类)
      */
     public AccessToken setExpiresIn(int expiresIn) {
         this.expiresIn = expiresIn;
@@ -76,7 +78,7 @@ public class AccessToken implements Serializable {
     /**
      * 设置 token创建时间
      * @param createTime token创建时间
-     * @return 返回 AccessToken(Created by Administrator on 2017414.)
+     * @return 返回 AccessToken(开发者的token的实体类)
      */
     public AccessToken setCreateTime(long createTime) {
         this.createTime = createTime;

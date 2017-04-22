@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.weixin.base;
+package com.dudu.soa.weixindubbo.weixin.http.module.http;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,16 +12,20 @@ import java.util.Map;
 public class WeixinActionMethodDefine {
 //    https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKE
     /**
-     * HTTP方法
+     * 联盟code或者店铺code
+     */
+    private String code;
+    /**
+     * HTTP方法(get或者post)
      */
     private HttpMethod httpMethod;
     /**
-     * 请求参数格式
+     * 请求参数格式(xml或者json)
      */
     private ParamterContentType paramterContentType;
 
     /**
-     * 是否必须AccessToken
+     * 是否必须AccessToken(默认为true)
      */
     private boolean isNeedAccssToken = true;
     /**
@@ -35,12 +39,12 @@ public class WeixinActionMethodDefine {
     /**
      * 基础参数
      */
-    private WeixinBaseParamter weixinBaseParamter; //类似于:grant_type=client_credential
+    private WeixinBaseParamter weixinBaseParamter; //类似于appid之类的
 
     /**
      * 接口基础配置参数
      */
-    private Map<String, String> actionConfigParamter = new HashMap<String, String>(); //appid之类的
+    private Map<String, String> actionConfigParamter = new HashMap<String, String>(); //grant_type=client_credential
 
 
     /**
@@ -63,22 +67,40 @@ public class WeixinActionMethodDefine {
      */
     @Override
     public String toString() {
-        return "httpMethod:" + httpMethod + ",paramterContentType:" + paramterContentType + ",isNeedAccssToken:" + isNeedAccssToken + ",isNeedAppid:" + isNeedAppid
-                + ",uri:" + uri + ",weixinBaseParamter:" + weixinBaseParamter + ",actionConfigParamter:" + actionConfigParamter + ",requestBusinessParamters:" + requestBusinessParamters
-                + ",exceptionHandler:" + exceptionHandler + ",actionPostParamter:" + actionPostParamter;
+        return "code:" + code + ",httpMethod:" + httpMethod + ",paramterContentType:" + paramterContentType + ",isNeedAccssToken:" + isNeedAccssToken
+                + ",isNeedAppid:" + isNeedAppid + ",uri:" + uri + ",weixinBaseParamter:" + weixinBaseParamter + ",actionConfigParamter:" + actionConfigParamter
+                + ",requestBusinessParamters:" + requestBusinessParamters + ",exceptionHandler:" + exceptionHandler + ",actionPostParamter:" + actionPostParamter;
     }
 
     /**
-     * 获取 HTTP方法
-     * @return httpMethod HTTP方法
+     * 获取 联盟code或者店铺code
+     * @return code 联盟code或者店铺code
+     */
+    public String getCode() {
+        return this.code;
+    }
+
+    /**
+     * 设置 联盟code或者店铺code
+     * @param code 联盟code或者店铺code
+     * @return 返回 WeixinActionMethodDefine(微信方法定义)
+     */
+    public WeixinActionMethodDefine setCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * 获取 HTTP方法(get或者post)
+     * @return httpMethod HTTP方法(get或者post)
      */
     public HttpMethod getHttpMethod() {
         return this.httpMethod;
     }
 
     /**
-     * 设置 HTTP方法
-     * @param httpMethod HTTP方法
+     * 设置 HTTP方法(get或者post)
+     * @param httpMethod HTTP方法(get或者post)
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
     public WeixinActionMethodDefine setHttpMethod(HttpMethod httpMethod) {
@@ -87,16 +109,16 @@ public class WeixinActionMethodDefine {
     }
 
     /**
-     * 获取 请求参数格式
-     * @return paramterContentType 请求参数格式
+     * 获取 请求参数格式(xml或者json)
+     * @return paramterContentType 请求参数格式(xml或者json)
      */
     public ParamterContentType getParamterContentType() {
         return this.paramterContentType;
     }
 
     /**
-     * 设置 请求参数格式
-     * @param paramterContentType 请求参数格式
+     * 设置 请求参数格式(xml或者json)
+     * @param paramterContentType 请求参数格式(xml或者json)
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
     public WeixinActionMethodDefine setParamterContentType(ParamterContentType paramterContentType) {
@@ -105,16 +127,16 @@ public class WeixinActionMethodDefine {
     }
 
     /**
-     * 获取 是否必须AccessToken
-     * @return isNeedAccssToken 是否必须AccessToken
+     * 获取 是否必须AccessToken(默认为true)
+     * @return isNeedAccssToken 是否必须AccessToken(默认为true)
      */
     public boolean isIsNeedAccssToken() {
         return this.isNeedAccssToken;
     }
 
     /**
-     * 设置 是否必须AccessToken
-     * @param isNeedAccssToken 是否必须AccessToken
+     * 设置 是否必须AccessToken(默认为true)
+     * @param isNeedAccssToken 是否必须AccessToken(默认为true)
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
     public WeixinActionMethodDefine setIsNeedAccssToken(boolean isNeedAccssToken) {

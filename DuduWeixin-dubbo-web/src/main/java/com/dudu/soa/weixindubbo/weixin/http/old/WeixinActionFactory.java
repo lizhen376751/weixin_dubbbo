@@ -1,12 +1,12 @@
-package com.dudu.soa.weixindubbo.weixin;
+package com.dudu.soa.weixindubbo.weixin.http.old;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.commons.logger.LogUtil;
-import com.dudu.soa.weixindubbo.weixin.base.AccessToken;
-import com.dudu.soa.weixindubbo.weixin.base.HttpMethod;
-import com.dudu.soa.weixindubbo.weixin.base.ParamterContentType;
-import com.dudu.soa.weixindubbo.weixin.base.WeixinActionMethodDefine;
-import com.dudu.soa.weixindubbo.weixin.base.WeixinExceptionHandler;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.ParamterContentType;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
+import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinExceptionHandler;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 
 /**
  * Created by Administrator on 2017/4/13.
