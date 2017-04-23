@@ -14,11 +14,17 @@
 
     <dependencies>
         <!--用于xml解析-->
-        <!--<dependency>-->
-            <!--<groupId>com.thoughtworks.xstream</groupId>-->
-            <!--<artifactId>xstream</artifactId>-->
-            <!--<version>1.4.7</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.dom4j.dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
+        <dependency>
+        <groupId>com.thoughtworks.xstream</groupId>
+        <artifactId>xstream</artifactId>
+        <version>1.4.8</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
@@ -16,7 +17,7 @@ import java.net.URISyntaxException;
  * Created by lizhen on 2017/4/22.
  */
 @Service
-public class AllWeiXinRquest {
+public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     /**
      * 引入微信服务所有方法
      */
@@ -102,4 +103,6 @@ public class AllWeiXinRquest {
         WeiXinUserInfo weiXinUserInfo = weChatTask.getWeiXinUserInfo(code, appid, secret);
         return weiXinUserInfo;
     }
+
+
 }
