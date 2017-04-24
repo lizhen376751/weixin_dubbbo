@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 /**
  * 微信通讯相关所有的入口
@@ -104,5 +106,19 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
         return weiXinUserInfo;
     }
 
+    /**
+     * 接收微信端消息处理并做分发
+     *
+     * @param inputStream 从request中获取inputStream
+     */
+    public void receivemessage(InputStream inputStream) {
+        try {
+            Map<String, String> map = MessageUtil.parseXml(inputStream);
+            String msgtype = map.get("MsgType");
+            MsgDispatcher.processMessage(map); //进入消息处理
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

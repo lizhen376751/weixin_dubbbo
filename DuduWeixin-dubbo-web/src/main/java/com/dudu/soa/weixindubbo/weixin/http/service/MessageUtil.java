@@ -94,7 +94,6 @@ public final class MessageUtil {
      * @param inputStream 从request中获取输入流
      * @return Map<String, String>解析后的xml
      */
-    @SuppressWarnings("unchecked")
     public static Map<String, String> parseXml(InputStream inputStream) {
         // 将解析结果存储在HashMap中
         Map<String, String> map = new HashMap<String, String>();
@@ -151,7 +150,6 @@ public final class MessageUtil {
                 // 对所有xml节点的转换都增加CDATA标记
                 private boolean cdata = true;
 
-                @SuppressWarnings("rawtypes")
                 public void startNode(String name, Class clazz) {
                     super.startNode(name, clazz);
                 }
