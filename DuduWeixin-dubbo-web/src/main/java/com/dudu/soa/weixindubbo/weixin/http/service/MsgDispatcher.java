@@ -1,6 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
-import com.dudu.soa.weixindubbo.weixin.weixinmessage.module.TextMessage;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
 
 import java.util.Date;
 import java.util.Map;

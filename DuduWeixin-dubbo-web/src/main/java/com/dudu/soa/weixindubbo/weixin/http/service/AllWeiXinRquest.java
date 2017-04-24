@@ -1,11 +1,11 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
-import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,20 +47,11 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param appid     appid
      * @param appSecret appSecret
      */
-    public void createMenu(Menu menu, String appid, String appSecret) {
-        //需要token,(appid,sercert)
-        AccessToken tokengetTicket = null;
-        try {
-            tokengetTicket = this.getTokengetTicket(appid, appSecret);
-            String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", tokengetTicket.getToken());
-            String jsonMenu = JSONObject.toJSONString(menu);
-            String rs = HttpUtils.sendPostJson(url, jsonMenu);
-            System.out.println("创建菜单成功!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public boolean createMenu(Menu menu, String appid, String appSecret) {
+        boolean menu1 = weChatTask.createMenu(menu, appid, appSecret);
+        return menu1;
     }
+
 
     /**
      * 获取开发者的token
@@ -119,6 +110,19 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 模板消息的发送
+     *
+     * @param appid     微信appid
+     * @param appSecret appsecret
+     * @param template  微信的消息模板
+     * @return template
+     */
+    public boolean sendTemplateMsg(String appid, String appSecret, Template template) {
+        boolean b = weChatTask.sendTemplateMsg(appid, appSecret, template);
+        return b;
     }
 
 }

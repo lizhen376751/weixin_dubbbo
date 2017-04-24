@@ -1,7 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 
-import com.dudu.soa.weixindubbo.weixin.weixinmessage.module.TextMessage;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;

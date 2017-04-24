@@ -5,9 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinBaseParamter;
+import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -22,10 +26,14 @@ import java.util.Date;
  */
 @Service
 public class AllWeiXinService {
-
+    /**
+     * 日志打印
+     */
+    private static Logger log = LoggerFactory.getLogger(AllWeiXinService.class);
 
     /**
      * 获取开发者的token
+     *
      * @param appid     appid
      * @param appSecret appSecret
      * @return 开发者的token
@@ -55,15 +63,81 @@ public class AllWeiXinService {
             accessToken.setCreateTime(System.currentTimeMillis())
                     .setToken(accesstoken)
                     .setExpiresIn(expiresin);
-            System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
+            log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
                     + "token为==============================" + accesstoken);
+
         }
         return accessToken;
     }
 
+    /**
+     * 生成菜单
+     *
+     * @param menu      菜单
+     * @param appid     appid
+     * @param appSecret appSecret
+     * @return 成功或者失败
+     */
+    public boolean createMenu(Menu menu, String appid, String appSecret) {
+        //需要token,(appid,sercert)
+        boolean flag = false;
+        AccessToken tokengetTicket = null;
+        try {
+            tokengetTicket = this.getTokengetTicket(appid, appSecret);
+            String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", tokengetTicket.getToken());
+            String jsonMenu = JSONObject.toJSONString(menu);
+            String jsonResult = HttpUtils.sendPostJson(url, jsonMenu);
+            if (jsonResult != null) {
+                int errorCode = Integer.parseInt(pareJsonDate(jsonResult, "errcode"));
+                String errorMessage = pareJsonDate(jsonResult, "errmsg");
+                if (errorCode == 0) {
+                    flag = true;
+                } else {
+                    log.info("创建菜单成功:" + errorCode + "," + errorMessage);
+                    flag = false;
+                }
+            }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
+    /**
+     * 模板消息的发送
+     *
+     * @param appid     微信appid
+     * @param appSecret appsecret
+     * @param template  微信的消息模板
+     * @return template
+     */
+    public boolean sendTemplateMsg(String appid, String appSecret, Template template) {
+        //获取token
+        AccessToken tokengetTicket = this.getTokengetTicket(appid, appSecret);
+        boolean flag = false;
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
+        requestUrl = requestUrl.replace("ACCESS_TOKEN", tokengetTicket.getToken());
 
+        try {
+            String jsonResult = HttpUtils.sendPostJson(requestUrl, template.toJSON());
+            //TODO 模板消息的处理
+            if (jsonResult != null) {
+                int errorCode = Integer.parseInt(pareJsonDate(jsonResult, "errcode"));
+                String errorMessage = pareJsonDate(jsonResult, "errmsg");
+                if (errorCode == 0) {
+                    flag = true;
+                } else {
+                    log.info("模板消息发送失败:" + errorCode + "," + errorMessage);
+                    flag = false;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return flag;
+
+    }
 
     /**
      * 获取网页授权access_token及用户的openID
@@ -85,7 +159,7 @@ public class AllWeiXinService {
                     .putActionConfigParamter("code", code)
                     .setWeixinBaseParamter(new WeixinBaseParamter().setAppid(appid).setSecret(appSecret));
             String request = HttpUtils.request(weixinActionMethodDefine);
-            System.out.println("获取openid=========================" + request);
+            log.info("获取openid=========================" + request);
             OauthOpenIdToken oauthOpenIdTokennew = new OauthOpenIdToken();
             oauthOpenIdTokennew.setExpiresIn(Integer.parseInt(pareJsonDate(request, "expires_in")));
             oauthOpenIdTokennew.setOpenId(pareJsonDate(request, "openid"));
@@ -151,7 +225,6 @@ public class AllWeiXinService {
         }
         return null;
     }
-//TODO 配置url的方法
 
     /**
      * 在返回的json字符串中获取想要的属性

@@ -16,6 +16,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -40,21 +42,13 @@ import java.util.zip.GZIPInputStream;
  */
 public final class HttpUtils {
     /**
-     * 微信的appid
-     */
-//    public static final String APPID = "wxf0af72edbe855d28"; //嘟嘟车网测试平台的
-//    public static final String APPID = "wxd4e76e01e4a6e3b7"; //个人测试平台的
-    public static final String APPID = "wx91ee3b29615c49c7"; //易璐邦
-    /**
-     * 微信开发者的appSecret
-     */
-//    public static final String APPSERECT = "fa12f20abeabc7c8ca3ebe777ceb2229"; //嘟嘟车网测试平台的
-//    public static final String APPSERECT = "dd1e044b9208d43a5a31238e5ee053c7"; //个人测试使用的
-    public static final String APPSERECT = "2e2a94909cf9fca29cccc111bf7896f5"; //易路邦
-    /**
      * 微信基础url共同的
      */
     private static final String BASE_URL = "https://api.weixin.qq.com";
+    /**
+     * 日志打印
+     */
+    private static Logger log = LoggerFactory.getLogger(HttpUtils.class);
 
     /**
      * 隐藏工具类
@@ -127,15 +121,16 @@ public final class HttpUtils {
     }
 
     /**
+     * 模板消息发送,创建菜单
+     *
      * @param urls   urls
      * @param params params
      * @return String
      * @throws ClientProtocolException ClientProtocolException
      * @throws IOException             IOException
-     * @Description: http post请求json数据(入参和接受都是json,如:创建菜单)
+     * @Description: http post请求json数据(入参和接受都是json)
      */
-    public static String sendPostJson(String urls, String params)
-            throws ClientProtocolException, IOException {
+    public static String sendPostJson(String urls, String params) throws IOException {
         HttpPost request = new HttpPost(urls);
 
         StringEntity se = new StringEntity(params, HTTP.UTF_8);
@@ -145,7 +140,7 @@ public final class HttpUtils {
         // 得到应答的字符串，这也是一个 JSON 格式保存的数据
         String retSrc = EntityUtils.toString(httpResponse.getEntity());
         request.releaseConnection();
-        System.out.println("创建菜单=========================" + retSrc);
+        log.info("创建菜单=========================" + retSrc);
         return retSrc;
 
     }

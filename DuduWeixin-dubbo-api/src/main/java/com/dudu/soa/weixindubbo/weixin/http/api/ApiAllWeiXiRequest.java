@@ -34,7 +34,7 @@ public interface ApiAllWeiXiRequest {
      * @param appid     appid
      * @param appSecret appSecret
      */
-    void createMenu(Menu menu, String appid, String appSecret);
+    boolean createMenu(Menu menu, String appid, String appSecret);
 
     /**
      * 获取开发者的token

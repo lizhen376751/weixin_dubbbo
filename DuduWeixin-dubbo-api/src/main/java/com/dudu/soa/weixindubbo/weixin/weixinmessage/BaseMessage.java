@@ -1,7 +1,7 @@
-package com.dudu.soa.weixindubbo.weixin.weixinmessage.module;
+package com.dudu.soa.weixindubbo.weixin.weixinmessage;
 
 /**
- * @Description: 返回消息体-基本消息
+ * 返回消息体-基本消息
  * Created by lizhen on 2017/4/23.
  */
 public class BaseMessage {

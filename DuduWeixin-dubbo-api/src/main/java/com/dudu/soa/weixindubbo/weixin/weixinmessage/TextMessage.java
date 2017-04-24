@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.weixin.weixinmessage.module;
+package com.dudu.soa.weixindubbo.weixin.weixinmessage;
 
 /**
  * @Description: 文本消息消息体

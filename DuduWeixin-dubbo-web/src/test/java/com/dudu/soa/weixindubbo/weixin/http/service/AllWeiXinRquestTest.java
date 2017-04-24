@@ -8,17 +8,23 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.TemplateData;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 微信基础通讯测试
  * Created by lizhen on 2017/4/22.
  */
 public class AllWeiXinRquestTest extends TestBase {
+
 
     private static Logger log = LoggerFactory.getLogger(AllWeiXinRquestTest.class);
     @Autowired
@@ -122,13 +128,15 @@ public class AllWeiXinRquestTest extends TestBase {
 
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        allWeiXinRquest.createMenu(menu, "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        boolean menu1 = allWeiXinRquest.createMenu(menu, "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        log.info("个人创建菜单======================================" + menu1);
     }
 
+    //嘟嘟车网测试平台
     @Test
     public void duDuMenu() throws Exception {
         //wx.pre.duduchewang.cn
-        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd4e76e01e4a6e3b7&redirect_uri=http://wx.pre.duduchewang.cn/oauthLoginServlet?lmcode=CS000";
+        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0af72edbe855d28&redirect_uri=http://lm.wx.dev.duduchewang.cn/oauthLoginServlet?lmcode=CS000";
         CommonButton btn11 = new CommonButton();
         btn11.setName("联盟卡包");
         btn11.setType("view");
@@ -212,7 +220,8 @@ public class AllWeiXinRquestTest extends TestBase {
 
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        allWeiXinRquest.createMenu(menu, "wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229");
+        boolean menu1 = allWeiXinRquest.createMenu(menu, "wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229");
+        log.info("嘟嘟车网测试平台创建菜单===========================" + menu1);
     }
 
     //易璐邦账号生成菜单
@@ -323,14 +332,15 @@ public class AllWeiXinRquestTest extends TestBase {
 
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        allWeiXinRquest.createMenu(menu, "wx91ee3b29615c49c7", "2e2a94909cf9fca29cccc111bf7896f5");
+        boolean menu1 = allWeiXinRquest.createMenu(menu, "wx91ee3b29615c49c7", "2e2a94909cf9fca29cccc111bf7896f5");
+        log.info("易璐邦创建菜单==========================================" + menu1);
     }
 
     //配置验证
     @Test
     public void checkSignature() throws Exception {
         boolean b = allWeiXinRquest.checkSignature("signature", "timestamp", "nonce", "token");
-        log.info("=====================================" + b);
+        log.info("url验证为=====================================" + b);
     }
 
     //获取开发者的token
@@ -359,9 +369,24 @@ public class AllWeiXinRquestTest extends TestBase {
         WeiXinUserInfo weiXinUserInfo = allWeiXinRquest.getWeiXinUserInfo("041yWHoa1Y6PdT1QMura1caioa1yWHoS", "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
         log.info("用户的别名为:==========================" + weiXinUserInfo);
     }
-    @Test
-    public void receivemessage() throws Exception {
-//        allWeiXinRquest.receivemessage();
-    }
 
+    //模板消息的发送
+    @Test
+    public void sendTemplateMsg() throws Exception {
+        Template template = new Template();
+        template.setTopColor("#00DD00");
+        template.setToUser("owQtWt8L6RVxj_cTUaPyH27RWdbA");
+        template.setTemplateId("PR8mojxujaqOYtdp3LJa_Rt8N0QxwRdtG6IOJ71r0js");
+        List<TemplateData> paras = new ArrayList<TemplateData>();
+        paras.add(new TemplateData().setName("first").setColor("#FF3333").setValue("我们已收到您的货款，开始为您打包商品，请耐心等待: "));
+        paras.add(new TemplateData().setName("keyword1").setColor("#0044BB").setValue("¥20.00"));
+        paras.add(new TemplateData().setName("keyword2").setColor("#0044BB").setValue("火烧牛干巴"));
+        paras.add(new TemplateData().setName("keyword3").setColor("#0044BB").setValue("火烧牛干巴"));
+        paras.add(new TemplateData().setName("keyword4").setColor("#0044BB").setValue("火烧牛干巴"));
+        paras.add(new TemplateData().setName("keyword5").setColor("#0044BB").setValue("火烧牛干巴"));
+        paras.add(new TemplateData().setName("remark").setColor("#AAAAAA").setValue("感谢你对我们商城的支持!!!!"));
+        template.setTemplateParamList(paras);
+        boolean b = allWeiXinRquest.sendTemplateMsg("wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229", template);
+        log.info("模板消息发送=============================" + b);
+    }
 }
