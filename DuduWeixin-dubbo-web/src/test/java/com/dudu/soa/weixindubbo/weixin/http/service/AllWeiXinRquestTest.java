@@ -1,7 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
-import com.alibaba.dubbo.common.logger.Logger;
-import com.alibaba.dubbo.common.logger.LoggerFactory;
+
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Button;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.CommonButton;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.ComplexButton;
@@ -11,6 +10,8 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by lizhen on 2017/4/22.
  */
 public class AllWeiXinRquestTest extends TestBase {
+
     private static Logger log = LoggerFactory.getLogger(AllWeiXinRquestTest.class);
     @Autowired
     private AllWeiXinRquest allWeiXinRquest;
@@ -26,7 +28,7 @@ public class AllWeiXinRquestTest extends TestBase {
     @Test
     public void liZhenMenu() throws Exception {
 //        http://lizhen12.tunnel.2bdata.com
-        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd4e76e01e4a6e3b7&redirect_uri=http://lizhen12.tunnel.2bdata.com/oauthLoginServlet?lmcode=CS000";
+        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd4e76e01e4a6e3b7&redirect_uri=http://lizhen12.tunnel.2bdata.com/oauthLoginServlet?lmcode=FL000";
 
         CommonButton btn11 = new CommonButton();
         btn11.setName("联盟卡包");
@@ -354,9 +356,12 @@ public class AllWeiXinRquestTest extends TestBase {
     //获取用户的基本信息
     @Test
     public void getWeiXinUserInfo() throws Exception {
-        WeiXinUserInfo weiXinUserInfo = allWeiXinRquest.getWeiXinUserInfo("041ghrpy0Nldii1kh3oy0zJnpy0ghrp4", "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        WeiXinUserInfo weiXinUserInfo = allWeiXinRquest.getWeiXinUserInfo("041yWHoa1Y6PdT1QMura1caioa1yWHoS", "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
         log.info("用户的别名为:==========================" + weiXinUserInfo);
-        System.out.println("用户的别名为:==========================" + weiXinUserInfo);
+    }
+    @Test
+    public void receivemessage() throws Exception {
+//        allWeiXinRquest.receivemessage();
     }
 
 }

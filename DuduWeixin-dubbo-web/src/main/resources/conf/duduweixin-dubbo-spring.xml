@@ -18,7 +18,7 @@
 	<dubbo:service interface="com.dudu.soa.weixindubbo.smssend.api.ApiSmsSend" ref = "smsSendService" version = "1.0" owner = "lizhen"/>
 	<!--用户信息接口-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.user.api.ApiUser" ref = "userService" version = "1.0" owner = "lizhen"/>
-	<!--微信获取用户信息接口-->
+	<!--微信通讯相关接口-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest" ref = "allWeiXinRquest" version = "1.0" owner = "lizhen"/>
 	<!--appid与sercert的维护-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.weixinconfig.api.ApiWeiXinConfig" ref = "weiXinConfigService" version = "1.0" owner = "lizhen"/>
