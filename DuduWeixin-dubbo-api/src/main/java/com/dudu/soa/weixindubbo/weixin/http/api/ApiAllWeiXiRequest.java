@@ -5,10 +5,12 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 /**
  * 微信的接口
@@ -33,6 +35,7 @@ public interface ApiAllWeiXiRequest {
      * @param menu      菜单
      * @param appid     appid
      * @param appSecret appSecret
+     * @return true或者false
      */
     boolean createMenu(Menu menu, String appid, String appSecret);
 
@@ -76,4 +79,24 @@ public interface ApiAllWeiXiRequest {
      * @param inputStream 从request中获取inputStream
      */
     void receivemessage(InputStream inputStream);
+
+    /**
+     * 模板消息的发送
+     *
+     * @param appid     微信appid
+     * @param appSecret appsecret
+     * @param template  微信的消息模板
+     * @return template
+     */
+    boolean sendTemplateMsg(String appid, String appSecret, Template template);
+    /**
+     * 前端jssdk页面配置需要用到的配置参数
+     *
+     * @param url       前段页面传入的url(动态的,当前网页的URL，不包含#及其后面部分）
+     * @param appid     微信的appid
+     * @param appSecret 微信的appSecret
+     * @return map 签名参数
+     * @throws Exception 异常
+     */
+     HashMap<String, String> jsSDKSign(String appid, String appSecret, String url);
 }

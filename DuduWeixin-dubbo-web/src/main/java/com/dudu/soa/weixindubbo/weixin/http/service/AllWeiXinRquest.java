@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,6 +26,11 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Autowired
     private AllWeiXinService weChatTask;
+    /**
+     * 引入获取js签名的服务
+     */
+    @Autowired
+    private JSSDKConfig jssdkConfig;
 
     /**
      * 将token、timestamp、nonce三个参数进行字典序排序
@@ -35,6 +41,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param token     开发者的token
      * @return true代表匹配, false代表不匹配
      */
+    @Override
     public boolean checkSignature(String signature, String timestamp, String nonce, String token) {
         boolean b = SignUtil.checkSignature(signature, timestamp, nonce, token);
         return b;
@@ -47,6 +54,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param appid     appid
      * @param appSecret appSecret
      */
+    @Override
     public boolean createMenu(Menu menu, String appid, String appSecret) {
         boolean menu1 = weChatTask.createMenu(menu, appid, appSecret);
         return menu1;
@@ -62,6 +70,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @throws IOException        网络异常
      * @throws URISyntaxException 异常
      */
+    @Override
     public AccessToken getTokengetTicket(String appid, String appSecret) {
         AccessToken tokengetTicket = AllWeiXinService.getTokengetTicket(appid, appSecret);
         return tokengetTicket;
@@ -76,7 +85,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @return WeixinOauth2Token
      * @throws Exception Exception
      */
-
+    @Override
     public OauthOpenIdToken getOauthAccessToken(String code, String appid, String appSecret) {
         OauthOpenIdToken oauthAccessToken = weChatTask.getOauthAccessToken(code, appid, appSecret);
         return oauthAccessToken;
@@ -92,6 +101,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @return 微信用户的基本信息
      * @throws Exception 异常
      */
+    @Override
     public WeiXinUserInfo getWeiXinUserInfo(String code, String appid, String secret) {
         WeiXinUserInfo weiXinUserInfo = weChatTask.getWeiXinUserInfo(code, appid, secret);
         return weiXinUserInfo;
@@ -102,6 +112,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      *
      * @param inputStream 从request中获取inputStream
      */
+    @Override
     public void receivemessage(InputStream inputStream) {
         try {
             Map<String, String> map = MessageUtil.parseXml(inputStream);
@@ -120,9 +131,30 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param template  微信的消息模板
      * @return template
      */
+    @Override
     public boolean sendTemplateMsg(String appid, String appSecret, Template template) {
         boolean b = weChatTask.sendTemplateMsg(appid, appSecret, template);
         return b;
+    }
+
+    /**
+     * 前端jssdk页面配置需要用到的配置参数
+     *
+     * @param url       前段页面传入的url(动态的,当前网页的URL，不包含#及其后面部分）
+     * @param appid     微信的appid
+     * @param appSecret 微信的appSecret
+     * @return map 签名参数
+     * @throws Exception 异常
+     */
+    @Override
+    public HashMap<String, String> jsSDKSign(String appid, String appSecret, String url) {
+        HashMap<String, String> stringStringHashMap = null;
+        try {
+            stringStringHashMap = jssdkConfig.jsSDKSign(appid, appSecret, url);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stringStringHashMap;
     }
 
 }

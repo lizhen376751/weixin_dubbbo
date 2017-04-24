@@ -32,7 +32,7 @@ public class AllWeiXinService {
     private static Logger log = LoggerFactory.getLogger(AllWeiXinService.class);
 
     /**
-     * 获取开发者的token
+     * 获取开发者的token和jssdk的jsapiticket
      *
      * @param appid     appid
      * @param appSecret appSecret
@@ -50,21 +50,35 @@ public class AllWeiXinService {
                     .setWeixinBaseParamter(new WeixinBaseParamter().setAppid(appid).setSecret(appSecret))
                     .putActionConfigParamter("grant_type", "client_credential");
             String jstoken = null;
+            //调用微信JS接口的临时票据
+            String jsticket = null;
+            //token
+            String accesstoken = null;
             try {
                 jstoken = HttpUtils.request(weixinActionMethodDefine);
+                accesstoken = JSONObject.parseObject(jstoken).getString("access_token");
+                WeixinActionMethodDefine weixinActionMethodDefine2 = new WeixinActionMethodDefine()
+                        .setHttpMethod(HttpMethod.GET)
+                        .setIsNeedAppid(false)
+                        .setUri("/cgi-bin/ticket/getticket")
+                        .putActionConfigParamter("type", "jsapi")
+                        .setWeixinBaseParamter(new WeixinBaseParamter().setToken(accesstoken));
+                jsticket = HttpUtils.request(weixinActionMethodDefine2);
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String accesstoken = JSONObject.parseObject(jstoken).getString("access_token");
+            String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
             int expiresin = Integer.parseInt(JSONObject.parseObject(jstoken).getString("expires_in"));
             // 获取到token并赋值保存
             accessToken.setCreateTime(System.currentTimeMillis())
                     .setToken(accesstoken)
-                    .setExpiresIn(expiresin);
+                    .setExpiresIn(expiresin)
+                    .setTicket(jsapiticket);
             log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
-                    + "token为==============================" + accesstoken);
+                    + "token为==============================" + accesstoken
+                    + "jsticket为==============================" + jsapiticket);
 
         }
         return accessToken;
@@ -225,6 +239,40 @@ public class AllWeiXinService {
         }
         return null;
     }
+
+//    /**
+//     * 获取jsticket
+//     *
+//     * @param appid     微信的appid
+//     * @param appSecret 微信的 appSecret
+//     */
+//    public void getTicket(String appid, String appSecret) {
+//        //获取token实体
+//        AccessToken tokengetTicket = getTokengetTicket(appid, appSecret);
+//        //在token实体中获取日期戳
+//        long createTime = tokengetTicket.getCreateTime();
+//        //在token实体中获取token
+//        String token = tokengetTicket.getToken();
+//        WeixinActionMethodDefine weixinActionMethodDefine = new WeixinActionMethodDefine()
+//                .setHttpMethod(HttpMethod.GET)
+//                .setIsNeedAppid(false)
+//                .setUri("/cgi-bin/ticket/getticket")
+//                .putActionConfigParamter("type", "jsapi")
+//                .setWeixinBaseParamter(new WeixinBaseParamter().setToken(token));
+//
+//        //获取jsticket的执行体
+//        String jsticket = null;
+//        try {
+//            jsticket = HttpUtils.request(weixinActionMethodDefine);
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        // 获取到js-SDK的ticket并赋值保存
+//        String jsapiticket = pareJsonDate(jsticket, "ticket");
+//        log.info("jsapi_ticket================================================" + jsapiticket);
+//    }
 
     /**
      * 在返回的json字符串中获取想要的属性

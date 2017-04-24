@@ -343,13 +343,12 @@ public class AllWeiXinRquestTest extends TestBase {
         log.info("url验证为=====================================" + b);
     }
 
-    //获取开发者的token
+    //获取开发者的token以及前端的临时的票据
     @Test
     public void getTokengetTicket() throws Exception {
         try {
             AccessToken tokengetTicket = allWeiXinRquest.getTokengetTicket("wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
             log.info("获取开发者的token==========================" + tokengetTicket.toString());
-            System.out.println("获取开发者的token==========================" + tokengetTicket.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

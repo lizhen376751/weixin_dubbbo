@@ -13,11 +13,15 @@ public class AccessToken implements Serializable {
      */
     private String token;
     /**
+     * 调用微信JS接口的临时票据
+     */
+    private String ticket;
+    /**
      * 有效时间
      */
     private int expiresIn;
     /**
-     * token创建时间
+     * token以及ticket创建时间
      */
     private long createTime = System.currentTimeMillis();
 
@@ -28,7 +32,7 @@ public class AccessToken implements Serializable {
      */
     @Override
     public String toString() {
-        return "token:" + token + ",expiresIn:" + expiresIn + ",createTime:" + createTime;
+        return "token:" + token + ",ticket:" + ticket + ",expiresIn:" + expiresIn + ",createTime:" + createTime;
     }
 
     /**
@@ -46,6 +50,24 @@ public class AccessToken implements Serializable {
      */
     public AccessToken setToken(String token) {
         this.token = token;
+        return this;
+    }
+
+    /**
+     * 获取 前端页面的ticket
+     * @return ticket 前端页面的ticket
+     */
+    public String getTicket() {
+        return this.ticket;
+    }
+
+    /**
+     * 设置 前端页面的ticket
+     * @param ticket 前端页面的ticket
+     * @return 返回 AccessToken(开发者的token的实体类)
+     */
+    public AccessToken setTicket(String ticket) {
+        this.ticket = ticket;
         return this;
     }
 
@@ -68,16 +90,16 @@ public class AccessToken implements Serializable {
     }
 
     /**
-     * 获取 token创建时间
-     * @return createTime token创建时间
+     * 获取 token以及ticket创建时间
+     * @return createTime token以及ticket创建时间
      */
     public long getCreateTime() {
         return this.createTime;
     }
 
     /**
-     * 设置 token创建时间
-     * @param createTime token创建时间
+     * 设置 token以及ticket创建时间
+     * @param createTime token以及ticket创建时间
      * @return 返回 AccessToken(开发者的token的实体类)
      */
     public AccessToken setCreateTime(long createTime) {
