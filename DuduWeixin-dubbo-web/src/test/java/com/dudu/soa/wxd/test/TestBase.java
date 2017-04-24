@@ -8,10 +8,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
 
-@RunWith(SpringJUnit4ClassRunner.class)  
-@ContextConfiguration("classpath*:conf/*-spring.xml") 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("classpath*:conf/framework-spring.xml")
 public abstract class TestBase {
-	
+
 	@Resource
 	ApplicationContext ctx;
 

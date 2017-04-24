@@ -13,13 +13,6 @@
        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
 	   default-lazy-init="true">
 
-	<!--
-       核心配置文件用于加载 classpath下所有properties文件
-       设置相关spring 基础设置
-       其余配置文件按格式加载设置
-       dubbo.xsd为dubbo的schema文件  勿删
-     -->
-
 	<!-- 使用disconf必须添加以下配置 -->
 	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
 		  destroy-method="destroy">
@@ -59,14 +52,10 @@
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
 	<dubbo:annotation package="com.dudu" />
-
-	<!--<dubbo:application name = "Tonghangquan" />-->
 	<dubbo:application name = "DuduWeixinDubbo" />
-	<dubbo:protocol name="dubbo" port="${dubbo.application.port}"   host = "${dubbo.application.host}" />
 	<dubbo:registry address="${dubbo.registry.address}" />
+	<dubbo:consumer check="false"/>
 
-	<!-- 开启AOP -->
-	<aop:aspectj-autoproxy />
 
 	<bean id="DataSource_weixin" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
 		<property name="name" value="weixin"/>
@@ -74,14 +63,11 @@
 		<property name="username" value="${duduweixin_dubbo.username}"/>
 		<property name="password" value="${duduweixin_dubbo.password}"/>
 		<!-- initialSize: 初始化连接  -->
-		<property name="filters" value="stat,wall,log4j" />
+		<property name="filters" value="wall" />
 	</bean>
 
 	<!-- 开启事务注解驱动 -->
 	<tx:annotation-driven />
-
-	<!-- 配置druid监控spring jdbc -->
-	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
 
 	<!-- 事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
