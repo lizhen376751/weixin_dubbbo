@@ -7,6 +7,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
 /**
@@ -68,4 +69,11 @@ public interface ApiAllWeiXiRequest {
      * @throws Exception 异常
      */
     WeiXinUserInfo getWeiXinUserInfo(String code, String appid, String secret);
+
+    /**
+     * 接收微信端消息处理并做分发
+     *
+     * @param inputStream 从request中获取inputStream
+     */
+    void receivemessage(InputStream inputStream);
 }

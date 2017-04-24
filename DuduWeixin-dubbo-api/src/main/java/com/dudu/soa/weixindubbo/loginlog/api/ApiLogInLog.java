@@ -37,10 +37,5 @@ public interface ApiLogInLog {
      */
     void deleLogInLog(LogInLog logInLog);
 
-    /**
-     * 接收微信端消息处理并做分发
-     *
-     * @param inputStream 从request中获取inputStream
-     */
-     void receivemessage(InputStream inputStream);
+
 }
