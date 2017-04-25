@@ -21,11 +21,14 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 /**
  * Created by Z800 on 2017/1/3.
  */
-public class WeixinServer {
+public final class WeixinServer {
     /**
      * 链接管理器
      */
     private static HttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+
+    private WeixinServer() {
+    }
 
     /**
      * 请求
@@ -52,7 +55,7 @@ public class WeixinServer {
                 request = new HttpPost(actionURL);
                 //TODO POST请求设置请求实体问题
 
-          }
+            }
             request.setConfig(config);
             CloseableHttpResponse response = (CloseableHttpResponse) client.execute(request);
             String data = IOUtils.toString(IOUtils.toByteArray(response.getEntity().getContent()), "utf-8");
@@ -67,6 +70,12 @@ public class WeixinServer {
         return null;
     }
 
+    /**
+     *
+     * @param actionMethodDefine 实体类
+     * @param jsonObject json对象
+     * @return json对象
+     */
     public static JSONObject requestforJSON(WeixinActionMethodDefine actionMethodDefine, JSONObject jsonObject) {
         if (!ParamterContentType.JSON.equals(actionMethodDefine.getParamterContentType())) {
             throw DuduExceptionUtil.throwException(actionMethodDefine.getUri() + "不支持JSON类型");

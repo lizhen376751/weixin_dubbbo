@@ -16,9 +16,13 @@ public final class WeixinActionFactory {
      * 微信基础URL
      */
     private static final String BASE_URL = "https://api.weixin.qq.com";
-
+    /**
+     * apid
+     */
     private static final String APPID = "wxf0af72edbe855d28";
-
+    /**
+     * sercert
+     */
     private static final String APPSECRET = "fa12f20abeabc7c8ca3ebe777ceb2229";
 
 
@@ -53,7 +57,7 @@ public final class WeixinActionFactory {
     /**
      * 获取Token  兼容判断token失效情况
      *
-     * @return
+     * @return token实体类
      */
     public static AccessToken getAccessToken() {
         //TODO accessToken首先从第三方缓存获取 此处为mock 判断兼容mock

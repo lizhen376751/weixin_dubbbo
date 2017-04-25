@@ -32,7 +32,7 @@ public class Template {
 
     /**
      * 实体类转换成json数据,并发送到微信服务器上
-     * @return
+     * @return 字符串转换为json数据
      */
     public String toJSON() {
         StringBuffer buffer = new StringBuffer();

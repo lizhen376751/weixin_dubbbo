@@ -2,7 +2,6 @@ package com.dudu.soa.weixindubbo.loginlog.api;
 
 import com.dudu.soa.weixindubbo.loginlog.module.LogInLog;
 
-import java.io.InputStream;
 
 /**
  * 微信用户登录记录
