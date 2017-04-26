@@ -1,5 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.weixinmessage;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by lizhen on 2017/4/24.
  */
 
-public class Template {
+public class Template implements Serializable{
     /**
      * 消息接收方
      */

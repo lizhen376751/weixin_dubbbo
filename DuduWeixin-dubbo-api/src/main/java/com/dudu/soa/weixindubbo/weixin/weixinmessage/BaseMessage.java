@@ -1,10 +1,12 @@
 package com.dudu.soa.weixindubbo.weixin.weixinmessage;
 
+import java.io.Serializable;
+
 /**
  * 返回消息体-基本消息
  * Created by lizhen on 2017/4/23.
  */
-public class BaseMessage {
+public class BaseMessage implements Serializable{
 
     /**
      * 接收方帐号（收到的OpenID）

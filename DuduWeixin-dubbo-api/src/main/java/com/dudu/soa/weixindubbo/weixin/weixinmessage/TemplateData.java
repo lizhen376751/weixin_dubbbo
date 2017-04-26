@@ -1,11 +1,13 @@
 package com.dudu.soa.weixindubbo.weixin.weixinmessage;
 
+import java.io.Serializable;
+
 /**
  * 模板消息由于模板选取不同需要传入参数的名称、值、参数个数也不同
  * Created by lizhen on 2017/4/24.
  */
 
-public class TemplateData {
+public class TemplateData implements Serializable{
 
     /**
      * 参数名称

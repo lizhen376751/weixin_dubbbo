@@ -1,11 +1,13 @@
 package com.dudu.soa.weixindubbo.weixin.weixinmessage;
 
+import java.io.Serializable;
+
 /**
  * @Description: 文本消息消息体
  * Created by lizhen on 2017/4/23.
  */
 
-public class TextMessage extends BaseMessage {
+public class TextMessage extends BaseMessage implements Serializable{
 
     /**
      * 回复的消息内容

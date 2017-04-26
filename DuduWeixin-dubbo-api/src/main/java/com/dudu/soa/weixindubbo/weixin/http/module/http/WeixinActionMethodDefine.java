@@ -1,5 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.module.http;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.Map;
  * 微信方法定义
  * Created by Administrator on 2017/4/13.
  */
-public class WeixinActionMethodDefine {
+public class WeixinActionMethodDefine implements Serializable{
 //    https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKE
     /**
      * 联盟code或者店铺code
