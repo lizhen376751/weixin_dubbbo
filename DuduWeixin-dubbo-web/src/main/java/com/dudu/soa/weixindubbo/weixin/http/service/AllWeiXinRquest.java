@@ -114,6 +114,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Override
     public void receivemessage(InputStream inputStream) {
+
         try {
             Map<String, String> map = MessageUtil.parseXml(inputStream);
             String msgtype = map.get("MsgType");

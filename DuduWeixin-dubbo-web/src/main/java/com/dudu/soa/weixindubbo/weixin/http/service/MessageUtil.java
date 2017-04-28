@@ -12,7 +12,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 import java.util.HashMap;
@@ -117,13 +116,13 @@ public final class MessageUtil {
         for (Element e : elementList) {
             map.put(e.getName(), e.getText());
         }
-        // 释放资源
-        try {
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        inputStream = null;
+//        // 释放资源
+//        try {
+//            inputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        inputStream = null;
 
         return map;
     }
