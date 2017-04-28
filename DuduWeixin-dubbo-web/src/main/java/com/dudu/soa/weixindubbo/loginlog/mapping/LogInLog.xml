@@ -8,6 +8,7 @@
         <result property="plateNumber" column="plateNumber"/>
         <result property="lmcode" column="lmcode"/>
         <result property="userid" column="userid"/>
+        <result property="nickname" column="nickname"/>
     </resultMap>
 
     <insert id="addLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" useGeneratedKeys="true"
@@ -17,15 +18,16 @@
         openid,
         plateNumber,
         lmcode,
-        userid
+        userid,
+        nickname
 
         )
         VALUES (
         #{openid},
         #{plateNumber},
         #{lmcode},
-        #{userid}
-
+        #{userid},
+        #{nickname}
         )
     </insert>
 
@@ -36,7 +38,8 @@
         openid,
         plateNumber,
         lmcode,
-        userid
+        userid,
+        nickname
         from
         DDWX_loginlog
         WHERE 1=1
@@ -52,6 +55,9 @@
             AND openid = #{openid}
             <if test="userid !=null and userid != ''">
                 AND userid = #{userid}
+            </if>
+            <if test="nickname !=null and nickname != ''">
+                AND nickname = #{nickname}
             </if>
         </trim>
 

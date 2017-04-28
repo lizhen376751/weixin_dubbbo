@@ -20,6 +20,7 @@ public class LogInLogServiceTest extends TestBase {
             logInLog.setPlateNumber("鲁A0000");
             logInLog.setOpenid("hdhsklodaskl");
             logInLog.setUserid(89);
+            logInLog.setNickname("李振");
             logInLogService.addLogInLog(logInLog);
         } catch (Exception e) {
             System.out.println("==========================" + e.getMessage());
