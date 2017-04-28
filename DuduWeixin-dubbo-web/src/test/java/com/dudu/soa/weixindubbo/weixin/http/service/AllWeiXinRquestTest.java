@@ -34,7 +34,7 @@ public class AllWeiXinRquestTest extends TestBase {
     @Test
     public void liZhenMenu() throws Exception {
 //        http://lizhen12.tunnel.2bdata.com
-        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd4e76e01e4a6e3b7&redirect_uri=http://lizhen12.tunnel.2bdata.com/oauthLoginServlet?lmcode=FL000";
+        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd4e76e01e4a6e3b7&redirect_uri=http://lizhen12.tunnel.2bdata.com/oauthLoginServlet?lmcode=CS000";
 
         CommonButton btn11 = new CommonButton();
         btn11.setName("联盟卡包");
@@ -136,7 +136,7 @@ public class AllWeiXinRquestTest extends TestBase {
     @Test
     public void duDuMenu() throws Exception {
         //wx.pre.duduchewang.cn
-        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0af72edbe855d28&redirect_uri=http://lm.wx.dev.duduchewang.cn/oauthLoginServlet?lmcode=CS000";
+        String COMMONURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0af72edbe855d28&redirect_uri=http://wx.pre.duduchewang.cn/oauthLoginServlet?lmcode=CS000";
         CommonButton btn11 = new CommonButton();
         btn11.setName("联盟卡包");
         btn11.setType("view");
@@ -339,7 +339,7 @@ public class AllWeiXinRquestTest extends TestBase {
     //配置验证
     @Test
     public void checkSignature() throws Exception {
-        boolean b = allWeiXinRquest.checkSignature("signature", "timestamp", "nonce", "token");
+        boolean b = allWeiXinRquest.checkSignature("9265761c4e1154041eba12fbbc3c6d01d05a79d4", "1493285904", "1454245089", "duduchewang");
         log.info("url验证为=====================================" + b);
     }
 

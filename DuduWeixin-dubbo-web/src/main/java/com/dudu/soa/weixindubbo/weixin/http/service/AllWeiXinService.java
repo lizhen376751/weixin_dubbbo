@@ -70,7 +70,11 @@ public class AllWeiXinService {
                 e.printStackTrace();
             }
             String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
-            int expiresin = Integer.parseInt(JSONObject.parseObject(jstoken).getString("expires_in"));
+            String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");
+            int expiresin = 0;
+            if (null != expiresin1 && !"".equals(expiresin1)) {
+                expiresin = Integer.parseInt(expiresin1);
+            }
             // 获取到token并赋值保存
             accessToken.setCreateTime(System.currentTimeMillis())
                     .setToken(accesstoken)
@@ -175,7 +179,10 @@ public class AllWeiXinService {
             String request = HttpUtils.request(weixinActionMethodDefine);
             log.info("获取openid=========================" + request);
             OauthOpenIdToken oauthOpenIdTokennew = new OauthOpenIdToken();
-            oauthOpenIdTokennew.setExpiresIn(Integer.parseInt(pareJsonDate(request, "expires_in")));
+            String expiresin = pareJsonDate(request, "expires_in");
+            if (null != expiresin && !"".equals(expiresin)) {
+                oauthOpenIdTokennew.setExpiresIn(Integer.parseInt(expiresin));
+            }
             oauthOpenIdTokennew.setOpenId(pareJsonDate(request, "openid"));
             oauthOpenIdTokennew.setScope(pareJsonDate(request, "scope"));
             oauthOpenIdTokennew.setRefreshToken(pareJsonDate(request, "refresh_token"));
