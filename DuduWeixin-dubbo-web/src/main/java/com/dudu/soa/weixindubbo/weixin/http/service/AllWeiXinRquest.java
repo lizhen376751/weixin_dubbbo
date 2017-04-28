@@ -5,12 +5,12 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
-import com.dudu.soa.weixindubbo.weixin.weixinmessage.InputParam;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,10 +113,11 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param inputStream 从request中获取inputStream
      */
     @Override
-    public void receivemessage(InputParam inputStream) {
+    public void receivemessage(InputStream inputStream) {
 
         try {
-            Map<String, String> map = MessageUtil.parseXml(inputStream.getInputStream());
+            Map<String, String> map = MessageUtil.parseXml(inputStream);
+            String msgtype = map.get("MsgType");
             MsgDispatcher.processMessage(map); //进入消息处理
         } catch (Exception e) {
             e.printStackTrace();

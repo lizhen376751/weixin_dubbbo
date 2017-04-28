@@ -5,7 +5,6 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
-import com.dudu.soa.weixindubbo.weixin.weixinmessage.InputParam;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 
 import java.io.IOException;
@@ -79,7 +78,7 @@ public interface ApiAllWeiXiRequest {
      *
      * @param inputStream 从request中获取inputStream
      */
-    void receivemessage(InputParam inputParam);
+    void receivemessage(InputStream inputStream);
 
     /**
      * 模板消息的发送
