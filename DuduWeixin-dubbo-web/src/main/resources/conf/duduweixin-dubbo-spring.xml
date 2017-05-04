@@ -12,7 +12,7 @@
 	<!--验证码和短信密码发送接口-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.smssend.api.ApiSmsSend" ref = "smsSendService" version = "1.0" owner = "lizhen"/>
 	<!--用户信息接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.user.api.ApiUser" ref = "userService" version = "1.0" owner = "lizhen"/>
+	<!--<dubbo:service interface="com.dudu.soa.weixindubbo.user.api.ApiShopWeixinUser" ref = "shopWeixinUserService" version = "1.0" owner = "lizhen"/>-->
 	<!--微信通讯相关接口-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest" ref = "allWeiXinRquest" version = "1.0" owner = "lizhen"/>
 	<!--appid与sercert的维护-->
