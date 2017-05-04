@@ -65,7 +65,7 @@
     </select>
 
 
-    <delete id="deleLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog">
+    <delete id="deleLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" flushCache="true">
         delete from DDWX_loginlog
         where openid=#{openid}
 

@@ -25,19 +25,19 @@ public class LogInLogService implements ApiLogInLog {
 
     @Override
     @Transactional
-    public void updateLogInLog(LogInLog logInLog) {
-        logInLogDao.updateLogInLog(logInLog);
+    public Integer updateLogInLog(LogInLog logInLog) {
+        return logInLogDao.updateLogInLog(logInLog);
     }
 
     @Override
     @Transactional
-    public void addLogInLog(LogInLog logInLog) {
-        logInLogDao.addLogInLog(logInLog);
+    public Integer addLogInLog(LogInLog logInLog) {
+        return logInLogDao.addLogInLog(logInLog);
     }
 
     @Override
     @Transactional
-    public void deleLogInLog(LogInLog logInLog) {
-        logInLogDao.deleLogInLog(logInLog);
+    public Integer deleLogInLog(LogInLog logInLog) {
+        return logInLogDao.deleLogInLog(logInLog);
     }
 }

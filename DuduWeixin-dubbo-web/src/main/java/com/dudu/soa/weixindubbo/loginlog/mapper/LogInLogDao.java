@@ -18,19 +18,19 @@ public interface LogInLogDao {
      *
      * @param logInLog logInLog
      */
-    void updateLogInLog(LogInLog logInLog);
+    Integer updateLogInLog(LogInLog logInLog);
 
     /**
      * 新增登录记录
      *
      * @param logInLog logInLog
      */
-    void addLogInLog(LogInLog logInLog);
+    Integer addLogInLog(LogInLog logInLog);
 
     /**
      * 删除短信记录
      *
      * @param logInLog logInLog
      */
-    void deleLogInLog(LogInLog logInLog);
+    Integer deleLogInLog(LogInLog logInLog);
 }
