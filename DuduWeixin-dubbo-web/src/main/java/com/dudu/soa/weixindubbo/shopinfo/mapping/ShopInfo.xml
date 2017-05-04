@@ -34,7 +34,7 @@
         <result property="url" column="url"/>
     </resultMap>
 
-    <!-- 查看所有的短信签名 -->
+   <!--查看所有的店铺信息-->
     <select id="getShopInfo" parameterType="String" resultMap="shopInfo">
        SELECT
 	*

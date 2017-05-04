@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding = "UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dudu.soa.weixindubbo.shopweixinuser.mapper.ShopWeixinUserDao">
+
+    <resultMap type="com.dudu.soa.weixindubbo.shopweixinuser.module.ShopWeixinUser" id="shopweixinuser">
+        <result property="id" column="ID"/>
+        <result property="userName" column="UserName"/>
+        <result property="userPass" column="UserPass"/>
+        <result property="mobile" column="Mobile"/>
+        <result property="address" column="Address"/>
+        <result property="engine" column="Engine"/>
+        <result property="iDCode" column="IDCode"/>
+        <result property="registCode" column="RegistCode"/>
+        <result property="recordDate" column="RecordDate"/>
+        <result property="brand" column="Brand"/>
+        <result property="serise" column="Serise"/>
+        <result property="city" column="City"/>
+        <result property="state" column="State"/>
+        <result property="registerTime" column="RegisterTime"/>
+        <result property="citycode" column="city_code"/>
+        <result property="openId" column="OpenId"/>
+        <result property="openU" column="OpenU"/>
+        <result property="shopcode" column="shopcode"/>
+        <result property="xingMing" column="XingMing"/>
+        <result property="xingBie" column="XingBie"/>
+        <result property="carPaiLiang" column="CarPaiLiang"/>
+        <result property="nickname" column="nickname"/>
+    </resultMap>
+
+    <!-- 查看所有的短信签名 -->
+    <select id="queryShopWeixinUser" parameterType="com.dudu.soa.weixindubbo.shopweixinuser.module.ShopWeixinUser"
+            resultMap="shopweixinuser">
+        SELECT
+        *
+        FROM
+        UserInfo
+        WHERE 1=1
+        <if test="id != null and id != ''">
+            AND ID = #{id}
+        </if>
+
+        <if test="userName != null and userName != ''">
+            AND UserName = #{userName}
+        </if>
+
+        <if test="mobile != null and mobile != ''">
+            AND Mobile = #{mobile}
+        </if>
+
+        <if test="shopcode != null and shopcode != ''">
+            AND shopcode = #{shopcode}
+        </if>
+    </select>
+
+
+    <insert id="addShopWeixinUser" parameterType="com.dudu.soa.weixindubbo.shopweixinuser.module.ShopWeixinUser"
+            flushCache="true">
+        INSERT INTO
+        UserInfo (
+        UserName,
+        UserPass,
+        Mobile,
+        Address,
+        Engine,
+        IDCode,
+        RegistCode,
+        RecordDate,
+        Brand,
+        Serise,
+        City,
+        city_code,
+        OpenId,
+        OpenU,
+        shopcode,
+        XingMing,
+        XingBie,
+        CarPaiLiang,
+        nickname
+        )
+        VALUES (
+        #{userName},
+        #{userPass},
+        #{mobile},
+        #{address},
+        #{engine},
+        #{iDCode},
+        #{registCode},
+        #{recordDate},
+        #{brand},
+        #{serise},
+        #{city},
+        #{citycode},
+        #{openId},
+        #{openU},
+        #{shopcode},
+        #{xingMing},
+        #{xingBie},
+        #{carPaiLiang},
+        #{nickname}
+        )
+    </insert>
+
+    <update id="updateShopWeixinUser" parameterType="com.dudu.soa.weixindubbo.shopweixinuser.module.ShopWeixinUser"
+            flushCache="true">
+        update UserInfo
+        <set>
+            <if test="userPass !=null and userPass != ''">
+                UserPass = #{userPass}
+            </if>
+        </set>
+        WHERE
+        Mobile = #{mobile} AND shopcode = #{shopcode} AND UserName = #{userName}
+    </update>
+
+    <delete id="deleteShopWeixinUser" flushCache="true">
+        delete UserInfo from  where Mobile = #{mobile} AND shopcode = #{shopcode} AND UserName = #{userName}
+    </delete>
+</mapper>
