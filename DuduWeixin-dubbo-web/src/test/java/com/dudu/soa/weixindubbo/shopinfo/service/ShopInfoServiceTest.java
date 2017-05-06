@@ -1,24 +1,22 @@
-package com.dudu.soa.wxd.test.shopinfo;
+package com.dudu.soa.weixindubbo.shopinfo.service;
 
-import com.alibaba.dubbo.common.logger.Logger;
-import com.alibaba.dubbo.common.logger.LoggerFactory;
+
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
-import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
 /**
- * Created by Administrator on 2017/3/28.
+ * Created by lizhen on 2017/5/5.
  */
 
-public class ShopInfoTest extends TestBase {
-    private static Logger logger = LoggerFactory.getLogger(ShopInfoTest.class);
+public class ShopInfoServiceTest extends TestBase {
+    private static Logger logger = LoggerFactory.getLogger(ShopInfoServiceTest.class);
 
     @Autowired
     private ShopInfoService shopInfoService;
-
     @Test
     public void getShopInfo(){
         try{
