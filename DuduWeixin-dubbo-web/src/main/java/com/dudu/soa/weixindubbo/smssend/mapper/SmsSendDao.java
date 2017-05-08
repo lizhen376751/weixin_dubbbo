@@ -8,6 +8,7 @@ import com.dudu.soa.weixindubbo.smssend.module.SmsSendLog;
 public interface SmsSendDao {
     /**
      * 获取验证码实体类
+     *
      * @param smsSendLog 验证码信息
      * @return 验证码实体类
      */
@@ -15,12 +16,17 @@ public interface SmsSendDao {
 
     /**
      * 新增验证码
+     *
      * @param smsSendLog 验证码信息
+     * @return 新增数据的条数
      */
-    void addSmsSend(SmsSendLog smsSendLog);
+    Integer addSmsSend(SmsSendLog smsSendLog);
+
     /**
      * 删除短信验证码
+     *
      * @param smsSend 验证码信息
+     * @return 删除数据的条数
      */
-    void deleteSmsSend(SmsSendLog smsSend);
+    Integer deleteSmsSend(SmsSendLog smsSend);
 }

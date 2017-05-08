@@ -26,12 +26,12 @@ public class SmsSendService implements ApiSmsSend {
 
     @Override
     @Transactional
-    public void addSmsSend(SmsSendLog smsSend) {
-        smsSendDao.addSmsSend(smsSend);
+    public Integer addSmsSend(SmsSendLog smsSend) {
+        return smsSendDao.addSmsSend(smsSend);
     }
 
     @Override
-    public void deleteSmsSend(SmsSendLog smsSend) {
-        smsSendDao.deleteSmsSend(smsSend);
+    public Integer deleteSmsSend(SmsSendLog smsSend) {
+        return smsSendDao.deleteSmsSend(smsSend);
     }
 }

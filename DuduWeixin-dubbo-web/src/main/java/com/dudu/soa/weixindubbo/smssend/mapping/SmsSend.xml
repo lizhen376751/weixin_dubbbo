@@ -55,7 +55,7 @@
     </select>
 
 
-    <delete id="deleteSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSendLog">
+    <delete id="deleteSmsSend" parameterType="com.dudu.soa.weixindubbo.smssend.module.SmsSendLog" flushCache="true">
         delete from DDWX_SMSSend
         where serviceType=#{serviceType}
         AND mobilePhone=#{mobilePhone}

@@ -11,6 +11,7 @@ import com.dudu.soa.weixindubbo.smssend.module.SmsSendLog;
 public interface ApiSmsSend {
     /**
      * 获取验证码实体类
+     *
      * @param smsSend 验证码信息
      * @return 验证码实体类
      */
@@ -18,14 +19,18 @@ public interface ApiSmsSend {
 
     /**
      * 新增验证码
+     *
      * @param smsSend 验证码信息
+     * @return 删除数据的条数
      */
-    void addSmsSend(SmsSendLog smsSend);
+    Integer addSmsSend(SmsSendLog smsSend);
 
     /**
      * 删除短信验证码
+     *
      * @param smsSend 验证码信息
+     * @return 删除数据的条数
      */
-    void deleteSmsSend(SmsSendLog smsSend);
+    Integer deleteSmsSend(SmsSendLog smsSend);
 
 }
