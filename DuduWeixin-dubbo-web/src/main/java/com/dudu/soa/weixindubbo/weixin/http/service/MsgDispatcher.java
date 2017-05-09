@@ -21,18 +21,18 @@ public final class MsgDispatcher {
      */
     public static String processMessage(Map<String, String> map) {
         /**
-         *
+         *用户openid
          */
-        String openid = map.get("FromUserName"); //TODO 用户openid
+        String openid = map.get("FromUserName");
         /**
-         *
+         *公众号原始ID
          */
-        String mpid = map.get("ToUserName");   //TODO 公众号原始ID
+        String mpid = map.get("ToUserName");
         //普通文本消息
         TextMessage txtmsg = new TextMessage();
         txtmsg.setToUserName(openid);
         txtmsg.setFromUserName(mpid);
-        txtmsg.setCreateTime(new Date().getTime());
+        txtmsg.setCreateTime(new Date().getTime() / 1000);
         txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
