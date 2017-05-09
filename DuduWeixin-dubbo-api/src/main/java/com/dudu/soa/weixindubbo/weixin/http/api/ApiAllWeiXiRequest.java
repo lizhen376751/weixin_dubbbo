@@ -6,9 +6,9 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
+import org.dom4j.Document;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
@@ -78,7 +78,7 @@ public interface ApiAllWeiXiRequest {
      *
      * @param inputStream 从request中获取inputStream
      */
-    void receivemessage(InputStream inputStream);
+    void receivemessage(Document document);
 
     /**
      * 模板消息的发送

@@ -8,12 +8,10 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
-import java.io.IOException;
-import java.io.InputStream;
+import org.dom4j.Element;
+
+
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
@@ -94,20 +92,20 @@ public final class MessageUtil {
      * @param inputStream 从request中获取输入流
      * @return Map<String, String>解析后的xml
      */
-    public static Map<String, String> parseXml(InputStream inputStream) {
+    public static Map<String, String> parseXml(Document document) {
         // 将解析结果存储在HashMap中
         Map<String, String> map = new HashMap<String, String>();
 
         // 从request中取得输入流
 //        InputStream inputStream = request.getInputStream();
         // 读取输入流
-        SAXReader reader = new SAXReader();
-        Document document = null;
-        try {
-            document = reader.read(inputStream);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
+//        SAXReader reader = new SAXReader();
+//        Document document = null;
+//        try {
+//            document = reader.read(inputStream);
+//        } catch (DocumentException e) {
+//            e.printStackTrace();
+//        }
         // 得到xml根元素
         Element root = document.getRootElement();
         // 得到根元素的所有子节点
@@ -117,13 +115,13 @@ public final class MessageUtil {
         for (Element e : elementList) {
             map.put(e.getName(), e.getText());
         }
-        // 释放资源
-        try {
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        inputStream = null;
+//        // 释放资源
+//        try {
+//            inputStream.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        inputStream = null;
 
         return map;
     }
