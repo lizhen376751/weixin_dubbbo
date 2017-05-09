@@ -126,6 +126,7 @@ public final class MessageUtil {
         return map;
     }
 
+
     /**
      * 文本消息对象转换成xml
      *

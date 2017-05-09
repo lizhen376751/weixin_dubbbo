@@ -11,6 +11,7 @@ import org.dom4j.Document;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 微信的接口
@@ -78,7 +79,7 @@ public interface ApiAllWeiXiRequest {
      *
      * @param inputStream 从request中获取inputStream
      */
-    void receivemessage(Document document);
+    void receivemessage(Map<String, String> map);
 
     /**
      * 模板消息的发送
