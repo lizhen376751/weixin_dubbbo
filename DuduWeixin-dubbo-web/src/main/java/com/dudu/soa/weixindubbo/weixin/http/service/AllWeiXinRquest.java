@@ -112,14 +112,15 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param inputStream 从request中获取inputStream
      */
     @Override
-    public void receivemessage(Map<String, String> map) {
-
+    public String receivemessage(Map<String, String> map) {
         try {
             String msgtype = map.get("MsgType");
-            MsgDispatcher.processMessage(map); //进入消息处理
+            String message = MsgDispatcher.processMessage(map); //进入消息处理
+            return message;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**

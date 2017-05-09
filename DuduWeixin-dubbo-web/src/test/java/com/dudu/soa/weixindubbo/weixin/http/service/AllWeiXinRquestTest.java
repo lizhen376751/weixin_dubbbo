@@ -17,7 +17,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 微信基础通讯测试
@@ -387,5 +389,19 @@ public class AllWeiXinRquestTest extends TestBase {
         template.setTemplateParamList(paras);
         boolean b = allWeiXinRquest.sendTemplateMsg("wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229", template);
         log.info("模板消息发送=============================" + b);
+    }
+
+    //被动的回复消息
+    @Test
+    public void receivemessage() throws Exception {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("Content", "微信");
+        map.put("CreateTime", "1494330495");
+        map.put("ToUserName", "gh_5d6457ad54bf");
+        map.put("FromUserName", "oSsYXwMun4NrZE8b_OQi6kMaPyg4");
+        map.put("MsgType", "text");
+        map.put("MsgId", "6418100605870380956");
+        String receivemessage = allWeiXinRquest.receivemessage(map);
+        log.info("返回消息为:=============="+receivemessage);
     }
 }

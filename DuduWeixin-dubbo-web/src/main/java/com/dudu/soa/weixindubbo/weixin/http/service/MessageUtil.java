@@ -8,9 +8,9 @@ import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
 import org.dom4j.Document;
-
 import org.dom4j.Element;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Writer;
 import java.util.HashMap;
@@ -25,6 +25,10 @@ public final class MessageUtil {
     private MessageUtil() {
     }
 
+    /**
+     * 日志打印
+     */
+    private static Logger log = LoggerFactory.getLogger(MessageUtil.class);
     /**
      * 返回消息类型：文本
      */
@@ -135,6 +139,7 @@ public final class MessageUtil {
      */
     public static String textMessageToXml(TextMessage textMessage) {
         xstream.alias("xml", textMessage.getClass());
+        log.info(xstream.toXML(textMessage));
         return xstream.toXML(textMessage);
     }
 

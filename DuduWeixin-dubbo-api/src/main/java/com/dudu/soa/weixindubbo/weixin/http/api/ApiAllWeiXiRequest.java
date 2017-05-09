@@ -79,7 +79,7 @@ public interface ApiAllWeiXiRequest {
      *
      * @param inputStream 从request中获取inputStream
      */
-    void receivemessage(Map<String, String> map);
+    String receivemessage(Map<String, String> map);
 
     /**
      * 模板消息的发送
