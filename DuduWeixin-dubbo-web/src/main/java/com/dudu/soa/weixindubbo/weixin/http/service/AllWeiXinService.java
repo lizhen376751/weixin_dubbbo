@@ -1,6 +1,4 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
-
-
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
@@ -9,9 +7,15 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Mpnews;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.SendWeChat;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.TeletextMessage;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -30,6 +34,11 @@ public class AllWeiXinService {
      * 日志打印
      */
     private static Logger log = LoggerFactory.getLogger(AllWeiXinService.class);
+    /**
+     * 引入图片上传和消息素材上传服务
+     */
+    @Autowired
+    private FileUpload fileUpload;
 
     /**
      * 获取开发者的token和jssdk的jsapiticket
@@ -291,5 +300,43 @@ public class AllWeiXinService {
     public String pareJsonDate(String jsonData, String param) {
         String params = JSONObject.parseObject(jsonData).getString(param);
         return params;
+    }
+
+    /**
+     * 微信消息群发
+     *
+     * @param paramSendWeChat 微信消息群发所需要的参数
+     * @return 返回发送的结果
+     */
+    public String sendGroupMessage(ParamSendWeChat paramSendWeChat) {
+
+        //需要token,(appid,sercert)
+        AccessToken tokengetTicket = this.getTokengetTicket(paramSendWeChat.getAppid(), paramSendWeChat.getAppSecret());
+        String accessToken = tokengetTicket.getToken();
+        String url = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", accessToken);
+        String jsonResult = null;
+        try {
+            //获取图片上传的id
+            String mediaid = fileUpload.uploadImage(accessToken, paramSendWeChat.getFilePath());
+            TeletextMessage teletextMessage = new TeletextMessage();
+            Articles article = new Articles();
+            article.setThumbmediaid(mediaid);
+            article.setContent(paramSendWeChat.getContent());
+            article.setTitle(paramSendWeChat.getTitle());
+            teletextMessage.setArticles(new Articles[]{article});
+            //获取上传图文消息素材的id
+            String textMessageId = fileUpload.uploadTextMessage(accessToken, teletextMessage);
+            SendWeChat sendWeChat = new SendWeChat();
+            sendWeChat.setTouser(paramSendWeChat.getTouser());
+            sendWeChat.setMsgtype("mpnews");
+            sendWeChat.setMpnews(new Mpnews().setMediaid(textMessageId));
+            String jsonteletextMessage = JSONObject.toJSONString(sendWeChat);
+            jsonResult = HttpUtils.sendPostJson(url, jsonteletextMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("微信消息群发返回结果======================================" + jsonResult);
+        return jsonResult;
+
     }
 }

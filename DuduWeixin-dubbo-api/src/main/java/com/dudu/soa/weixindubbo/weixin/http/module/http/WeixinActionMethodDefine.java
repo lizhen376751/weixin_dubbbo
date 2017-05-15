@@ -59,7 +59,7 @@ public class WeixinActionMethodDefine implements Serializable{
     /**
      * 接口post的参数
      */
-    private Map<String, String> actionPostParamter = new HashMap<String, String>(); //appid之类的
+    private Map<String, String> actionPostParamter = new HashMap<String, String>();
 
 
     /**

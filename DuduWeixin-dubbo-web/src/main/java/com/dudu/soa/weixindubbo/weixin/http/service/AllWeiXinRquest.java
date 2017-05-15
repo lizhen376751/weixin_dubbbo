@@ -5,6 +5,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,8 +109,6 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
 
     /**
      * 接收微信端消息处理并做分发
-     *
-     * @param inputStream 从request中获取inputStream
      */
     @Override
     public String receivemessage(Map<String, String> map) {
@@ -157,4 +156,14 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
         return stringStringHashMap;
     }
 
+    /**
+     * 微信消息群发(仅限单条)
+     *
+     * @param paramSendWeChat 接口所需要的参数
+     * @return
+     */
+    @Override
+    public String sendGroupMessage(ParamSendWeChat paramSendWeChat) {
+        return weChatTask.sendGroupMessage(paramSendWeChat);
+    }
 }

@@ -5,8 +5,8 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
-import org.dom4j.Document;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -90,6 +90,7 @@ public interface ApiAllWeiXiRequest {
      * @return template
      */
     boolean sendTemplateMsg(String appid, String appSecret, Template template);
+
     /**
      * 前端jssdk页面配置需要用到的配置参数
      *
@@ -99,5 +100,13 @@ public interface ApiAllWeiXiRequest {
      * @return map 签名参数
      * @throws Exception 异常
      */
-     HashMap<String, String> jsSDKSign(String appid, String appSecret, String url);
+    HashMap<String, String> jsSDKSign(String appid, String appSecret, String url);
+
+    /**
+     * 微信消息群发(仅限单条群发)
+     *
+     * @param paramSendWeChat 接口所需要的参数
+     * @return
+     */
+    String sendGroupMessage(ParamSendWeChat paramSendWeChat);
 }

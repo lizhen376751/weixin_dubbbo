@@ -8,6 +8,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TemplateData;
 import com.dudu.soa.wxd.test.TestBase;
@@ -402,6 +403,20 @@ public class AllWeiXinRquestTest extends TestBase {
         map.put("MsgType", "text");
         map.put("MsgId", "6418100605870380956");
         String receivemessage = allWeiXinRquest.receivemessage(map);
-        log.info("返回消息为:=============="+receivemessage);
+        log.info("返回消息为:==============" + receivemessage);
+    }
+
+    //微信消息群发
+    @Test
+    public void sendGroupMessage() throws Exception {
+        ParamSendWeChat paramSendWeChat = new ParamSendWeChat();
+        paramSendWeChat.setAppid("wxd4e76e01e4a6e3b7");
+        paramSendWeChat.setAppSecret("dd1e044b9208d43a5a31238e5ee053c7");
+        paramSendWeChat.setTitle("测试群发消息");
+        paramSendWeChat.setContent("李振测试微信消息群发");
+        paramSendWeChat.setFilePath("C:/Users/Public/Pictures/Sample Pictures/meiche.jpg");
+        paramSendWeChat.setTouser(new String[]{"oSsYXwMun4NrZE8b_OQi6kMaPyg4","oSsYXwNfsML7Qs5gwcdCpC549l-E"});
+        String message = allWeiXinRquest.sendGroupMessage(paramSendWeChat);
+        log.info("微信消息群发返回测试结果为:========================================" + message);
     }
 }

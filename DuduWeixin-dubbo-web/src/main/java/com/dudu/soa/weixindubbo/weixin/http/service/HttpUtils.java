@@ -132,7 +132,7 @@ public final class HttpUtils {
      */
     public static String sendPostJson(String urls, String params) throws IOException {
         HttpPost request = new HttpPost(urls);
-
+        //创建带字符创参数和字符编码的
         StringEntity se = new StringEntity(params, HTTP.UTF_8);
         request.setEntity(se);
         // 发送请求
@@ -140,7 +140,7 @@ public final class HttpUtils {
         // 得到应答的字符串，这也是一个 JSON 格式保存的数据
         String retSrc = EntityUtils.toString(httpResponse.getEntity());
         request.releaseConnection();
-        log.info("创建菜单=========================" + retSrc);
+        log.info("Post请求返回结果为=========================" + retSrc);
         return retSrc;
 
     }
