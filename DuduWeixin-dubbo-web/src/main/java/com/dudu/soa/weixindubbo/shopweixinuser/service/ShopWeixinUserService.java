@@ -1,5 +1,6 @@
 package com.dudu.soa.weixindubbo.shopweixinuser.service;
 
+import com.dudu.soa.framework.pagehelp.DuduPageHelpUtil;
 import com.dudu.soa.weixindubbo.shopweixinuser.api.ApiShopWeixinUser;
 import com.dudu.soa.weixindubbo.shopweixinuser.mapper.ShopWeixinUserDao;
 import com.dudu.soa.weixindubbo.shopweixinuser.module.ShopWeixinUser;
@@ -29,6 +30,7 @@ public class ShopWeixinUserService implements ApiShopWeixinUser {
      */
     @Override
     public ArrayList<ShopWeixinUser> queryShopWeixinUser(ShopWeixinUser shopWeixinUser) {
+        DuduPageHelpUtil.query("id");
         return shopWeixinUserDao.queryShopWeixinUser(shopWeixinUser);
     }
 
