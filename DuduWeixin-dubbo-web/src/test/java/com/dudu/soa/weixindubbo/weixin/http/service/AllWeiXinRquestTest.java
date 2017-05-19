@@ -7,6 +7,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.ComplexButton;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
@@ -415,8 +416,27 @@ public class AllWeiXinRquestTest extends TestBase {
         paramSendWeChat.setTitle("测试群发消息");
         paramSendWeChat.setContent("李振测试微信消息群发");
         paramSendWeChat.setFilePath("C:/Users/Public/Pictures/Sample Pictures/meiche.jpg");
-        paramSendWeChat.setTouser(new String[]{"oSsYXwMun4NrZE8b_OQi6kMaPyg4","oSsYXwNfsML7Qs5gwcdCpC549l-E"});
+        paramSendWeChat.setTouser(new String[]{"oSsYXwMun4NrZE8b_OQi6kMaPyg4", "oSsYXwNfsML7Qs5gwcdCpC549l-E"});
         String message = allWeiXinRquest.sendGroupMessage(paramSendWeChat);
         log.info("微信消息群发返回测试结果为:========================================" + message);
+    }
+
+    //获取微信扫码支付url
+    @Test
+    public void weixinpay() throws Exception {
+        SweepPay sweepPay = new SweepPay();
+        sweepPay.setAppid("wxac57fd22a1194510");
+        sweepPay.setBody("北京经典汽车服务有限公司");
+        sweepPay.setKey("fa0eebc9727aebba6860c34935150834");
+        sweepPay.setMchid("1229927502");
+        sweepPay.setNotifyurl("http://shop.duduchewang.com/userServlet/Notify");
+        sweepPay.setOuttradeno("XC20170519023");
+        sweepPay.setProductid("100001");
+        sweepPay.setSpbillcreateip("127.0.0.1");
+        sweepPay.setTotalfee("45000");
+        sweepPay.setTradetype("NATIVE");
+
+        String weixinpay = allWeiXinRquest.weixinpay(sweepPay);
+        log.info("微信扫码支付url为:========================================" + weixinpay);
     }
 }

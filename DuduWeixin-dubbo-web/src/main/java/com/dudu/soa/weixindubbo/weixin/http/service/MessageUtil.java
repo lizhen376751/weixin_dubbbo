@@ -77,7 +77,7 @@ public final class MessageUtil {
     /**
      * 将对象封装成xml的处理
      */
-    @SuppressWarnings("unused")
+
     private static XStream xstream = new XStream(new XppDriver() {
         public HierarchicalStreamWriter createWriter(Writer out) {
             return new PrettyPrintWriter(out) {
@@ -116,8 +116,7 @@ public final class MessageUtil {
      * @param inputStream 从request中获取输入流
      * @return Map<String, String>解析后的xml
      */
-    public static Map<String, String>
-    parseXml(Document document) {
+    public static Map<String, String> parseXml(Document document) {
         // 将解析结果存储在HashMap中
         Map<String, String> map = new HashMap<String, String>();
 

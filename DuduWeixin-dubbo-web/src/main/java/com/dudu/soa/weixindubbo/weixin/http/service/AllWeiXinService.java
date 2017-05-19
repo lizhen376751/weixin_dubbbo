@@ -1,4 +1,5 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
+
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
@@ -6,13 +7,17 @@ import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinBaseParamter;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.http.util.PayCommonUtil;
+import com.dudu.soa.weixindubbo.weixin.http.util.XMLUtil;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Mpnews;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.SendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TeletextMessage;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
+import org.jdom.JDOMException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 
 /**
@@ -339,4 +347,56 @@ public class AllWeiXinService {
         return jsonResult;
 
     }
+
+    /**
+     * 微信支付统一下单接口
+     *
+     * @param sweepPay 请求生成微信二维码的url
+     * @return 微信二维码的url
+     */
+    public String weixinpay(SweepPay sweepPay) {
+        SortedMap<Object, Object> packageParams = new TreeMap<Object, Object>();
+        packageParams.put("appid", sweepPay.getAppid());
+        packageParams.put("mch_id", sweepPay.getMchid());
+        // 随机字符串，长度要求在32位以内。推荐随机数生成算法
+        String currTime = PayCommonUtil.getCurrTime();
+        String strTime = currTime.substring(8, currTime.length());
+        String strRandom = PayCommonUtil.buildRandom(4) + "";
+        packageParams.put("nonce_str", strTime + strRandom);
+        packageParams.put("body", sweepPay.getBody());
+        packageParams.put("out_trade_no", sweepPay.getOuttradeno());
+        packageParams.put("total_fee", sweepPay.getTotalfee());
+        packageParams.put("spbill_create_ip", sweepPay.getSpbillcreateip());
+        packageParams.put("notify_url", sweepPay.getNotifyurl());
+        packageParams.put("trade_type", sweepPay.getTradetype());
+        //签名 sign 通过签名算法计算得出的签名值，详见签名生成算法()
+        String sign = PayCommonUtil.createSign("UTF-8", packageParams, sweepPay.getKey());
+        packageParams.put("sign", sign);
+
+        String requestXML = PayCommonUtil.getRequestXml(packageParams);
+        log.info("第一步:微信扫码支付发送请求的post数据为=========" + requestXML);
+        String resXml = HttpUtils.sendXmlPost("https://api.mch.weixin.qq.com/pay/unifiedorder", requestXML);
+        log.info("第二步:微信扫码支付返回数据为=========" + resXml);
+        Map map = null;
+        try {
+            map = XMLUtil.doXMLParse(resXml);
+        } catch (JDOMException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String returncode = (String) map.get("return_code"); //此字段是通信标识，非交易标识，交易是否成功需要查看result_code来判断
+        String returnmsg = (String) map.get("return_msg"); //返回信息，如非空，为错误原因签名失败 参数格式校验错误
+        log.info("返回通讯标识为=========" + returncode + "错误原因为=========" + returnmsg);
+        if ("OK".equals(returnmsg)) {
+            String errcodedes = (String) map.get("err_code_des");
+            log.info("返回业务错误原因为=========" + errcodedes);
+        }
+
+        String urlCode = (String) map.get("code_url");
+        log.info("第三步:微信扫码支付返回的url数据为=========" + urlCode);
+        return urlCode;
+    }
+
 }

@@ -5,6 +5,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,4 +167,16 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     public String sendGroupMessage(ParamSendWeChat paramSendWeChat) {
         return weChatTask.sendGroupMessage(paramSendWeChat);
     }
+
+    /**
+     * 微信支付统一下单接口
+     *
+     * @param sweepPay 请求生成微信二维码的url
+     * @return 微信二维码的url
+     */
+    @Override
+    public String weixinpay(SweepPay sweepPay){
+        return weChatTask.weixinpay(sweepPay);
+    }
+
 }

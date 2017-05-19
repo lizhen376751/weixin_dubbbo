@@ -17,16 +17,16 @@
             <artifactId>fastjson</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>1.4.2</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>dom4j</groupId>-->
+            <!--<artifactId>dom4j</artifactId>-->
+            <!--<version>1.6.1</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.thoughtworks.xstream</groupId>-->
+            <!--<artifactId>xstream</artifactId>-->
+            <!--<version>1.4.2</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>
