@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.Map;
@@ -10,6 +12,10 @@ import java.util.Map;
  * Created by lizhen on 2017/4/23.
  */
 public final class MsgDispatcher {
+    /**
+     * 日志打印
+     */
+    private static Logger log = LoggerFactory.getLogger(MsgDispatcher.class);
     private MsgDispatcher() {
     }
 
@@ -36,28 +42,33 @@ public final class MsgDispatcher {
         txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
-            System.out.println("==============这是文本消息！");
+            log.info("==============这是推送的地理位置消息！");
+            return "success";
+
+        }
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 推送地理位置
+            log.info("==============这是文本消息！");
             txtmsg.setContent("你好，这里是李振个人账号！");
             return MessageUtil.textMessageToXml(txtmsg);
 
         }
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) { // 图片消息
-            System.out.println("==============这是图片消息！");
+            log.info("==============这是图片消息！");
         }
 
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LINK)) { // 链接消息
-            System.out.println("==============这是链接消息！");
+            log.info("==============这是链接消息！");
         }
 
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_LOCATION)) { // 位置消息
-            System.out.println("==============这是位置消息！");
+            log.info("==============这是位置消息！");
         }
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_VOICE)) { // 语音消息
-            System.out.println("==============这是语音消息！");
+            log.info("==============这是语音消息！");
         }
 
         return null;
