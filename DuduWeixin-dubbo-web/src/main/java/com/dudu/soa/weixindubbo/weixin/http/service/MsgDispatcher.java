@@ -42,14 +42,13 @@ public final class MsgDispatcher {
         txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
-            log.info("==============这是推送的地理位置消息！");
-            return "success";
+            log.info("==============这是文本消息！");
+            return MessageUtil.textMessageToXml(txtmsg);
 
         }
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 推送地理位置
-            log.info("==============这是文本消息！");
-            txtmsg.setContent("你好，这里是李振个人账号！");
-            return MessageUtil.textMessageToXml(txtmsg);
+            log.info("==============这是地理位置推送消息！");
+            return "success";
 
         }
 
