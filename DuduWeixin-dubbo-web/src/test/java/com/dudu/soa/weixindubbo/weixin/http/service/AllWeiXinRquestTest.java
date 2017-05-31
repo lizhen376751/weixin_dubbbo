@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 
+import com.dudu.soa.framework.util.DuduTestUtil;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Button;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.CommonButton;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.ComplexButton;
@@ -435,7 +436,8 @@ public class AllWeiXinRquestTest extends TestBase {
         sweepPay.setSpbillcreateip("127.0.0.1");
         sweepPay.setTotalfee("45000");
         sweepPay.setTradetype("NATIVE");
-
+        sweepPay.setProductid("454545454545");
+        DuduTestUtil.printResponseForTest(sweepPay);
         String weixinpay = allWeiXinRquest.weixinpay(sweepPay);
         log.info("微信扫码支付url为:========================================" + weixinpay);
     }

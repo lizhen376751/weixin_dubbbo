@@ -114,6 +114,7 @@ public final class HttpUtils {
             //关闭输入流
             inputStream.close();
         }
+        log.info("返回的请求结果为:=================================" + result);
         //5. 释放连接。无论执行方法是否成功，都必须释放连接
         request.releaseConnection();
         return result;
@@ -171,6 +172,7 @@ public final class HttpUtils {
             for (String line = br.readLine(); line != null; line = br.readLine()) {
                 lines = lines + line;
             }
+            log.info("发送微信消息返回结果为:================================" + lines);
             return lines; // 返回请求结果
         } catch (MalformedURLException e) {
             e.printStackTrace();

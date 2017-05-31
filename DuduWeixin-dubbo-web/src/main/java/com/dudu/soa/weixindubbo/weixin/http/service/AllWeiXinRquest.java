@@ -71,6 +71,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @throws IOException        网络异常
      * @throws URISyntaxException 异常
      */
+
     @Override
     public AccessToken getTokengetTicket(String appid, String appSecret) {
         AccessToken tokengetTicket = AllWeiXinService.getTokengetTicket(appid, appSecret);
