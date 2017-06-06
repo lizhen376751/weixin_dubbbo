@@ -1,7 +1,8 @@
 package com.dudu.soa.weixindubbo.alipay.util;
 
-import com.vangdo.ddhg.service.alipay.config.AlipayConfig;
-import com.vangdo.ddhg.service.alipay.sign.MD5;
+
+import com.dudu.soa.weixindubbo.alipay.config.AlipayConfig;
+import com.dudu.soa.weixindubbo.alipay.sign.MD5;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

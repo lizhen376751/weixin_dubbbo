@@ -1,7 +1,7 @@
 package com.dudu.soa.weixindubbo.alipay.util.httpClient;
 
 
-import com.vangdo.ddhg.service.alipay.config.AlipayConfig;
+import com.dudu.soa.weixindubbo.alipay.config.AlipayConfig;
 import org.apache.commons.httpclient.Header;
 
 import java.io.UnsupportedEncodingException;
