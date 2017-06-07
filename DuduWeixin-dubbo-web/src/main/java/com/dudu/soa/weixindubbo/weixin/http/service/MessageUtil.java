@@ -161,4 +161,5 @@ public final class MessageUtil {
         log.info(xstream.toXML(textMessage));
         return xstream.toXML(textMessage);
     }
+
 }

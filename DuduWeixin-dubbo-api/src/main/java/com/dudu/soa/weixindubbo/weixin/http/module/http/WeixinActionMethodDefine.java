@@ -10,7 +10,7 @@ import java.util.Map;
  * 微信方法定义
  * Created by Administrator on 2017/4/13.
  */
-public class WeixinActionMethodDefine implements Serializable{
+public class WeixinActionMethodDefine implements Serializable {
 //    https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKE
     /**
      * 联盟code或者店铺code
@@ -63,7 +63,8 @@ public class WeixinActionMethodDefine implements Serializable{
 
 
     /**
-     *  WeixinActionMethodDefine(微信方法定义) 字符串形式
+     * WeixinActionMethodDefine(微信方法定义) 字符串形式
+     *
      * @return WeixinActionMethodDefine(微信方法定义)字符串
      */
     @Override
@@ -75,6 +76,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 联盟code或者店铺code
+     *
      * @return code 联盟code或者店铺code
      */
     public String getCode() {
@@ -83,6 +85,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 联盟code或者店铺code
+     *
      * @param code 联盟code或者店铺code
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -93,6 +96,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 HTTP方法(get或者post)
+     *
      * @return httpMethod HTTP方法(get或者post)
      */
     public HttpMethod getHttpMethod() {
@@ -101,6 +105,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 HTTP方法(get或者post)
+     *
      * @param httpMethod HTTP方法(get或者post)
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -111,6 +116,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 请求参数格式(xml或者json)
+     *
      * @return paramterContentType 请求参数格式(xml或者json)
      */
     public ParamterContentType getParamterContentType() {
@@ -119,6 +125,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 请求参数格式(xml或者json)
+     *
      * @param paramterContentType 请求参数格式(xml或者json)
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -129,6 +136,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 是否必须AccessToken(默认为true)
+     *
      * @return isNeedAccssToken 是否必须AccessToken(默认为true)
      */
     public boolean isIsNeedAccssToken() {
@@ -137,6 +145,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 是否必须AccessToken(默认为true)
+     *
      * @param isNeedAccssToken 是否必须AccessToken(默认为true)
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -147,6 +156,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 是否需要appid和seret
+     *
      * @return isNeedAppid 是否需要appid和seret
      */
     public boolean isIsNeedAppid() {
@@ -155,6 +165,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 是否需要appid和seret
+     *
      * @param isNeedAppid 是否需要appid和seret
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -165,6 +176,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 资源路径
+     *
      * @return uri 资源路径
      */
     public String getUri() {
@@ -173,6 +185,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 资源路径
+     *
      * @param uri 资源路径
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -183,6 +196,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 基础参数
+     *
      * @return weixinBaseParamter 基础参数
      */
     public WeixinBaseParamter getWeixinBaseParamter() {
@@ -191,6 +205,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 基础参数
+     *
      * @param weixinBaseParamter 基础参数
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -201,7 +216,8 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 新增设置 接口基础配置参数
-     * @param key 接口基础配置参数 元素 key
+     *
+     * @param key   接口基础配置参数 元素 key
      * @param value 接口基础配置参数 元素 value
      * @return WeixinActionMethodDefine(微信方法定义)
      */
@@ -212,6 +228,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 批量新增设置 接口基础配置参数
+     *
      * @param actionConfigParamter 接口基础配置参数 元素集合
      * @return WeixinActionMethodDefine(微信方法定义)
      */
@@ -222,6 +239,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 接口基础配置参数
+     *
      * @return actionConfigParamter 接口基础配置参数
      */
     public Map<String, String> getActionConfigParamter() {
@@ -230,6 +248,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 接口基础配置参数
+     *
      * @param actionConfigParamter 接口基础配置参数
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -240,6 +259,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 新增 接口所需业务参数
+     *
      * @param item 接口所需业务参数 元素
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -250,6 +270,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 批量新增 接口所需业务参数
+     *
      * @param requestBusinessParamters 接口所需业务参数 元素集合
      * @return WeixinActionMethodDefine(微信方法定义)
      */
@@ -260,6 +281,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 接口所需业务参数
+     *
      * @return requestBusinessParamters 接口所需业务参数
      */
     public List<String> getRequestBusinessParamters() {
@@ -268,6 +290,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 接口所需业务参数
+     *
      * @param requestBusinessParamters 接口所需业务参数
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -278,6 +301,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 默认异常处理器
+     *
      * @return exceptionHandler 默认异常处理器
      */
     public WeixinExceptionHandler getExceptionHandler() {
@@ -286,6 +310,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 默认异常处理器
+     *
      * @param exceptionHandler 默认异常处理器
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */
@@ -296,7 +321,8 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 新增设置 接口post的参数
-     * @param key 接口post的参数 元素 key
+     *
+     * @param key   接口post的参数 元素 key
      * @param value 接口post的参数 元素 value
      * @return WeixinActionMethodDefine(微信方法定义)
      */
@@ -307,6 +333,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 批量新增设置 接口post的参数
+     *
      * @param actionPostParamter 接口post的参数 元素集合
      * @return WeixinActionMethodDefine(微信方法定义)
      */
@@ -317,6 +344,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 获取 接口post的参数
+     *
      * @return actionPostParamter 接口post的参数
      */
     public Map<String, String> getActionPostParamter() {
@@ -325,6 +353,7 @@ public class WeixinActionMethodDefine implements Serializable{
 
     /**
      * 设置 接口post的参数
+     *
      * @param actionPostParamter 接口post的参数
      * @return 返回 WeixinActionMethodDefine(微信方法定义)
      */

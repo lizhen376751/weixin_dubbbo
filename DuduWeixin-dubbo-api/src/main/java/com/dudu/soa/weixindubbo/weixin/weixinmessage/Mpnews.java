@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by lizhen on 2017/5/15.
  */
 
-public class Mpnews implements Serializable{
+public class Mpnews implements Serializable {
     /**
      * 上传图材料之后返回的media_id
      */

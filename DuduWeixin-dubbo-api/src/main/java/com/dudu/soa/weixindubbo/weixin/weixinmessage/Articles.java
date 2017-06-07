@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by lizhen on 2017/5/15.
  */
 
-public class Articles implements Serializable{
+public class Articles implements Serializable {
     /**
      * 是
      * 图文消息缩略图的media_id，可以在基础支持-上传多媒体文件接口中获得
@@ -50,7 +50,8 @@ public class Articles implements Serializable{
 
 
     /**
-     *  Articles((群发)图文消息，一个图文消息支持1到8条图文) 字符串形式
+     * Articles((群发)图文消息，一个图文消息支持1到8条图文) 字符串形式
+     *
      * @return Articles((群发)图文消息，一个图文消息支持1到8条图文)字符串
      */
     @Override
@@ -61,6 +62,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 是      图文消息缩略图的media_id，可以在基础支持-上传多媒体文件接口中获得
+     *
      * @return thumbmediaid 是      图文消息缩略图的media_id，可以在基础支持-上传多媒体文件接口中获得
      */
     public String getThumbmediaid() {
@@ -69,6 +71,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 是      图文消息缩略图的media_id，可以在基础支持-上传多媒体文件接口中获得
+     *
      * @param thumbmediaid 是      图文消息缩略图的media_id，可以在基础支持-上传多媒体文件接口中获得
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */
@@ -79,6 +82,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 否      图文消息的作者
+     *
      * @return author 否      图文消息的作者
      */
     public String getAuthor() {
@@ -87,6 +91,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 否      图文消息的作者
+     *
      * @param author 否      图文消息的作者
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */
@@ -97,6 +102,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 是      图文消息的标题
+     *
      * @return title 是      图文消息的标题
      */
     public String getTitle() {
@@ -105,6 +111,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 是      图文消息的标题
+     *
      * @param title 是      图文消息的标题
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */
@@ -115,6 +122,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 否      在图文消息页面点击“阅读原文”后的页面
+     *
      * @return contentsourceurl 否      在图文消息页面点击“阅读原文”后的页面
      */
     public String getContentsourceurl() {
@@ -123,6 +131,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 否      在图文消息页面点击“阅读原文”后的页面
+     *
      * @param contentsourceurl 否      在图文消息页面点击“阅读原文”后的页面
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */
@@ -133,6 +142,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 图文消息页面的内容，支持HTML标签。具备微信支付权限的公众号，可以使用a标签，其他公众号不能使用
+     *
      * @return content 图文消息页面的内容，支持HTML标签。具备微信支付权限的公众号，可以使用a标签，其他公众号不能使用
      */
     public String getContent() {
@@ -141,6 +151,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 图文消息页面的内容，支持HTML标签。具备微信支付权限的公众号，可以使用a标签，其他公众号不能使用
+     *
      * @param content 图文消息页面的内容，支持HTML标签。具备微信支付权限的公众号，可以使用a标签，其他公众号不能使用
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */
@@ -151,6 +162,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 否      图文消息的描述
+     *
      * @return digest 否      图文消息的描述
      */
     public String getDigest() {
@@ -159,6 +171,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 否      图文消息的描述
+     *
      * @param digest 否      图文消息的描述
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */
@@ -169,6 +182,7 @@ public class Articles implements Serializable{
 
     /**
      * 获取 否      是否显示封面，1为显示，0为不显示
+     *
      * @return showcoverpic 否      是否显示封面，1为显示，0为不显示
      */
     public Integer getShowcoverpic() {
@@ -177,6 +191,7 @@ public class Articles implements Serializable{
 
     /**
      * 设置 否      是否显示封面，1为显示，0为不显示
+     *
      * @param showcoverpic 否      是否显示封面，1为显示，0为不显示
      * @return 返回 Articles((群发)图文消息，一个图文消息支持1到8条图文)
      */

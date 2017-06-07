@@ -21,7 +21,7 @@ public class AlipayRequestModule implements Serializable {
     /**
      * 付款类型
      */
-    private String payMentType="1";
+    private String payMentType = "1";
     /**
      * 唤醒url
      */
@@ -43,20 +43,21 @@ public class AlipayRequestModule implements Serializable {
      */
     private String totalFee;
 
-    private String body="";
+    private String body = "";
 
-    private String showUrl="";
+    private String showUrl = "";
 
-    private String antiPhishingKey="";
+    private String antiPhishingKey = "";
 
-    private String exterInvokeIp="";
+    private String exterInvokeIp = "";
     /**
      * 定义返回参数
      */
-    private String extraCommonParam="";
+    private String extraCommonParam = "";
 
     /**
-     *  AlipayRequestModule(Created by Shinelon on 201766.) 字符串形式
+     * AlipayRequestModule(Created by Shinelon on 201766.) 字符串形式
+     *
      * @return AlipayRequestModule(Created by Shinelon on 201766.)字符串
      */
     @Override
@@ -86,6 +87,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 邮件
+     *
      * @return sellerEmail 邮件
      */
     public String getSellerEmail() {
@@ -94,6 +96,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 邮件
+     *
      * @param sellerEmail 邮件
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -104,6 +107,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 编码
+     *
      * @return inputCharset 编码
      */
     public String getInputCharset() {
@@ -112,6 +116,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 编码
+     *
      * @param inputCharset 编码
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -122,6 +127,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 付款类型
+     *
      * @return payMentType 付款类型
      */
     public String getPayMentType() {
@@ -130,6 +136,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 付款类型
+     *
      * @param payMentType 付款类型
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -140,6 +147,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 唤醒url
+     *
      * @return notifyUrl 唤醒url
      */
     public String getNotifyUrl() {
@@ -148,6 +156,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 唤醒url
+     *
      * @param notifyUrl 唤醒url
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -158,6 +167,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 返回url
+     *
      * @return returnUrl 返回url
      */
     public String getReturnUrl() {
@@ -166,6 +176,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 返回url
+     *
      * @param returnUrl 返回url
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -176,6 +187,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 单号
+     *
      * @return outTradeNo 单号
      */
     public String getOutTradeNo() {
@@ -184,6 +196,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 单号
+     *
      * @param outTradeNo 单号
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -194,6 +207,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 项目名称
+     *
      * @return subject 项目名称
      */
     public String getSubject() {
@@ -202,6 +216,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 项目名称
+     *
      * @param subject 项目名称
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -212,6 +227,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 费用
+     *
      * @return totalFee 费用
      */
     public String getTotalFee() {
@@ -220,6 +236,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 费用
+     *
      * @param totalFee 费用
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */
@@ -266,6 +283,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 获取 定义返回参数
+     *
      * @return extraCommonParam 定义返回参数
      */
     public String getExtraCommonParam() {
@@ -274,6 +292,7 @@ public class AlipayRequestModule implements Serializable {
 
     /**
      * 设置 定义返回参数
+     *
      * @param extraCommonParam 定义返回参数
      * @return 返回 AlipayRequestModule(Created by Shinelon on 201766.)
      */

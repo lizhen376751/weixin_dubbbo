@@ -75,10 +75,11 @@ public interface ApiAllWeiXiRequest {
      */
     WeiXinUserInfo getWeiXinUserInfo(String code, String appid, String secret);
 
+
     /**
      * 接收微信端消息处理并做分发
-     *
-     * @param map 从request中获取获取参数并将其封装成的map
+     * @param map map类型
+     * @return 从request中获取获取参数并将其封装成的map
      */
     String receivemessage(Map<String, String> map);
 
@@ -107,7 +108,7 @@ public interface ApiAllWeiXiRequest {
      * 微信消息群发(仅限单条群发)
      *
      * @param paramSendWeChat 接口所需要的参数
-     * @return
+     * @return 字符串
      */
     String sendGroupMessage(ParamSendWeChat paramSendWeChat);
 

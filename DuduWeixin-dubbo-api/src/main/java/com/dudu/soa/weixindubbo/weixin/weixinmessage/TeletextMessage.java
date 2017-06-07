@@ -7,14 +7,15 @@ import java.io.Serializable;
  * Created by lizhen on 2017/5/15.
  */
 
-public class TeletextMessage implements Serializable{
+public class TeletextMessage implements Serializable {
     /**
      * 图文消息集合
      */
     private Articles[] articles;
 
     /**
-     *  TeletextMessage(Created by Administrator on 2017515.) 字符串形式
+     * TeletextMessage(Created by Administrator on 2017515.) 字符串形式
+     *
      * @return TeletextMessage(Created by Administrator on 2017515.)字符串
      */
     @Override
@@ -24,6 +25,7 @@ public class TeletextMessage implements Serializable{
 
     /**
      * 获取 图文消息集合
+     *
      * @return articles 图文消息集合
      */
     public Articles[] getArticles() {
@@ -32,6 +34,7 @@ public class TeletextMessage implements Serializable{
 
     /**
      * 设置 图文消息集合
+     *
      * @param articles 图文消息集合
      * @return 返回 TeletextMessage(Created by Administrator on 2017515.)
      */

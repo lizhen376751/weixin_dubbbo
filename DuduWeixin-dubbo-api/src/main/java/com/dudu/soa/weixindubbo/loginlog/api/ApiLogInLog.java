@@ -15,24 +15,29 @@ public interface ApiLogInLog {
      */
     LogInLog getLogInLog(LogInLog logInLog);
 
+
     /**
      * 修改登录记录
      *
-     * @param logInLog logInLog
+     * @param logInLog 登录记录
+     * @return logInLog logInLog
      */
     Integer updateLogInLog(LogInLog logInLog);
+
 
     /**
      * 新增登录记录
      *
-     * @param logInLog logInLog
+     * @param logInLog 新增登录记录
+     * @return 新增数据条数
      */
     Integer addLogInLog(LogInLog logInLog);
 
     /**
      * 删除短信记录
      *
-     * @param logInLog logInLog
+     * @param logInLog 新增登录记录
+     * @return 删除数据条数
      */
     Integer deleLogInLog(LogInLog logInLog);
 
