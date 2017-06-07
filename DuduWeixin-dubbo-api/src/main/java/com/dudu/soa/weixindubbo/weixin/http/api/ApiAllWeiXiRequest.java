@@ -8,9 +8,6 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,8 +44,6 @@ public interface ApiAllWeiXiRequest {
      * @param appid     appid
      * @param appSecret appSecret
      * @return 开发者的token
-     * @throws IOException        网络异常
-     * @throws URISyntaxException 异常
      */
     AccessToken getTokengetTicket(String appid, String appSecret);
 
