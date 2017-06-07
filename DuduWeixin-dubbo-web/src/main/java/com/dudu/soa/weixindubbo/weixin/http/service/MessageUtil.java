@@ -113,7 +113,7 @@ public final class MessageUtil {
     /**
      * 解析微信发来的请求（XML）
      *
-     * @param inputStream 从request中获取输入流
+     * @param document 从request中获取输入流
      * @return Map<String, String>解析后的xml
      */
     public static Map<String, String> parseXml(Document document) {

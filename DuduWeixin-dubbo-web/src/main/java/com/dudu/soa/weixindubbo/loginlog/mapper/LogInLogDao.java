@@ -17,6 +17,7 @@ public interface LogInLogDao {
      * 修改登录记录
      *
      * @param logInLog logInLog
+     * @return 一条短息记录
      */
     Integer updateLogInLog(LogInLog logInLog);
 
@@ -24,6 +25,7 @@ public interface LogInLogDao {
      * 新增登录记录
      *
      * @param logInLog logInLog
+     * @return 一条短息记录
      */
     Integer addLogInLog(LogInLog logInLog);
 
@@ -31,6 +33,7 @@ public interface LogInLogDao {
      * 删除短信记录
      *
      * @param logInLog logInLog
+     * @return 一条短息记录
      */
     Integer deleLogInLog(LogInLog logInLog);
 }

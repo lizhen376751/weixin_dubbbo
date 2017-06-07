@@ -1,6 +1,5 @@
 package com.dudu.soa.weixindubbo.weixin.http.util;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
@@ -11,14 +10,19 @@ import java.util.SortedMap;
 /**
  * Created by lzihen on 2017/5/19.
  */
-public class PayCommonUtil {
+public final class PayCommonUtil {
+    private PayCommonUtil() {
+    }
 
     /**
      * 是否签名正确,规则是:按参数名称a-z排序,遇到空值的参数不参加签名。
      *
-     * @return boolean
+     * @param characterEncoding 字符
+     * @param packageParams     字符
+     * @param aPIKEY            appid
+     * @return 是否正确
      */
-    public static boolean isTenpaySign(String characterEncoding, SortedMap<Object, Object> packageParams, String API_KEY) {
+    public static boolean isTenpaySign(String characterEncoding, SortedMap<Object, Object> packageParams, String aPIKEY) {
         StringBuffer sb = new StringBuffer();
         Set es = packageParams.entrySet();
         Iterator it = es.iterator();
@@ -31,7 +35,7 @@ public class PayCommonUtil {
             }
         }
 
-        sb.append("key=" + API_KEY);
+        sb.append("key=" + aPIKEY);
 
         //算出摘要
         String mysign = MD5Util.md5Encode(sb.toString(), characterEncoding).toLowerCase();
@@ -45,9 +49,9 @@ public class PayCommonUtil {
      * 通过微信的签名算法计算得出的签名值，详见签名生成算法
      *
      * @param characterEncoding 编码格式
-     * @param packageParams 参数列表
-     * @param key 商户平台的key
-     * @return
+     * @param packageParams     参数列表
+     * @param key               商户平台的key
+     * @return 字符串
      */
     public static String createSign(String characterEncoding, SortedMap<Object, Object> packageParams, String key) {
         StringBuffer sb = new StringBuffer();
@@ -66,12 +70,10 @@ public class PayCommonUtil {
         return sign;
     }
 
+
     /**
      * @param parameters 请求参数
-     * @return
-     * @author
-     * @date 2016-4-22
-     * @Description：将请求参数转换为xml格式的string
+     * @return 将请求参数转换为xml格式的string
      */
     public static String getRequestXml(SortedMap<Object, Object> parameters) {
         StringBuffer sb = new StringBuffer();
@@ -121,5 +123,6 @@ public class PayCommonUtil {
         String s = outFormat.format(now);
         return s;
     }
+
 
 }

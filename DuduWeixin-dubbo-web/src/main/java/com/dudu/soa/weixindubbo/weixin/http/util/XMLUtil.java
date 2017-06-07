@@ -17,16 +17,19 @@ import java.util.Map;
 /**
  * Created by lizhen on 2017/5/19.
  */
-public class XMLUtil {
+public final class XMLUtil {
+    private XMLUtil() {
+    }
+
     /**
      * 解析xml,返回第一级元素键值对。如果第一级元素有子节点，则此节点的值是子节点的xml数据。
      *
-     * @param strxml
-     * @return
-     * @throws JDOMException
-     * @throws IOException
+     * @param strxml xml
+     * @return map类型
+     * @throws JDOMException 异常
+     * @throws IOException   异常
      */
-    public static Map doXMLParse(String strxml) throws JDOMException, IOException, JDOMException {
+    public static Map doXMLParse(String strxml) throws JDOMException, IOException {
         strxml = strxml.replaceFirst("encoding=\".*\"", "encoding=\"UTF-8\"");
 
         if (null == strxml || "".equals(strxml)) {
@@ -64,7 +67,7 @@ public class XMLUtil {
     /**
      * 获取子结点的xml
      *
-     * @param children
+     * @param children 不知道
      * @return String
      */
     public static String getChildrenText(List children) {

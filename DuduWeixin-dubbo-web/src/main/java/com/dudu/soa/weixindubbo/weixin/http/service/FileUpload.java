@@ -52,7 +52,8 @@ public class FileUpload {
      * @throws IOException 网络异常
      */
     public String uploadImage(String accessToken, String filePath) throws IOException {
-        String url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=image".replace("ACCESS_TOKEN", accessToken); //ACCESS_TOKEN是获取到的access_token
+        //ACCESS_TOKEN是获取到的access_token
+        String url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=image".replace("ACCESS_TOKEN", accessToken);
         String result = null;
         //判断路径是否正确,以及是否是图片
         File file = new File(filePath);
@@ -141,7 +142,7 @@ public class FileUpload {
     /**
      * 上传图文素材
      *
-     * @param accessToken 微信的token
+     * @param accessToken     微信的token
      * @param teletextMessage 微信的消息
      * @return 上传的相关参数
      */
