@@ -7,6 +7,7 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.slf4j.Logger;
@@ -90,6 +91,12 @@ public final class MessageUtil {
                     } else {
                         cdata = true;
                     }
+                    if (!name.equals("xml")) {
+                        if (StringUtils.isNotBlank(name)) {
+                            name = name.substring(0, 1).toUpperCase()
+                                    + name.substring(1);
+                        }
+                    }
                     super.startNode(name, clazz);
                 }
 
@@ -157,6 +164,7 @@ public final class MessageUtil {
      * @return 文本消息的xml类型
      */
     public static String textMessageToXml(TextMessage textMessage) {
+
         xstream.alias("xml", textMessage.getClass());
         log.info(xstream.toXML(textMessage));
         return xstream.toXML(textMessage);

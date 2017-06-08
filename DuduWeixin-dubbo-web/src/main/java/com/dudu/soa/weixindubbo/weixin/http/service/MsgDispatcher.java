@@ -16,6 +16,7 @@ public final class MsgDispatcher {
      * 日志打印
      */
     private static Logger log = LoggerFactory.getLogger(MsgDispatcher.class);
+
     private MsgDispatcher() {
     }
 
@@ -48,11 +49,15 @@ public final class MsgDispatcher {
 
         }
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 推送地理位置
-            log.info("==============这是地理位置推送消息！");
-            if (map.get("Event").equals("subscribe")){
 
+            if (map.get("Event").equals("subscribe")) {
+                log.info("==============微信关注事件！");
+                txtmsg.setContent("使用步骤");
             }
-            txtmsg.setContent("使用步骤");
+            if (map.get("Event").equals("LOCATION")) {
+                log.info("==============地理推送事件！");
+                txtmsg.setContent("地理推送事件");
+            }
             return MessageUtil.textMessageToXml(txtmsg);
 
         }
