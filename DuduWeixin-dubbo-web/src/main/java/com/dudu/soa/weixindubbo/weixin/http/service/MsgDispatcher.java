@@ -75,8 +75,9 @@ public final class MsgDispatcher {
             if (map.get("Event").equals("LOCATION")) {
                 log.info("==============地理推送事件！");
                 txtmsg.setContent("地理推送事件");
+                return "地理位置获取";
             }
-            return MessageUtil.textMessageToXml(txtmsg);
+
 
         }
 
