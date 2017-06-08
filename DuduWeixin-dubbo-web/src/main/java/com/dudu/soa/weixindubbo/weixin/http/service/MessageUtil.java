@@ -86,6 +86,7 @@ public final class MessageUtil {
             return new PrettyPrintWriter(out) {
                 // 对所有xml节点的转换都增加CDATA标记
                 private boolean cdata = true;
+
                 //对部分字段不加标记
                 public void startNode(String name, Class clazz) {
                     //修改标记的开关
@@ -95,7 +96,9 @@ public final class MessageUtil {
                         cdata = true;
                     }
                     //将首字母改为大写
-                    if (!name.equals("xml") || !name.equals("item")) {
+                    if (name.equals("xml") || name.equals("item")) {
+                        log.info(null);
+                    } else {
                         if (StringUtils.isNotBlank(name)) {
                             name = name.substring(0, 1).toUpperCase()
                                     + name.substring(1);
