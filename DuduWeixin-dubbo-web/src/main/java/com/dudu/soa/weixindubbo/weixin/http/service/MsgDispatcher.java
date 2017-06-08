@@ -57,7 +57,7 @@ public final class MsgDispatcher {
             NewsMessage newmsg = new NewsMessage();
             newmsg.setToUserName(openid);
             newmsg.setFromUserName(mpid);
-            newmsg.setCreateTime(new Date().getTime());
+            newmsg.setCreateTime(new Date().getTime() / 1000);
             newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
             if (map.get("Event").equals("subscribe")) {
                 Article article = new Article();

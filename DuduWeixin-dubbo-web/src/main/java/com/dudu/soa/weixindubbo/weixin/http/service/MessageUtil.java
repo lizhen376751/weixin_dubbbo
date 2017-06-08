@@ -86,14 +86,16 @@ public final class MessageUtil {
             return new PrettyPrintWriter(out) {
                 // 对所有xml节点的转换都增加CDATA标记
                 private boolean cdata = true;
-
+                //对部分字段不加标记
                 public void startNode(String name, Class clazz) {
-                    if (name.equals("createTime")) {
+                    //修改标记的开关
+                    if (name.equals("createTime") || name.equals("articleCount")) {
                         cdata = false;
                     } else {
                         cdata = true;
                     }
-                    if (!name.equals("xml")) {
+                    //将首字母改为大写
+                    if (!name.equals("xml") || !name.equals("item")) {
                         if (StringUtils.isNotBlank(name)) {
                             name = name.substring(0, 1).toUpperCase()
                                     + name.substring(1);
@@ -173,9 +175,9 @@ public final class MessageUtil {
     }
 
     /**
-     * @Description: 图文消息对象转换成xml
-     * @param  newsMessage 多图文消息的实体类
+     * @param newsMessage 多图文消息的实体类
      * @return 字符串
+     * @Description: 图文消息对象转换成xml
      * @author lizhen
      * @date 2017年6月8日 下午4:14:09
      */
