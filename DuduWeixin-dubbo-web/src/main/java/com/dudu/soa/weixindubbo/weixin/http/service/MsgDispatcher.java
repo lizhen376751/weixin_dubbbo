@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 消息业务处理分发器
+ * 被动回复消息业务处理分发器
  * Created by lizhen on 2017/4/23.
  */
 public final class MsgDispatcher {
@@ -61,9 +61,9 @@ public final class MsgDispatcher {
             newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
             if (map.get("Event").equals("subscribe")) {
                 Article article = new Article();
-                article.setDescription("这是图文消息1"); //图文消息的描述
+                article.setDescription("点击图片查看详情"); //图文消息的描述
                 article.setPicUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg"); //图文消息图片地址
-                article.setTitle("微信使用步骤");  //图文消息标题
+                article.setTitle("联盟微信操作手册");  //图文消息标题
                 article.setUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg");  //图文url链接
                 List<Article> list = new ArrayList<Article>();
                 list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
