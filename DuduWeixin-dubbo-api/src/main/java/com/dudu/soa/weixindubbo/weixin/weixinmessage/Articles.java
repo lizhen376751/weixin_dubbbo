@@ -5,6 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 
 /**
+ * 群发消息的图文消息实体类
  * (群发)图文消息，一个图文消息支持1到8条图文
  * Created by lizhen on 2017/5/15.
  */

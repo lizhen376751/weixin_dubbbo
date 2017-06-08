@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.Article;
+import com.dudu.soa.weixindubbo.weixin.weixinmessage.NewsMessage;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.core.util.QuickWriter;
@@ -168,6 +170,19 @@ public final class MessageUtil {
         xstream.alias("xml", textMessage.getClass());
         log.info(xstream.toXML(textMessage));
         return xstream.toXML(textMessage);
+    }
+
+    /**
+     * @Description: 图文消息对象转换成xml
+     * @param  newsMessage 多图文消息的实体类
+     * @return 字符串
+     * @author lizhen
+     * @date 2017年6月8日 下午4:14:09
+     */
+    public static String newsMessageToXml(NewsMessage newsMessage) {
+        xstream.alias("xml", newsMessage.getClass());
+        xstream.alias("item", new Article().getClass());
+        return xstream.toXML(newsMessage);
     }
 
 }
