@@ -26,6 +26,7 @@ public final class MsgDispatcher {
      * @return 返回不同类型的xml消息
      */
     public static String processMessage(Map<String, String> map) {
+
         /**
          *用户openid
          */
@@ -48,7 +49,11 @@ public final class MsgDispatcher {
         }
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 推送地理位置
             log.info("==============这是地理位置推送消息！");
-            return "success";
+            if (map.get("Event").equals("subscribe")){
+
+            }
+            txtmsg.setContent("使用步骤");
+            return MessageUtil.textMessageToXml(txtmsg);
 
         }
 

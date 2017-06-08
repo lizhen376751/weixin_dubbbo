@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 
 
-/* *
+/**
  *绫诲悕锛欰lipayConfig
  *鍔熻兘锛氬熀纭�閰嶇疆绫�
  *璇︾粏锛氳缃笎鎴锋湁鍏充俊鎭強杩斿洖璺緞
