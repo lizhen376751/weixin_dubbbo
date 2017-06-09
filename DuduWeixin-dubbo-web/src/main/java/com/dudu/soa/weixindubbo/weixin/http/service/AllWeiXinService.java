@@ -113,9 +113,9 @@ public class AllWeiXinService {
      * @param appSecret appSecret
      * @return 成功或者失败
      */
-    public boolean createMenu(Menu menu, String appid, String appSecret) {
+    public String createMenu(Menu menu, String appid, String appSecret) {
         //需要token,(appid,sercert)
-        boolean flag = false;
+        String flag = "";
         AccessToken tokengetTicket = null;
         try {
             tokengetTicket = this.getTokengetTicket(appid, appSecret);
@@ -126,10 +126,10 @@ public class AllWeiXinService {
                 int errorCode = Integer.parseInt(pareJsonDate(jsonResult, "errcode"));
                 String errorMessage = pareJsonDate(jsonResult, "errmsg");
                 if (errorCode == 0) {
-                    flag = true;
+                    flag = "创建成功";
                 } else {
                     log.info("创建菜单成功:" + errorCode + "," + errorMessage);
-                    flag = false;
+                    flag = "创建菜单失败:" + errorCode + "," + errorMessage;
                 }
             }
 
@@ -147,10 +147,10 @@ public class AllWeiXinService {
      * @param template  微信的消息模板
      * @return template
      */
-    public boolean sendTemplateMsg(String appid, String appSecret, Template template) {
+    public String sendTemplateMsg(String appid, String appSecret, Template template) {
         //获取token
         AccessToken tokengetTicket = this.getTokengetTicket(appid, appSecret);
-        boolean flag = false;
+        String flag = "";
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
         requestUrl = requestUrl.replace("ACCESS_TOKEN", tokengetTicket.getToken());
 
@@ -161,14 +161,15 @@ public class AllWeiXinService {
                 int errorCode = Integer.parseInt(pareJsonDate(jsonResult, "errcode"));
                 String errorMessage = pareJsonDate(jsonResult, "errmsg");
                 if (errorCode == 0) {
-                    flag = true;
+                    flag = "模板消息发送成功";
                 } else {
                     log.info("模板消息发送失败:" + errorCode + "," + errorMessage);
-                    flag = false;
+                    flag = "模板消息发送失败:" + errorCode + "," + errorMessage;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+            flag = e.getMessage();
         }
         return flag;
 
@@ -342,6 +343,7 @@ public class AllWeiXinService {
             jsonResult = HttpUtils.sendPostJson(url, jsonteletextMessage);
         } catch (IOException e) {
             e.printStackTrace();
+            jsonResult = e.getMessage();
         }
         log.info("微信消息群发返回结果======================================" + jsonResult);
         return jsonResult;

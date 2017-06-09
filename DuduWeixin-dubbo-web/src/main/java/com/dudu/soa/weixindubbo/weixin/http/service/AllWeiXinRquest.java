@@ -55,8 +55,8 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param appSecret appSecret
      */
     @Override
-    public boolean createMenu(Menu menu, String appid, String appSecret) {
-        boolean menu1 = weChatTask.createMenu(menu, appid, appSecret);
+    public String createMenu(Menu menu, String appid, String appSecret) {
+        String menu1 = weChatTask.createMenu(menu, appid, appSecret);
         return menu1;
     }
 
@@ -113,14 +113,16 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Override
     public String receivemessage(Map<String, String> map) {
+        String back = "";
         try {
             String msgtype = map.get("MsgType");
             String message = MsgDispatcher.processMessage(map); //进入消息处理
             return message;
         } catch (Exception e) {
             e.printStackTrace();
+            back = e.getMessage();
         }
-        return null;
+        return back;
     }
 
     /**
@@ -132,8 +134,8 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @return template
      */
     @Override
-    public boolean sendTemplateMsg(String appid, String appSecret, Template template) {
-        boolean b = weChatTask.sendTemplateMsg(appid, appSecret, template);
+    public String sendTemplateMsg(String appid, String appSecret, Template template) {
+        String b = weChatTask.sendTemplateMsg(appid, appSecret, template);
         return b;
     }
 

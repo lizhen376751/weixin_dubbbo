@@ -23,7 +23,7 @@ public final class SignUtil {
      * @param token     开发者的token
      * @return true代表匹配, false代表不匹配
      */
-    public static boolean checkSignature(String signature, String timestamp, String nonce, String token) {
+    public static Boolean checkSignature(String signature, String timestamp, String nonce, String token) {
         //将token、timestamp、nonce三个参数进行字典序排序
         String[] arr = new String[]{token, timestamp, nonce};
         Arrays.sort(arr);

@@ -36,7 +36,7 @@ public interface ApiAllWeiXiRequest {
      * @param appSecret appSecret
      * @return true或者false
      */
-    boolean createMenu(Menu menu, String appid, String appSecret);
+    String createMenu(Menu menu, String appid, String appSecret);
 
     /**
      * 获取开发者的token
@@ -86,7 +86,7 @@ public interface ApiAllWeiXiRequest {
      * @param template  微信的消息模板
      * @return template
      */
-    boolean sendTemplateMsg(String appid, String appSecret, Template template);
+    String sendTemplateMsg(String appid, String appSecret, Template template);
 
     /**
      * 前端jssdk页面配置需要用到的配置参数
