@@ -133,7 +133,7 @@ public class AllWeiXinRquestTest extends TestBase {
 
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        boolean menu1 = allWeiXinRquest.createMenu(menu, "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        String menu1 = allWeiXinRquest.createMenu(menu, "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
         log.info("个人创建菜单======================================" + menu1);
     }
 
@@ -225,7 +225,7 @@ public class AllWeiXinRquestTest extends TestBase {
         mainBtn3.setSubbutton(new CommonButton[]{btn31, btn32, btn34});
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        boolean menu1 = allWeiXinRquest.createMenu(menu, "wx67bc0c5ab36233d8", "8b746d68471784a770a76c79b17e242e");
+        String menu1 = allWeiXinRquest.createMenu(menu, "wx67bc0c5ab36233d8", "8b746d68471784a770a76c79b17e242e");
         log.info("个人创建菜单======================================" + menu1);
     }
     //嘟嘟车网测试平台
@@ -316,7 +316,7 @@ public class AllWeiXinRquestTest extends TestBase {
 
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        boolean menu1 = allWeiXinRquest.createMenu(menu, "wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229");
+        String menu1 = allWeiXinRquest.createMenu(menu, "wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229");
         log.info("嘟嘟车网测试平台创建菜单===========================" + menu1);
     }
 
@@ -428,7 +428,7 @@ public class AllWeiXinRquestTest extends TestBase {
 
         Menu menu = new Menu();
         menu.setButton(new Button[]{mainBtn1, mainBtn2, mainBtn3});
-        boolean menu1 = allWeiXinRquest.createMenu(menu, "wx91ee3b29615c49c7", "2e2a94909cf9fca29cccc111bf7896f5");
+        String menu1 = allWeiXinRquest.createMenu(menu, "wx91ee3b29615c49c7", "2e2a94909cf9fca29cccc111bf7896f5");
         log.info("易璐邦创建菜单==========================================" + menu1);
     }
 
@@ -481,7 +481,7 @@ public class AllWeiXinRquestTest extends TestBase {
         paras.add(new TemplateData().setName("keyword5").setColor("#0044BB").setValue("火烧牛干巴"));
         paras.add(new TemplateData().setName("remark").setColor("#AAAAAA").setValue("感谢你对我们商城的支持!!!!"));
         template.setTemplateParamList(paras);
-        boolean b = allWeiXinRquest.sendTemplateMsg("wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229", template);
+        String b = allWeiXinRquest.sendTemplateMsg("wxf0af72edbe855d28", "fa12f20abeabc7c8ca3ebe777ceb2229", template);
         log.info("模板消息发送=============================" + b);
     }
 

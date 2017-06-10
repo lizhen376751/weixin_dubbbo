@@ -8,7 +8,7 @@ import java.util.List;
  * Created by lizhen on 2017/6/8.
  */
 
-public class NewsMessage extends BaseMessage implements Serializable{
+public class NewsMessage extends BaseMessage implements Serializable {
     /**
      * 图文消息个数，限制为10条以内
      */
