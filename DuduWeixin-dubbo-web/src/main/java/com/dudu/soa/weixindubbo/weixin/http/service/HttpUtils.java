@@ -5,7 +5,6 @@ import com.dudu.soa.weixindubbo.weixin.http.module.http.ParamterContentType;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -127,7 +126,6 @@ public final class HttpUtils {
      * @param urls   urls
      * @param params params
      * @return String
-     * @throws ClientProtocolException ClientProtocolException
      * @throws IOException             IOException
      * @Description: http post请求json数据(入参和接受都是json)
      */

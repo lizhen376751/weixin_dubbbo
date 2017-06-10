@@ -10,8 +10,6 @@ import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -67,8 +65,6 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      * @param appid     appid
      * @param appSecret appSecret
      * @return 开发者的token
-     * @throws IOException        网络异常
-     * @throws URISyntaxException 异常
      */
 
     @Override
