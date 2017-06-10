@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.alipay.util.httpClient;
+package com.dudu.soa.weixindubbo.alipay.util.httpclient;
 
 import org.apache.commons.httpclient.NameValuePair;
 
@@ -13,12 +13,19 @@ import org.apache.commons.httpclient.NameValuePair;
  *璇ヤ唬鐮佷粎渚涘涔犲拰鐮旂┒鏀粯瀹濇帴鍙ｄ娇鐢紝鍙槸鎻愪緵涓�涓弬鑰冦��
  */
 
+/**
+ * The type Http request.
+ */
 public class HttpRequest {
 
-    /** HTTP GET method */
+    /**
+     * HTTP GET method
+     */
     public static final String METHOD_GET        = "GET";
 
-    /** HTTP POST method */
+    /**
+     * HTTP POST method
+     */
     public static final String METHOD_POST       = "POST";
 
     /**
@@ -30,9 +37,13 @@ public class HttpRequest {
      * 榛樿鐨勮姹傛柟寮�
      */
     private String             method            = METHOD_POST;
-
+    /**
+     *timeout
+     */
     private int                timeout           = 0;
-
+    /**
+     * connectionTimeout
+     */
     private int                connectionTimeout = 0;
 
     /**
@@ -60,12 +71,19 @@ public class HttpRequest {
      */
     private HttpResultType     resultType        = HttpResultType.BYTES;
 
+    /**
+     * Instantiates a new Http request.
+     *
+     * @param resultType the result type
+     */
     public HttpRequest(HttpResultType resultType) {
         super();
         this.resultType = resultType;
     }
 
     /**
+     * Gets client ip.
+     *
      * @return Returns the clientIp.
      */
     public String getClientIp() {
@@ -73,61 +91,125 @@ public class HttpRequest {
     }
 
     /**
+     * Sets client ip.
+     *
      * @param clientIp The clientIp to set.
      */
     public void setClientIp(String clientIp) {
         this.clientIp = clientIp;
     }
 
+    /**
+     * Get parameters name value pair [ ].
+     *
+     * @return the name value pair [ ]
+     */
     public NameValuePair[] getParameters() {
         return parameters;
     }
 
+    /**
+     * Sets parameters.
+     *
+     * @param parameters the parameters
+     */
     public void setParameters(NameValuePair[] parameters) {
         this.parameters = parameters;
     }
 
+    /**
+     * Gets query string.
+     *
+     * @return the query string
+     */
     public String getQueryString() {
         return queryString;
     }
 
+    /**
+     * Sets query string.
+     *
+     * @param queryString the query string
+     */
     public void setQueryString(String queryString) {
         this.queryString = queryString;
     }
 
+    /**
+     * Gets url.
+     *
+     * @return the url
+     */
     public String getUrl() {
         return url;
     }
 
+    /**
+     * Sets url.
+     *
+     * @param url the url
+     */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * Gets method.
+     *
+     * @return the method
+     */
     public String getMethod() {
         return method;
     }
 
+    /**
+     * Sets method.
+     *
+     * @param method the method
+     */
     public void setMethod(String method) {
         this.method = method;
     }
 
+    /**
+     * Gets connection timeout.
+     *
+     * @return the connection timeout
+     */
     public int getConnectionTimeout() {
         return connectionTimeout;
     }
 
+    /**
+     * Sets connection timeout.
+     *
+     * @param connectionTimeout the connection timeout
+     */
     public void setConnectionTimeout(int connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
     }
 
+    /**
+     * Gets timeout.
+     *
+     * @return the timeout
+     */
     public int getTimeout() {
         return timeout;
     }
 
+    /**
+     * Sets timeout.
+     *
+     * @param timeout the timeout
+     */
     public void setTimeout(int timeout) {
         this.timeout = timeout;
     }
 
     /**
+     * Gets charset.
+     *
      * @return Returns the charset.
      */
     public String getCharset() {
@@ -135,16 +217,28 @@ public class HttpRequest {
     }
 
     /**
+     * Sets charset.
+     *
      * @param charset The charset to set.
      */
     public void setCharset(String charset) {
         this.charset = charset;
     }
 
+    /**
+     * Gets result type.
+     *
+     * @return the result type
+     */
     public HttpResultType getResultType() {
         return resultType;
     }
 
+    /**
+     * Sets result type.
+     *
+     * @param resultType the result type
+     */
     public void setResultType(HttpResultType resultType) {
         this.resultType = resultType;
     }

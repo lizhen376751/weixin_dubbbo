@@ -7,7 +7,6 @@ import java.util.List;
  * 模板消息
  * Created by lizhen on 2017/4/24.
  */
-
 public class Template implements Serializable {
     /**
      * 消息接收方
@@ -34,7 +33,7 @@ public class Template implements Serializable {
     /**
      * 实体类转换成json数据,并发送到微信服务器上
      *
-     * @return 字符串转换为json数据
+     * @return 字符串转换为json数据 string
      */
     public String toJSON() {
         StringBuffer buffer = new StringBuffer();

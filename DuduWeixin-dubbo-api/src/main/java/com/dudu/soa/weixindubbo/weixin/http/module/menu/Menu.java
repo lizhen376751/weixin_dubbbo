@@ -13,14 +13,16 @@ public class Menu implements Serializable {
     private Button[] button;
 
     /**
+     * Get button button [ ].
      *
-     * @return 按钮
+     * @return 按钮 button [ ]
      */
     public Button[] getButton() {
         return button;
     }
 
     /**
+     * Sets button.
      *
      * @param button 按钮
      */

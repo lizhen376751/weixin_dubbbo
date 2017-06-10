@@ -14,13 +14,17 @@ public class ComplexButton extends Button {
     private Button[] subbutton;
 
     /**
-     * @return subbutton
+     * Get subbutton button [ ].
+     *
+     * @return subbutton button [ ]
      */
     public Button[] getSubbutton() {
         return subbutton;
     }
 
     /**
+     * Sets subbutton.
+     *
      * @param subbutton subbutton
      */
     public void setSubbutton(Button[] subbutton) {

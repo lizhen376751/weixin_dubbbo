@@ -20,13 +20,17 @@ public class CommonButton extends Button {
     private String url;
 
     /**
-     * @return url
+     * Gets url.
+     *
+     * @return url url
      */
     public String getUrl() {
         return url;
     }
 
     /**
+     * Sets url.
+     *
      * @param url url
      */
     public void setUrl(String url) {
@@ -34,13 +38,17 @@ public class CommonButton extends Button {
     }
 
     /**
-     * @return type
+     * Gets type.
+     *
+     * @return type type
      */
     public String getType() {
         return type;
     }
 
     /**
+     * Sets type.
+     *
      * @param type type
      */
     public void setType(String type) {
@@ -48,13 +56,17 @@ public class CommonButton extends Button {
     }
 
     /**
-     * @return key
+     * Gets key.
+     *
+     * @return key key
      */
     public String getKey() {
         return key;
     }
 
     /**
+     * Sets key.
+     *
      * @param key key
      */
     public void setKey(String key) {

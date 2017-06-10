@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 群发消息的入参
  * Created by lizhen on 2017/5/15.
  */
-
 public class ParamSendWeChat implements Serializable {
     /**
      * 微信的appid

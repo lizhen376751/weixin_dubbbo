@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 微信公众号的相关配置数据
  * Created by lizhen on 2017/4/20.
  */
-
 public class WeiXinConfig implements Serializable {
     /**
      * 主键id
@@ -36,6 +35,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 获取 主键id
+     *
      * @return id 主键id
      */
     public int getId() {
@@ -44,6 +44,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 设置 主键id
+     *
      * @param id 主键id
      * @return 返回 WeiXinConfig(微信公众号的相关配置数据)
      */
@@ -54,6 +55,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 获取 联盟code或者店铺code
+     *
      * @return code 联盟code或者店铺code
      */
     public String getCode() {
@@ -62,6 +64,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 设置 联盟code或者店铺code
+     *
      * @param code 联盟code或者店铺code
      * @return 返回 WeiXinConfig(微信公众号的相关配置数据)
      */
@@ -72,6 +75,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 获取 微信公众号的appid
+     *
      * @return appid 微信公众号的appid
      */
     public String getAppid() {
@@ -80,6 +84,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 设置 微信公众号的appid
+     *
      * @param appid 微信公众号的appid
      * @return 返回 WeiXinConfig(微信公众号的相关配置数据)
      */
@@ -90,6 +95,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 获取 微信公众号的appserect
+     *
      * @return appserect 微信公众号的appserect
      */
     public String getAppserect() {
@@ -98,6 +104,7 @@ public class WeiXinConfig implements Serializable {
 
     /**
      * 设置 微信公众号的appserect
+     *
      * @param appserect 微信公众号的appserect
      * @return 返回 WeiXinConfig(微信公众号的相关配置数据)
      */

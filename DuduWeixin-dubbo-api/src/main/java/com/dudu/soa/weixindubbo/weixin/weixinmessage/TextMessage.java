@@ -4,10 +4,10 @@ import javax.xml.bind.annotation.XmlElement;
 import java.io.Serializable;
 
 /**
- * @Description: 文本消息消息体
- * Created by lizhen on 2017/4/23.
+ * The type Text message.
+ *
+ * @Description: 文本消息消息体  Created by lizhen on 2017/4/23.
  */
-
 public class TextMessage extends BaseMessage implements Serializable {
 
     /**

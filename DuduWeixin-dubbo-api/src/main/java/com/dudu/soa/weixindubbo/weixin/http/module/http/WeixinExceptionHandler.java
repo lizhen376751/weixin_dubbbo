@@ -6,6 +6,7 @@ package com.dudu.soa.weixindubbo.weixin.http.module.http;
 public interface WeixinExceptionHandler {
     /**
      * 异常处理
+     *
      * @param e 异常栈
      */
     void handle(Exception e);

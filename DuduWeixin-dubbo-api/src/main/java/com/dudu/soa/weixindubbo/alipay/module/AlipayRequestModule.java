@@ -6,9 +6,13 @@ import java.io.Serializable;
  * Created by Shinelon on 2017/6/6.
  */
 public class AlipayRequestModule implements Serializable {
-
+    /**
+     * service
+     */
     private String service = "create_direct_pay_by_user";
-
+    /**
+     * partner
+     */
     private String partner = "";
     /**
      * 邮件
@@ -42,13 +46,21 @@ public class AlipayRequestModule implements Serializable {
      * 费用
      */
     private String totalFee;
-
+    /**
+     *body
+     */
     private String body = "";
-
+    /**
+     * showUrl
+      */
     private String showUrl = "";
-
+    /**
+     *antiPhishingKey
+     */
     private String antiPhishingKey = "";
-
+    /**
+     *exterInvokeIp
+     */
     private String exterInvokeIp = "";
     /**
      * 定义返回参数
@@ -67,19 +79,41 @@ public class AlipayRequestModule implements Serializable {
                 + ",body:" + body + ",showUrl:" + showUrl + ",antiPhishingKey:" + antiPhishingKey + ",exterInvokeIp:" + exterInvokeIp + ",extraCommonParam:" + extraCommonParam;
     }
 
+    /**
+     * Gets service.
+     *
+     * @return the service
+     */
     public String getService() {
         return this.service;
     }
 
+    /**
+     * Sets service.
+     *
+     * @param service the service
+     * @return the service
+     */
     public AlipayRequestModule setService(String service) {
         this.service = service;
         return this;
     }
 
+    /**
+     * Gets partner.
+     *
+     * @return the partner
+     */
     public String getPartner() {
         return this.partner;
     }
 
+    /**
+     * Sets partner.
+     *
+     * @param partner the partner
+     * @return the partner
+     */
     public AlipayRequestModule setPartner(String partner) {
         this.partner = partner;
         return this;
@@ -245,37 +279,81 @@ public class AlipayRequestModule implements Serializable {
         return this;
     }
 
+    /**
+     * Gets body.
+     *
+     * @return the body
+     */
     public String getBody() {
         return this.body;
     }
 
+    /**
+     * Sets body.
+     *
+     * @param body the body
+     * @return the body
+     */
     public AlipayRequestModule setBody(String body) {
         this.body = body;
         return this;
     }
 
+    /**
+     * Gets show url.
+     *
+     * @return the show url
+     */
     public String getShowUrl() {
         return this.showUrl;
     }
 
+    /**
+     * Sets show url.
+     *
+     * @param showUrl the show url
+     * @return the show url
+     */
     public AlipayRequestModule setShowUrl(String showUrl) {
         this.showUrl = showUrl;
         return this;
     }
 
+    /**
+     * Gets anti phishing key.
+     *
+     * @return the anti phishing key
+     */
     public String getAntiPhishingKey() {
         return this.antiPhishingKey;
     }
 
+    /**
+     * Sets anti phishing key.
+     *
+     * @param antiPhishingKey the anti phishing key
+     * @return the anti phishing key
+     */
     public AlipayRequestModule setAntiPhishingKey(String antiPhishingKey) {
         this.antiPhishingKey = antiPhishingKey;
         return this;
     }
 
+    /**
+     * Gets exter invoke ip.
+     *
+     * @return the exter invoke ip
+     */
     public String getExterInvokeIp() {
         return this.exterInvokeIp;
     }
 
+    /**
+     * Sets exter invoke ip.
+     *
+     * @param exterInvokeIp the exter invoke ip
+     * @return the exter invoke ip
+     */
     public AlipayRequestModule setExterInvokeIp(String exterInvokeIp) {
         this.exterInvokeIp = exterInvokeIp;
         return this;

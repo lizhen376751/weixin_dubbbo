@@ -6,7 +6,6 @@ import java.util.Date;
 /**
  * Created by Administrator on 2017/3/29.
  */
-
 public class SmsSendLog implements Serializable {
     /**
      * 主键id
@@ -38,13 +37,17 @@ public class SmsSendLog implements Serializable {
     private String lmcode;
 
     /**
-     * @return id
+     * Gets id.
+     *
+     * @return id id
      */
     public int getId() {
         return id;
     }
 
     /**
+     * Sets id.
+     *
      * @param id id
      */
     public void setId(int id) {
@@ -52,6 +55,8 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
+     * Gets service type.
+     *
      * @return serviceType serviceType
      */
     public String getServiceType() {
@@ -59,6 +64,8 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
+     * Sets service type.
+     *
      * @param serviceType serviceType
      */
     public void setServiceType(String serviceType) {
@@ -66,13 +73,17 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
-     * @return mobilePhone
+     * Gets mobile phone.
+     *
+     * @return mobilePhone mobile phone
      */
     public String getMobilePhone() {
         return mobilePhone;
     }
 
     /**
+     * Sets mobile phone.
+     *
      * @param mobilePhone mobilePhone
      */
     public void setMobilePhone(String mobilePhone) {
@@ -80,7 +91,9 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
-     * @return sendTime
+     * Gets send time.
+     *
+     * @return sendTime send time
      */
     public Date getSendTime() {
         return sendTime;
@@ -96,13 +109,17 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
-     * @return identifyingCode
+     * Gets identifying code.
+     *
+     * @return identifyingCode identifying code
      */
     public String getIdentifyingCode() {
         return identifyingCode;
     }
 
     /**
+     * Sets identifying code.
+     *
      * @param identifyingCode identifyingCode
      */
     public void setIdentifyingCode(String identifyingCode) {
@@ -110,13 +127,17 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
-     * @return plateNumber
+     * Gets plate number.
+     *
+     * @return plateNumber plate number
      */
     public String getPlateNumber() {
         return plateNumber;
     }
 
     /**
+     * Sets plate number.
+     *
      * @param plateNumber plateNumber
      */
     public void setPlateNumber(String plateNumber) {
@@ -124,13 +145,17 @@ public class SmsSendLog implements Serializable {
     }
 
     /**
-     * @return lmcode
+     * Gets lmcode.
+     *
+     * @return lmcode lmcode
      */
     public String getLmcode() {
         return lmcode;
     }
 
     /**
+     * Sets lmcode.
+     *
      * @param lmcode lmcode
      */
     public void setLmcode(String lmcode) {

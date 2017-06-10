@@ -116,13 +116,17 @@ public class ShopInfo implements Serializable {
     private String url;
 
     /**
-     * @return id
+     * Gets id.
+     *
+     * @return id id
      */
     public String getId() {
         return id;
     }
 
     /**
+     * Sets id.
+     *
      * @param id id
      */
     public void setId(String id) {
@@ -130,13 +134,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return shopName
+     * Gets shop name.
+     *
+     * @return shopName shop name
      */
     public String getShopName() {
         return shopName;
     }
 
     /**
+     * Sets shop name.
+     *
      * @param shopName shopName
      */
     public void setShopName(String shopName) {
@@ -144,13 +152,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return lat
+     * Gets lat.
+     *
+     * @return lat lat
      */
     public String getLat() {
         return lat;
     }
 
     /**
+     * Sets lat.
+     *
      * @param lat lat
      */
     public void setLat(String lat) {
@@ -158,13 +170,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return lon
+     * Gets lon.
+     *
+     * @return lon lon
      */
     public String getLon() {
         return lon;
     }
 
     /**
+     * Sets lon.
+     *
      * @param lon lon
      */
     public void setLon(String lon) {
@@ -172,13 +188,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return state
+     * Gets state.
+     *
+     * @return state state
      */
     public String getState() {
         return state;
     }
 
     /**
+     * Sets state.
+     *
      * @param state state
      */
     public void setState(String state) {
@@ -186,13 +206,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return address
+     * Gets address.
+     *
+     * @return address address
      */
     public String getAddress() {
         return address;
     }
 
     /**
+     * Sets address.
+     *
      * @param address address
      */
     public void setAddress(String address) {
@@ -200,13 +224,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return city
+     * Gets city.
+     *
+     * @return city city
      */
     public String getCity() {
         return city;
     }
 
     /**
+     * Sets city.
+     *
      * @param city city
      */
     public void setCity(String city) {
@@ -214,13 +242,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return tel
+     * Gets tel.
+     *
+     * @return tel tel
      */
     public String getTel() {
         return tel;
     }
 
     /**
+     * Sets tel.
+     *
      * @param tel tel
      */
     public void setTel(String tel) {
@@ -228,13 +260,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return mobile
+     * Gets mobile.
+     *
+     * @return mobile mobile
      */
     public String getMobile() {
         return mobile;
     }
 
     /**
+     * Sets mobile.
+     *
      * @param mobile mobile
      */
     public void setMobile(String mobile) {
@@ -242,13 +278,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return serviceContent
+     * Gets service content.
+     *
+     * @return serviceContent service content
      */
     public String getServiceContent() {
         return serviceContent;
     }
 
     /**
+     * Sets service content.
+     *
      * @param serviceContent serviceContent
      */
     public void setServiceContent(String serviceContent) {
@@ -256,13 +296,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return hardware
+     * Gets hardware.
+     *
+     * @return hardware hardware
      */
     public Float getHardware() {
         return hardware;
     }
 
     /**
+     * Sets hardware.
+     *
      * @param hardware hardware
      */
     public void setHardware(Float hardware) {
@@ -270,13 +314,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return environment
+     * Gets environment.
+     *
+     * @return environment environment
      */
     public Float getEnvironment() {
         return environment;
     }
 
     /**
+     * Sets environment.
+     *
      * @param environment environment
      */
     public void setEnvironment(Float environment) {
@@ -284,13 +332,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return artificer
+     * Gets artificer.
+     *
+     * @return artificer artificer
      */
     public Float getArtificer() {
         return artificer;
     }
 
     /**
+     * Sets artificer.
+     *
      * @param artificer artificer
      */
     public void setArtificer(Float artificer) {
@@ -298,13 +350,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return service
+     * Gets service.
+     *
+     * @return service service
      */
     public Float getService() {
         return service;
     }
 
     /**
+     * Sets service.
+     *
      * @param service service
      */
     public void setService(Float service) {
@@ -312,13 +368,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return introduction
+     * Gets introduction.
+     *
+     * @return introduction introduction
      */
     public String getIntroduction() {
         return introduction;
     }
 
     /**
+     * Sets introduction.
+     *
      * @param introduction introduction
      */
     public void setIntroduction(String introduction) {
@@ -326,13 +386,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return imgListView
+     * Gets img list view.
+     *
+     * @return imgListView img list view
      */
     public String getImgListView() {
         return imgListView;
     }
 
     /**
+     * Sets img list view.
+     *
      * @param imgListView imgListView
      */
     public void setImgListView(String imgListView) {
@@ -340,13 +404,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return imgBig
+     * Gets img big.
+     *
+     * @return imgBig img big
      */
     public String getImgBig() {
         return imgBig;
     }
 
     /**
+     * Sets img big.
+     *
      * @param imgBig imgBig
      */
     public void setImgBig(String imgBig) {
@@ -354,13 +422,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return imgIntroduct
+     * Gets img introduct.
+     *
+     * @return imgIntroduct img introduct
      */
     public String getImgIntroduct() {
         return imgIntroduct;
     }
 
     /**
+     * Sets img introduct.
+     *
      * @param imgIntroduct imgIntroduct
      */
     public void setImgIntroduct(String imgIntroduct) {
@@ -368,13 +440,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return shopStrength
+     * Gets shop strength.
+     *
+     * @return shopStrength shop strength
      */
     public String getShopStrength() {
         return shopStrength;
     }
 
     /**
+     * Sets shop strength.
+     *
      * @param shopStrength shopStrength
      */
     public void setShopStrength(String shopStrength) {
@@ -382,13 +458,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return renqi
+     * Gets renqi.
+     *
+     * @return renqi renqi
      */
     public int getRenqi() {
         return renqi;
     }
 
     /**
+     * Sets renqi.
+     *
      * @param renqi renqi
      */
     public void setRenqi(int renqi) {
@@ -396,13 +476,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return pingjia
+     * Gets pingjia.
+     *
+     * @return pingjia pingjia
      */
     public int getPingjia() {
         return pingjia;
     }
 
     /**
+     * Sets pingjia.
+     *
      * @param pingjia pingjia
      */
     public void setPingjia(int pingjia) {
@@ -410,13 +494,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return wXtoken
+     * Gets xtoken.
+     *
+     * @return wXtoken xtoken
      */
     public String getwXtoken() {
         return wXtoken;
     }
 
     /**
+     * Sets xtoken.
+     *
      * @param wXtoken wXtoken
      */
     public void setwXtoken(String wXtoken) {
@@ -424,13 +512,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return wXAppId
+     * Gets x app id.
+     *
+     * @return wXAppId x app id
      */
     public String getwXAppId() {
         return wXAppId;
     }
 
     /**
+     * Sets x app id.
+     *
      * @param wXAppId wXAppId
      */
     public void setwXAppId(String wXAppId) {
@@ -438,13 +530,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return wXAppSecret
+     * Gets x app secret.
+     *
+     * @return wXAppSecret x app secret
      */
     public String getwXAppSecret() {
         return wXAppSecret;
     }
 
     /**
+     * Sets x app secret.
+     *
      * @param wXAppSecret wXAppSecret
      */
     public void setwXAppSecret(String wXAppSecret) {
@@ -452,13 +548,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return welcomeImg
+     * Gets welcome img.
+     *
+     * @return welcomeImg welcome img
      */
     public String getWelcomeImg() {
         return welcomeImg;
     }
 
     /**
+     * Sets welcome img.
+     *
      * @param welcomeImg welcomeImg
      */
     public void setWelcomeImg(String welcomeImg) {
@@ -466,13 +566,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return welcomeTxt
+     * Gets welcome txt.
+     *
+     * @return welcomeTxt welcome txt
      */
     public String getWelcomeTxt() {
         return welcomeTxt;
     }
 
     /**
+     * Sets welcome txt.
+     *
      * @param welcomeTxt welcomeTxt
      */
     public void setWelcomeTxt(String welcomeTxt) {
@@ -480,13 +584,17 @@ public class ShopInfo implements Serializable {
     }
 
     /**
-     * @return url
+     * Gets url.
+     *
+     * @return url url
      */
     public String getUrl() {
         return url;
     }
 
     /**
+     * Sets url.
+     *
      * @param url url
      */
     public void setUrl(String url) {

@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 店管家微信的用户列表
  * Created by lizhen on 2017/3/29.
  */
-
 public class ShopWeixinUser implements Serializable {
     /**
      * 主键id

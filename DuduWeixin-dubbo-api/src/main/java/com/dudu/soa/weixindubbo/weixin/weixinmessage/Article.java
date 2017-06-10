@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 关注微信回复消息体
  * Created by lizhen on 2017/6/8.
  */
-
 public class Article implements Serializable {
 
     /**

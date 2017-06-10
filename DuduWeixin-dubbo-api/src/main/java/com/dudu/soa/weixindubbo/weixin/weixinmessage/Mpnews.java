@@ -8,7 +8,6 @@ import java.io.Serializable;
  * 上传图文材料返回的media_id
  * Created by lizhen on 2017/5/15.
  */
-
 public class Mpnews implements Serializable {
     /**
      * 上传图材料之后返回的media_id
@@ -28,6 +27,7 @@ public class Mpnews implements Serializable {
 
     /**
      * 获取 上传图材料之后返回的media_id
+     *
      * @return mediaid 上传图材料之后返回的media_id
      */
     public String getMediaid() {
@@ -36,6 +36,7 @@ public class Mpnews implements Serializable {
 
     /**
      * 设置 上传图材料之后返回的media_id
+     *
      * @param mediaid 上传图材料之后返回的media_id
      * @return 返回 Mpnews(上传图文材料返回的media_id)
      */

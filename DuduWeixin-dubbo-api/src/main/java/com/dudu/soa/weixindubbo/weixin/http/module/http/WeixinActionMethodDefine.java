@@ -219,7 +219,7 @@ public class WeixinActionMethodDefine implements Serializable {
      *
      * @param key   接口基础配置参数 元素 key
      * @param value 接口基础配置参数 元素 value
-     * @return WeixinActionMethodDefine(微信方法定义)
+     * @return WeixinActionMethodDefine(微信方法定义) weixin action method define
      */
     public WeixinActionMethodDefine putActionConfigParamter(String key, String value) {
         this.actionConfigParamter.put(key, value);
@@ -230,7 +230,7 @@ public class WeixinActionMethodDefine implements Serializable {
      * 批量新增设置 接口基础配置参数
      *
      * @param actionConfigParamter 接口基础配置参数 元素集合
-     * @return WeixinActionMethodDefine(微信方法定义)
+     * @return WeixinActionMethodDefine(微信方法定义) weixin action method define
      */
     public WeixinActionMethodDefine putAllActionConfigParamter(Map<String, String> actionConfigParamter) {
         this.actionConfigParamter.putAll(actionConfigParamter);
@@ -272,7 +272,7 @@ public class WeixinActionMethodDefine implements Serializable {
      * 批量新增 接口所需业务参数
      *
      * @param requestBusinessParamters 接口所需业务参数 元素集合
-     * @return WeixinActionMethodDefine(微信方法定义)
+     * @return WeixinActionMethodDefine(微信方法定义) weixin action method define
      */
     public WeixinActionMethodDefine addAllRequestBusinessParamters(List<String> requestBusinessParamters) {
         this.requestBusinessParamters.addAll(requestBusinessParamters);
@@ -324,7 +324,7 @@ public class WeixinActionMethodDefine implements Serializable {
      *
      * @param key   接口post的参数 元素 key
      * @param value 接口post的参数 元素 value
-     * @return WeixinActionMethodDefine(微信方法定义)
+     * @return WeixinActionMethodDefine(微信方法定义) weixin action method define
      */
     public WeixinActionMethodDefine putActionPostParamter(String key, String value) {
         this.actionPostParamter.put(key, value);
@@ -335,7 +335,7 @@ public class WeixinActionMethodDefine implements Serializable {
      * 批量新增设置 接口post的参数
      *
      * @param actionPostParamter 接口post的参数 元素集合
-     * @return WeixinActionMethodDefine(微信方法定义)
+     * @return WeixinActionMethodDefine(微信方法定义) weixin action method define
      */
     public WeixinActionMethodDefine putAllActionPostParamter(Map<String, String> actionPostParamter) {
         this.actionPostParamter.putAll(actionPostParamter);

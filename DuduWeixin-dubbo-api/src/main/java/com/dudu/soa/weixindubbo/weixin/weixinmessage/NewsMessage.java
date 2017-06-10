@@ -7,7 +7,6 @@ import java.util.List;
  * 被动回复图文消息(多图文消息)
  * Created by lizhen on 2017/6/8.
  */
-
 public class NewsMessage extends BaseMessage implements Serializable {
     /**
      * 图文消息个数，限制为10条以内

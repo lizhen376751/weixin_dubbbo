@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 根据openid群发消息实体类
  * Created by lizhen on 2017/5/15.
  */
-
 public class SendWeChat implements Serializable {
     /**
      * 填写图文消息的接收者，一串OpenID列表，OpenID最少2个，最多10000个

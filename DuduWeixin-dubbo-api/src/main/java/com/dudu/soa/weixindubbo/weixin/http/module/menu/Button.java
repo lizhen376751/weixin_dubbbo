@@ -23,6 +23,7 @@ public class Button implements Serializable {
 
     /**
      * 获取 名字
+     *
      * @return name 名字
      */
     public String getName() {
@@ -31,6 +32,7 @@ public class Button implements Serializable {
 
     /**
      * 设置 名字
+     *
      * @param name 名字
      * @return 返回 Button(按钮类)
      */

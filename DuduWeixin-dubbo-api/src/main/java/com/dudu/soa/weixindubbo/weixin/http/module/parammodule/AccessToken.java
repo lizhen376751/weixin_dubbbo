@@ -37,6 +37,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 获取 token
+     *
      * @return token token
      */
     public String getToken() {
@@ -45,6 +46,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 设置 token
+     *
      * @param token token
      * @return 返回 AccessToken(开发者的token的实体类)
      */
@@ -55,6 +57,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 获取 前端页面的ticket
+     *
      * @return ticket 前端页面的ticket
      */
     public String getTicket() {
@@ -63,6 +66,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 设置 前端页面的ticket
+     *
      * @param ticket 前端页面的ticket
      * @return 返回 AccessToken(开发者的token的实体类)
      */
@@ -73,6 +77,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 获取 有效时间
+     *
      * @return expiresIn 有效时间
      */
     public int getExpiresIn() {
@@ -81,6 +86,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 设置 有效时间
+     *
      * @param expiresIn 有效时间
      * @return 返回 AccessToken(开发者的token的实体类)
      */
@@ -91,6 +97,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 获取 token以及ticket创建时间
+     *
      * @return createTime token以及ticket创建时间
      */
     public long getCreateTime() {
@@ -99,6 +106,7 @@ public class AccessToken implements Serializable {
 
     /**
      * 设置 token以及ticket创建时间
+     *
      * @param createTime token以及ticket创建时间
      * @return 返回 AccessToken(开发者的token的实体类)
      */

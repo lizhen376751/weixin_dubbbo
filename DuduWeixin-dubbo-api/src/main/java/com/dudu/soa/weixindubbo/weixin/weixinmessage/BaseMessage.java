@@ -44,6 +44,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 获取 接收方帐号（收到的OpenID）
+     *
      * @return toUserName 接收方帐号（收到的OpenID）
      */
     public String getToUserName() {
@@ -52,6 +53,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 设置 接收方帐号（收到的OpenID）
+     *
      * @param toUserName 接收方帐号（收到的OpenID）
      * @return 返回 BaseMessage(返回消息体-基本消息)
      */
@@ -62,6 +64,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 获取 开发者微信号
+     *
      * @return fromUserName 开发者微信号
      */
     public String getFromUserName() {
@@ -70,6 +73,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 设置 开发者微信号
+     *
      * @param fromUserName 开发者微信号
      * @return 返回 BaseMessage(返回消息体-基本消息)
      */
@@ -80,6 +84,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 获取 消息创建时间 （整型）
+     *
      * @return createTime 消息创建时间 （整型）
      */
     public long getCreateTime() {
@@ -88,6 +93,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 设置 消息创建时间 （整型）
+     *
      * @param createTime 消息创建时间 （整型）
      * @return 返回 BaseMessage(返回消息体-基本消息)
      */
@@ -98,6 +104,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 获取 消息类型（textmusicnews）
+     *
      * @return msgType 消息类型（textmusicnews）
      */
     public String getMsgType() {
@@ -106,6 +113,7 @@ public class BaseMessage implements Serializable {
 
     /**
      * 设置 消息类型（textmusicnews）
+     *
      * @param msgType 消息类型（textmusicnews）
      * @return 返回 BaseMessage(返回消息体-基本消息)
      */

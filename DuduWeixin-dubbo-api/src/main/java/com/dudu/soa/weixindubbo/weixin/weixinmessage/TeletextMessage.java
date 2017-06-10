@@ -6,7 +6,6 @@ import java.io.Serializable;
  * 群发图文消息
  * Created by lizhen on 2017/5/15.
  */
-
 public class TeletextMessage implements Serializable {
     /**
      * 图文消息集合

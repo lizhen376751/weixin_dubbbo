@@ -8,8 +8,9 @@ import com.dudu.soa.weixindubbo.alipay.module.AlipayRequestModule;
 public interface ApiAlipayIntf {
     /**
      * 生成支付宝URL
-     * @param requestModule
-     * @return
+     *
+     * @param requestModule the request module
+     * @return string
      */
-    public String buildAlipayRequest(AlipayRequestModule requestModule);
+     String buildAlipayRequest(AlipayRequestModule requestModule);
 }
