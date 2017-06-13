@@ -60,7 +60,7 @@ public class AllWeiXinService {
      * @throws IOException        网络异常
      * @throws URISyntaxException 异常
      */
-    public static AccessToken getTokenTicket(String appid, String appSecret) {
+    public static AccessToken getTokengetTicket(String appid, String appSecret) {
         AccessToken accessToken = new AccessToken();
         WeixinActionMethodDefine weixinActionMethodDefine = new WeixinActionMethodDefine()
                 .setIsNeedAccssToken(false)
@@ -114,7 +114,7 @@ public class AllWeiXinService {
      * @param appSecret 微信的appsecret
      * @return token
      */
-    public static AccessToken getTokengetTicket(String appid, String appSecret) {
+    public static AccessToken getTokenTicket(String appid, String appSecret) {
         //1.首先在redis查询是否存有token(直接查询店铺编码)
         //2.如果没有直接获取存放在redis里面
         //3.如果有的话直接判断时间,是否过期,
