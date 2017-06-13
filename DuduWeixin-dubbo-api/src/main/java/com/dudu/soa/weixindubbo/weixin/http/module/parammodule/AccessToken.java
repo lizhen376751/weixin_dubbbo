@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.module.parammodule;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 开发者的token的实体类
@@ -23,11 +24,12 @@ public class AccessToken implements Serializable {
     /**
      * token以及ticket创建时间
      */
-    private long createTime = System.currentTimeMillis();
+    private long createTime = new Date().getTime() / 1000;
 
 
     /**
-     *  AccessToken(开发者的token的实体类) 字符串形式
+     * AccessToken(开发者的token的实体类) 字符串形式
+     *
      * @return AccessToken(开发者的token的实体类)字符串
      */
     @Override

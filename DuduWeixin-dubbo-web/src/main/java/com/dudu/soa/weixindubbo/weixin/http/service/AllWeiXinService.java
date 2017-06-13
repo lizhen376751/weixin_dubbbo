@@ -9,6 +9,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.http.util.MapUtils;
 import com.dudu.soa.weixindubbo.weixin.http.util.PayCommonUtil;
 import com.dudu.soa.weixindubbo.weixin.http.util.XMLUtil;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
@@ -22,11 +23,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -57,52 +60,95 @@ public class AllWeiXinService {
      * @throws IOException        网络异常
      * @throws URISyntaxException 异常
      */
-    public static AccessToken getTokengetTicket(String appid, String appSecret) {
+    public static AccessToken getTokenTicket(String appid, String appSecret) {
         AccessToken accessToken = new AccessToken();
-        if (null == accessToken || null == accessToken.getToken() || System.currentTimeMillis() - accessToken.getCreateTime() > accessToken.getExpiresIn() * 1000) {
-            WeixinActionMethodDefine weixinActionMethodDefine = new WeixinActionMethodDefine()
-                    .setIsNeedAccssToken(false)
+        WeixinActionMethodDefine weixinActionMethodDefine = new WeixinActionMethodDefine()
+                .setIsNeedAccssToken(false)
+                .setHttpMethod(HttpMethod.GET)
+                .setUri("/cgi-bin/token")
+                .setWeixinBaseParamter(new WeixinBaseParamter().setAppid(appid).setSecret(appSecret))
+                .putActionConfigParamter("grant_type", "client_credential");
+        String jstoken = null;
+        //调用微信JS接口的临时票据
+        String jsticket = null;
+        //token
+        String accesstoken = null;
+        try {
+            jstoken = HttpUtils.request(weixinActionMethodDefine);
+            accesstoken = JSONObject.parseObject(jstoken).getString("access_token");
+            WeixinActionMethodDefine weixinActionMethodDefine2 = new WeixinActionMethodDefine()
                     .setHttpMethod(HttpMethod.GET)
-                    .setUri("/cgi-bin/token")
-                    .setWeixinBaseParamter(new WeixinBaseParamter().setAppid(appid).setSecret(appSecret))
-                    .putActionConfigParamter("grant_type", "client_credential");
-            String jstoken = null;
-            //调用微信JS接口的临时票据
-            String jsticket = null;
-            //token
-            String accesstoken = null;
-            try {
-                jstoken = HttpUtils.request(weixinActionMethodDefine);
-                accesstoken = JSONObject.parseObject(jstoken).getString("access_token");
-                WeixinActionMethodDefine weixinActionMethodDefine2 = new WeixinActionMethodDefine()
-                        .setHttpMethod(HttpMethod.GET)
-                        .setIsNeedAppid(false)
-                        .setUri("/cgi-bin/ticket/getticket")
-                        .putActionConfigParamter("type", "jsapi")
-                        .setWeixinBaseParamter(new WeixinBaseParamter().setToken(accesstoken));
-                jsticket = HttpUtils.request(weixinActionMethodDefine2);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    .setIsNeedAppid(false)
+                    .setUri("/cgi-bin/ticket/getticket")
+                    .putActionConfigParamter("type", "jsapi")
+                    .setWeixinBaseParamter(new WeixinBaseParamter().setToken(accesstoken));
+            jsticket = HttpUtils.request(weixinActionMethodDefine2);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
+        String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");
+        int expiresin = 0;
+        if (null != expiresin1 && !"".equals(expiresin1)) {
+            expiresin = Integer.parseInt(expiresin1);
+        }
+        // 获取到token并赋值保存
+        accessToken.setCreateTime(System.currentTimeMillis() / 1000)
+                .setToken(accesstoken)
+                .setExpiresIn(expiresin)
+                .setTicket(jsapiticket);
+        log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
+                + "token为==============================" + accesstoken
+                + "jsticket为==============================" + jsapiticket);
+
+
+        return accessToken;
+    }
+
+    /**
+     * 利用redis获取token
+     *
+     * @param appid     微信的appid
+     * @param appSecret 微信的appsecret
+     * @return token
+     */
+    public static AccessToken getTokengetTicket(String appid, String appSecret) {
+        //1.首先在redis查询是否存有token(直接查询店铺编码)
+        //2.如果没有直接获取存放在redis里面
+        //3.如果有的话直接判断时间,是否过期,
+        // 3.1过期的话重新获取,将之前的删除,并重新存入
+        //3.2如果没有过期直接取出来用
+        AccessToken tokengetTicket = new AccessToken();
+        Jedis jedis = new Jedis("127.0.0.1", 6379);
+        List<String> rsmap = jedis.hmget(appid, "token", "ticket", "expiresIn", "createTime");
+        String token = rsmap.get(0);
+        String ticket = rsmap.get(1);
+        if (token == null || token.equals("")) {
+            tokengetTicket = getTokenTicket(appid, appSecret);
+            Map map = MapUtils.toMap(tokengetTicket);
+            jedis.hmset(appid, map);
+        } else {
+            int expiresIn = Integer.parseInt(rsmap.get(2));
+            Long createTime = Long.parseLong(rsmap.get(3));
+            //获取当前时间
+            long time = new Date().getTime() / 1000;
+            //判断是否在有效时间之内
+            if (time - createTime > expiresIn) {
+                //大于有效时间需要重新获取,首先删除记录,然后存储
+                jedis.hlen(appid);
+                tokengetTicket = getTokenTicket(appid, appSecret);
+                Map map = MapUtils.toMap(tokengetTicket);
+                jedis.hmset(appid, map);
+            } else {
+                tokengetTicket.setExpiresIn(expiresIn);
+                tokengetTicket.setTicket(ticket);
+                tokengetTicket.setToken(token);
             }
-            String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
-            String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");
-            int expiresin = 0;
-            if (null != expiresin1 && !"".equals(expiresin1)) {
-                expiresin = Integer.parseInt(expiresin1);
-            }
-            // 获取到token并赋值保存
-            accessToken.setCreateTime(System.currentTimeMillis())
-                    .setToken(accesstoken)
-                    .setExpiresIn(expiresin)
-                    .setTicket(jsapiticket);
-            log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
-                    + "token为==============================" + accesstoken
-                    + "jsticket为==============================" + jsapiticket);
 
         }
-        return accessToken;
+        return tokengetTicket;
     }
 
     /**
