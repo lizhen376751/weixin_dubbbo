@@ -5,17 +5,19 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans.xsd
 	   http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
+	<dubbo:protocol name="dubbo" port="${dubbo.application.port}"   host = "${dubbo.application.host}" />
+
 	<!--获取店铺信息接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.shopinfo.api.ApiShopInfo" ref = "shopInfoService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.shopinfo.api.ApiShopInfo" ref = "shopInfoService" owner = "lizhen"/>
 	<!--登录日志接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.loginlog.api.ApiLogInLog" ref = "logInLogService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.loginlog.api.ApiLogInLog" ref = "logInLogService"  owner = "lizhen"/>
 	<!--验证码和短信密码发送接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.smssend.api.ApiSmsSend" ref = "smsSendService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.smssend.api.ApiSmsSend" ref = "smsSendService"  owner = "lizhen"/>
 	<!--用户信息接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.shopweixinuser.api.ApiShopWeixinUser" ref = "shopWeixinUserService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.shopweixinuser.api.ApiShopWeixinUser" ref = "shopWeixinUserService"  owner = "lizhen"/>
 	<!--微信通讯相关接口-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest" ref = "allWeiXinRquest" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest" ref = "allWeiXinRquest"  owner = "lizhen"/>
 	<!--appid与sercert的维护-->
-	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.weixinconfig.api.ApiWeiXinConfig" ref = "weiXinConfigService" version = "1.0" owner = "lizhen"/>
+	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.weixinconfig.api.ApiWeiXinConfig" ref = "weiXinConfigService"  owner = "lizhen"/>
 
 </beans>
