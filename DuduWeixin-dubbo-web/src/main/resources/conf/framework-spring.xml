@@ -30,6 +30,7 @@
 			<list>
 				<value>classpath:dubbo.properties</value>
 				<value>classpath:Duduweixin-dubbo.properties</value>
+				<value>classpath:logback.xml</value>
 			</list>
 		</property>
 	</bean>
