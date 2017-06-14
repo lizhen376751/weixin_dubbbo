@@ -61,6 +61,7 @@ public final class MD5Util {
                         .getBytes(charsetname)));
             }
         } catch (Exception exception) {
+            exception.printStackTrace();
         }
         return resultString;
     }

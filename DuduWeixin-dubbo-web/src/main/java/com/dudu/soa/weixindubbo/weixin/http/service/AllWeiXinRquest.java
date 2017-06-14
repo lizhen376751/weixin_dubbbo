@@ -10,6 +10,7 @@ import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,20 +59,19 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
         return menu1;
     }
 
-
     /**
      * 获取开发者的token
      *
      * @param appid     appid
      * @param appSecret appSecret
-     * @return 开发者的token
+     * @return 开发者的token tokenget ticket
      */
-
     @Override
     public AccessToken getTokengetTicket(String appid, String appSecret) {
         AccessToken tokengetTicket = AllWeiXinService.getTokengetTicket(appid, appSecret);
         return tokengetTicket;
     }
+
 
     /**
      * 获取网页授权access_token及用户的openID
