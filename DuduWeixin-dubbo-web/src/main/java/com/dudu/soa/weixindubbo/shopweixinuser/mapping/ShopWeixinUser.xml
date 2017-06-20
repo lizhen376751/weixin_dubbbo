@@ -26,6 +26,7 @@
         <result property="xingBie" column="XingBie"/>
         <result property="carPaiLiang" column="CarPaiLiang"/>
         <result property="nickname" column="nickname"/>
+        <result property="updateTime" column="updateTime"/>
     </resultMap>
 
     <!-- 查看所有的短信签名 -->
@@ -76,7 +77,8 @@
         XingMing,
         XingBie,
         CarPaiLiang,
-        nickname
+        nickname,
+        updateTime
         )
         VALUES (
         #{userName},
@@ -97,20 +99,73 @@
         #{xingMing},
         #{xingBie},
         #{carPaiLiang},
-        #{nickname}
+        #{nickname},
+        #{updateTime}
         )
     </insert>
 
     <update id="updateShopWeixinUser" parameterType="com.dudu.soa.weixindubbo.shopweixinuser.module.ShopWeixinUser"
             flushCache="true">
         update UserInfo
-        <set>
+        <trim prefix="set" suffixOverrides=",">
             <if test="userPass !=null and userPass != ''">
-                UserPass = #{userPass}
+                UserPass = #{userPass},
             </if>
-        </set>
+
+
+            <if test="mobile !=null and mobile != ''">
+                Mobile = #{mobile},
+            </if>
+
+
+            <if test="address !=null and address != ''">
+                Address = #{address},
+            </if>
+
+
+            <if test="engine !=null and engine != ''">
+                Engine = #{engine},
+            </if>
+
+
+            <if test="serise !=null and serise != ''">
+                Serise = #{serise},
+            </if>
+
+
+            <if test="brand !=null and brand != ''">
+                Brand = #{brand},
+            </if>
+
+
+            <if test="city !=null and city != ''">
+                City = #{city},
+            </if>
+
+
+            <if test="openId !=null and openId != ''">
+                OpenId = #{openId},
+            </if>
+
+
+            <if test="xingMing !=null and xingMing != ''">
+                XingMing = #{xingMing},
+            </if>
+
+
+            <if test="xingBie !=null and xingBie != ''">
+                XingBie = #{xingBie},
+            </if>
+
+
+            <if test="nickname !=null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            updateTime=getdate()
+        </trim>
+
         WHERE
-        Mobile = #{mobile} AND shopcode = #{shopcode} AND UserName = #{userName}
+        shopcode = #{shopcode} AND UserName = #{userName}
     </update>
 
     <delete id="deleteShopWeixinUser" flushCache="true">

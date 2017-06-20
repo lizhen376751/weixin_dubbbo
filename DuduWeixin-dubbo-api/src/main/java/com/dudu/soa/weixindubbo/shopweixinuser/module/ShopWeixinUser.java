@@ -95,11 +95,13 @@ public class ShopWeixinUser implements Serializable {
      * 微信昵称
      */
     private String nickname;
-
+    /**
+     * 修改时间
+     */
+    private String updateTime;
 
     /**
-     * ShopWeixinUser(店管家微信的用户列表) 字符串形式
-     *
+     *  ShopWeixinUser(店管家微信的用户列表) 字符串形式
      * @return ShopWeixinUser(店管家微信的用户列表)字符串
      */
     @Override
@@ -107,12 +109,11 @@ public class ShopWeixinUser implements Serializable {
         return "id:" + id + ",userName:" + userName + ",userPass:" + userPass + ",mobile:" + mobile + ",address:" + address + ",engine:" + engine
                 + ",iDCode:" + iDCode + ",registCode:" + registCode + ",recordDate:" + recordDate + ",brand:" + brand + ",serise:" + serise + ",city:" + city
                 + ",state:" + state + ",registerTime:" + registerTime + ",citycode:" + citycode + ",openId:" + openId + ",openU:" + openU + ",shopcode:" + shopcode
-                + ",xingMing:" + xingMing + ",xingBie:" + xingBie + ",carPaiLiang:" + carPaiLiang + ",nickname:" + nickname;
+                + ",xingMing:" + xingMing + ",xingBie:" + xingBie + ",carPaiLiang:" + carPaiLiang + ",nickname:" + nickname + ",updateTime:" + updateTime;
     }
 
     /**
      * 获取 主键id
-     *
      * @return id 主键id
      */
     public int getId() {
@@ -121,7 +122,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 主键id
-     *
      * @param id 主键id
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -132,7 +132,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 用户姓名(车牌号)
-     *
      * @return userName 用户姓名(车牌号)
      */
     public String getUserName() {
@@ -141,7 +140,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 用户姓名(车牌号)
-     *
      * @param userName 用户姓名(车牌号)
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -152,7 +150,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 用户的密码
-     *
      * @return userPass 用户的密码
      */
     public String getUserPass() {
@@ -161,7 +158,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 用户的密码
-     *
      * @param userPass 用户的密码
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -172,7 +168,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 手机号
-     *
      * @return mobile 手机号
      */
     public String getMobile() {
@@ -181,7 +176,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 手机号
-     *
      * @param mobile 手机号
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -192,7 +186,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 地址
-     *
      * @return address 地址
      */
     public String getAddress() {
@@ -201,7 +194,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 地址
-     *
      * @param address 地址
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -212,7 +204,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 发动机
-     *
      * @return engine 发动机
      */
     public String getEngine() {
@@ -221,7 +212,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 发动机
-     *
      * @param engine 发动机
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -232,7 +222,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 用户的id
-     *
      * @return iDCode 用户的id
      */
     public String getIDCode() {
@@ -241,7 +230,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 用户的id
-     *
      * @param iDCode 用户的id
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -252,7 +240,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 注册时间
-     *
      * @return registCode 注册时间
      */
     public String getRegistCode() {
@@ -261,7 +248,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 注册时间
-     *
      * @param registCode 注册时间
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -272,7 +258,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 记录时间
-     *
      * @return recordDate 记录时间
      */
     public String getRecordDate() {
@@ -281,7 +266,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 记录时间
-     *
      * @param recordDate 记录时间
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -292,7 +276,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 车辆品牌
-     *
      * @return brand 车辆品牌
      */
     public String getBrand() {
@@ -301,7 +284,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 车辆品牌
-     *
      * @param brand 车辆品牌
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -312,7 +294,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 车系
-     *
      * @return serise 车系
      */
     public String getSerise() {
@@ -321,7 +302,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 车系
-     *
      * @param serise 车系
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -332,7 +312,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 城市
-     *
      * @return city 城市
      */
     public String getCity() {
@@ -341,7 +320,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 城市
-     *
      * @param city 城市
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -352,7 +330,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 状态
-     *
      * @return state 状态
      */
     public String getState() {
@@ -361,7 +338,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 状态
-     *
      * @param state 状态
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -372,7 +348,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 注册时间
-     *
      * @return registerTime 注册时间
      */
     public String getRegisterTime() {
@@ -381,7 +356,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 注册时间
-     *
      * @param registerTime 注册时间
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -392,7 +366,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 城市邮编
-     *
      * @return citycode 城市邮编
      */
     public String getCitycode() {
@@ -401,7 +374,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 城市邮编
-     *
      * @param citycode 城市邮编
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -412,7 +384,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 微信的openid
-     *
      * @return openId 微信的openid
      */
     public String getOpenId() {
@@ -421,7 +392,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 微信的openid
-     *
      * @param openId 微信的openid
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -432,7 +402,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 未知字段
-     *
      * @return openU 未知字段
      */
     public String getOpenU() {
@@ -441,7 +410,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 未知字段
-     *
      * @param openU 未知字段
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -452,7 +420,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 店铺编码
-     *
      * @return shopcode 店铺编码
      */
     public String getShopcode() {
@@ -461,7 +428,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 店铺编码
-     *
      * @param shopcode 店铺编码
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -472,7 +438,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 姓名
-     *
      * @return xingMing 姓名
      */
     public String getXingMing() {
@@ -481,7 +446,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 姓名
-     *
      * @param xingMing 姓名
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -492,7 +456,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 性别
-     *
      * @return xingBie 性别
      */
     public String getXingBie() {
@@ -501,7 +464,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 性别
-     *
      * @param xingBie 性别
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -512,7 +474,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 车排量
-     *
      * @return carPaiLiang 车排量
      */
     public String getCarPaiLiang() {
@@ -521,7 +482,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 车排量
-     *
      * @param carPaiLiang 车排量
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -532,7 +492,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 获取 微信昵称
-     *
      * @return nickname 微信昵称
      */
     public String getNickname() {
@@ -541,7 +500,6 @@ public class ShopWeixinUser implements Serializable {
 
     /**
      * 设置 微信昵称
-     *
      * @param nickname 微信昵称
      * @return 返回 ShopWeixinUser(店管家微信的用户列表)
      */
@@ -550,4 +508,21 @@ public class ShopWeixinUser implements Serializable {
         return this;
     }
 
+    /**
+     * 获取 修改时间
+     * @return updateTime 修改时间
+     */
+    public String getUpdateTime() {
+        return this.updateTime;
+    }
+
+    /**
+     * 设置 修改时间
+     * @param updateTime 修改时间
+     * @return 返回 ShopWeixinUser(店管家微信的用户列表)
+     */
+    public ShopWeixinUser setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+        return this;
+    }
 }

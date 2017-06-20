@@ -461,7 +461,7 @@ public class AllWeiXinRquestTest extends TestBase {
     //获取用户的基本信息
     @Test
     public void getWeiXinUserInfo() throws Exception {
-        WeiXinUserInfo weiXinUserInfo = allWeiXinRquest.getWeiXinUserInfo("041yWHoa1Y6PdT1QMura1caioa1yWHoS", "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        WeiXinUserInfo weiXinUserInfo = allWeiXinRquest.getWeiXinUserInfo("041yWHoa1Y6PdT1QMura1caioa1yWHoS", "wx91ee3b29615c49c7", "2e2a94909cf9fca29cccc111bf7896f5");
         log.info("用户的别名为:==========================" + weiXinUserInfo);
     }
 
