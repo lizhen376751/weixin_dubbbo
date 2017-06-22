@@ -1,5 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
+import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
@@ -20,6 +22,11 @@ import java.util.Map;
  */
 @Service
 public class AllWeiXinRquest implements ApiAllWeiXiRequest {
+    /**
+     * 引入店铺信息
+     */
+    @Autowired
+    private ShopInfoService shopInfoService;
     /**
      * 引入微信服务所有方法
      */
@@ -111,12 +118,16 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     public String receivemessage(Map<String, String> map) {
         String back = "";
         try {
-            String msgtype = map.get("MsgType");
-            String message = MsgDispatcher.processMessage(map); //进入消息处理
+            ShopInfo shopInfo = new ShopInfo();
+            String shopcode = map.get("shopcode");
+            if (shopcode != null) {
+                shopInfo = shopInfoService.getShopInfo(shopcode);
+            }
+            String message = MsgDispatcher.processMessage(map, shopInfo); //进入消息处理
             return message;
         } catch (Exception e) {
             e.printStackTrace();
-            back = e.getMessage();
+            back = e.getMessage() + e.getCause();
         }
         return back;
     }

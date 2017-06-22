@@ -1,7 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
-import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Article;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.NewsMessage;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
@@ -17,6 +16,7 @@ import java.util.Map;
  * 被动回复消息业务处理分发器
  * Created by lizhen on 2017/4/23.
  */
+
 public final class MsgDispatcher {
     /**
      * 日志打印
@@ -27,12 +27,20 @@ public final class MsgDispatcher {
     }
 
     /**
-     * 根据对XML的解析后获取相应的类型,进行不同的业务处理
+     *
      *
      * @param map 接受到的消息
      * @return 返回不同类型的xml消息
      */
-    public static String processMessage(Map<String, String> map) {
+    /**
+     * 根据对XML的解析后获取相应的类型,进行不同的业务处理
+     *
+     * @param map      接受到的消息
+     * @param shopInfo 店铺信息
+     * @return 返回不同类型的xml消息
+     */
+    public static String processMessage(Map<String, String> map, ShopInfo shopInfo) {
+
 
         /**
          *用户openid
@@ -77,8 +85,6 @@ public final class MsgDispatcher {
 //            "http://shop.duduchewang.com/upload/"+ strWxShopcode + "/shopimg/" + WelcomeImg;  图片地址
             if (map.get("Event").equals("subscribe")) { //微信关注事件
                 if (null != shopcode) { //店管家微信发送欢迎图文消息
-                    ShopInfoService shopInfoService = new ShopInfoService();
-                    ShopInfo shopInfo = shopInfoService.getShopInfo(shopcode);
                     String shopName = shopInfo.getShopName();
                     String description = shopInfo.getWelcomeTxt(); //欢迎文字
                     if (description == null || "".equals(description) || "null".equals(description)) {
@@ -124,8 +130,6 @@ public final class MsgDispatcher {
                 txtmsg.setContent("地理推送事件");
                 return "地理位置获取";
             }
-
-
         }
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_IMAGE)) { // 图片消息
