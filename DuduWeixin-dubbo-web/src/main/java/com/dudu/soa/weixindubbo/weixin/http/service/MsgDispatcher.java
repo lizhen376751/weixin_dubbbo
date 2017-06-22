@@ -1,5 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
+import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Article;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.NewsMessage;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
@@ -40,6 +42,15 @@ public final class MsgDispatcher {
          *公众号原始ID
          */
         String mpid = map.get("ToUserName");
+        /***
+         * 店铺编码
+         */
+        String shopcode = map.get("shopcode");
+        /**
+         * 联盟code
+         */
+        String lmcode = map.get("lmcode");
+
         //普通文本消息
         TextMessage txtmsg = new TextMessage();
         txtmsg.setToUserName(openid);
@@ -52,25 +63,61 @@ public final class MsgDispatcher {
             return MessageUtil.textMessageToXml(txtmsg);
 
         }
-        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 推送地理位置
+
+        if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 关注事件及推送地理位置
             //对图文消息
             NewsMessage newmsg = new NewsMessage();
             newmsg.setToUserName(openid);
             newmsg.setFromUserName(mpid);
             newmsg.setCreateTime(new Date().getTime() / 1000);
             newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
-            if (map.get("Event").equals("subscribe")) {
-                Article article = new Article();
-                article.setDescription("点击图片查看详情"); //图文消息的描述
-                article.setPicUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg"); //图文消息图片地址
-                article.setTitle("联盟微信操作手册");  //图文消息标题
-                article.setUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg");  //图文url链接
-                List<Article> list = new ArrayList<Article>();
-                list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
-                newmsg.setArticleCount(list.size());
-                newmsg.setArticles(list);
-                log.info("==============微信关注事件！");
+            Article article = new Article();
+//            http://www.duduchewang.com/images/banweixin.jpg  图片展示
+//            http://eqxiu.com/s/aX0KOheU  图片详情跳转url
+//            "http://shop.duduchewang.com/upload/"+ strWxShopcode + "/shopimg/" + WelcomeImg;  图片地址
+            if (map.get("Event").equals("subscribe")) { //微信关注事件
+                if (null != shopcode) { //店管家微信发送欢迎图文消息
+                    ShopInfoService shopInfoService = new ShopInfoService();
+                    ShopInfo shopInfo = shopInfoService.getShopInfo(shopcode);
+                    String shopName = shopInfo.getShopName();
+                    String description = shopInfo.getWelcomeTxt(); //欢迎文字
+                    if (description == null || "".equals(description) || "null".equals(description)) {
+                        description = "感谢关注," + shopName + "恭候多时!";
+                    }
+                    article.setDescription(description); //图文消息的描述
+                    String welcomeImg = shopInfo.getWelcomeImg();
+                    String picUrl = welcomeImg; //欢迎图片
+                    if (null == picUrl || "".equals(picUrl) || "null".equals(picUrl)) {
+                        picUrl = "http://www.duduchewang.com/images/banweixin.jpg";
+                    } else {
+                        picUrl = "http://shop.duduchewang.com/upload/" + shopcode + "/shopimg/" + welcomeImg;
+                    }
+                    article.setPicUrl(picUrl); //图文消息图片地址
+                    article.setTitle(shopName);  //图文消息标题
+                    String url = shopInfo.getUrl(); //图片详情的url
+                    if (null == url || "".equals(url) || "null".equals(url)) {
+                        url = "http://eqxiu.com/s/aX0KOheU";
+                    }
+                    article.setUrl(url);  //图文url链接
+                    List<Article> list = new ArrayList<Article>();
+                    list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
+                    newmsg.setArticleCount(list.size());
+                    newmsg.setArticles(list);
+                    log.info("==============店管家微信关注事件！");
+                }
+                if (lmcode != null) { //联盟微信发送操作步骤说明
+                    article.setDescription("点击图片查看详情"); //图文消息的描述
+                    article.setPicUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg"); //图文消息图片地址
+                    article.setTitle("操作手册");  //图文消息标题
+                    article.setUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg");  //图文url链接
+                    List<Article> list = new ArrayList<Article>();
+                    list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
+                    newmsg.setArticleCount(list.size());
+                    newmsg.setArticles(list);
+                    log.info("==============联盟微信关注事件！");
+                }
                 return MessageUtil.newsMessageToXml(newmsg);
+
             }
             if (map.get("Event").equals("LOCATION")) {
                 log.info("==============地理推送事件！");
