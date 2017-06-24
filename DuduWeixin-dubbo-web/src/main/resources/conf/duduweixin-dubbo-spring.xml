@@ -19,5 +19,7 @@
 	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest" ref = "allWeiXinRquest"  owner = "lizhen"/>
 	<!--appid与sercert的维护-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.weixin.weixinconfig.api.ApiWeiXinConfig" ref = "weiXinConfigService"  owner = "lizhen"/>
+	<!--行驶证照片的扫描-->
+	<dubbo:service interface="com.dudu.soa.weixindubbo.drivinglicense.ApiDrivingLicense" ref = "drivingLicense"  owner = "lizhen"/>
 
 </beans>
