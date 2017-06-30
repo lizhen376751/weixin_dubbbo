@@ -111,10 +111,10 @@ public final class MsgDispatcher {
                     newmsg.setArticles(list);
                     log.info("==============店管家微信关注事件！");
                 } else if (null != lmcode) { //联盟微信发送操作步骤说明
-                    if ("chuangke".equals(lmcode)) {
+                    if ("chaungke".equals(lmcode)) {
                         article.setDescription("点击图片查看详情"); //图文消息的描述
                         article.setPicUrl("http://www.duduchewang.com/images/banweixin.jpg"); //图文消息图片地址
-                        article.setTitle("欢迎关注创客");  //图文消息标题
+                        article.setTitle("感谢关注创客之家");  //图文消息标题
                         article.setUrl("http://eqxiu.com/s/aX0KOheU"); //图文url链接
                         List<Article> list = new ArrayList<Article>();
                         list.add(article);     //这里发送的是单图文，如果需要发送多图文则在这里list中加入多个Article即可！
