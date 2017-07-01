@@ -59,14 +59,15 @@ public final class MsgDispatcher {
          */
         String lmcode = map.get("lmcode");
 
-        //普通文本消息
-        TextMessage txtmsg = new TextMessage();
-        txtmsg.setToUserName(openid);
-        txtmsg.setFromUserName(mpid);
-        txtmsg.setCreateTime(new Date().getTime() / 1000);
-        txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
+            //普通文本消息
+            TextMessage txtmsg = new TextMessage();
+            txtmsg.setToUserName(openid);
+            txtmsg.setFromUserName(mpid);
+            txtmsg.setCreateTime(new Date().getTime() / 1000);
+            txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+            txtmsg.setContent("感谢您的关注!");
             log.info("==============这是文本消息！");
             return MessageUtil.textMessageToXml(txtmsg);
 
@@ -137,7 +138,6 @@ public final class MsgDispatcher {
             }
             if (map.get("Event").equals("LOCATION")) {
                 log.info("==============地理推送事件！");
-                txtmsg.setContent("地理推送事件");
                 return "地理位置获取";
             }
         }
