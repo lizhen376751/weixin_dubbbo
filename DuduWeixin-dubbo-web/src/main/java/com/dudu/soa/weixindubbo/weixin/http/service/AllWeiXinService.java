@@ -53,6 +53,8 @@ public class AllWeiXinService {
     /**
      * 微信环境url配置
      */
+    @Autowired
+    private URLConfig urlConfig;
 
     /**
      * 获取开发者的token和jssdk的jsapiticket
@@ -188,7 +190,6 @@ public class AllWeiXinService {
         return flag;
     }
 
-
     /**
      * 模板消息的发送
      *
@@ -198,9 +199,6 @@ public class AllWeiXinService {
      * @return template
      */
     public String sendTemplateMsg(String appid, String appSecret, Template template) {
-        URLConfig urlConfig = new URLConfig();
-        log.info("整体的环境路径哇为======" + urlConfig.toString());
-        log.info("整体的环境路径哇为======" + urlConfig.toString());
         String url = template.getUrl();
         if (null != url && !"".equals(url) && !"null".equals(url)) {
             int ahiTiXing = url.indexOf("ahiTiXing");
