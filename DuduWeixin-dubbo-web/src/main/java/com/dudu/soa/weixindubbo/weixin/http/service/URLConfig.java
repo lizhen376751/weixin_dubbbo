@@ -1,11 +1,9 @@
-package com.dudu.soa.weixindubbo.weixin.urlweixin;
-
-import java.io.Serializable;
+package com.dudu.soa.weixindubbo.weixin.http.service;
 
 /**
  * 微信dubbo配置类
  */
-public class URLConfig implements Serializable {
+public class URLConfig {
     /**
      * 微信项目URLbase
      */
