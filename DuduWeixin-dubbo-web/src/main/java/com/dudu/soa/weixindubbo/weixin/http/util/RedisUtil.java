@@ -6,6 +6,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
+ * redis通过连接池获取数据
  * Created by lizhen on 2017/6/10.
  */
 public final class RedisUtil {
@@ -60,12 +61,30 @@ public final class RedisUtil {
      */
     static {
         try {
+            //获得连接池的对象
             JedisPoolConfig config = new JedisPoolConfig();
+            //设置最大空闲连接数
             config.setMaxIdle(maxIdle);
+            //设置最大连接数
+            config.setMaxTotal(maxActive);
             config.setTestOnBorrow(testOnBorrow);
+            //获得连接池
             jedisPool = new JedisPool(config, addr, port, timeOut);
+            //获得核心对象
+            Jedis jedis = null;
+            //通过连接池来获得连接
+            jedis = jedisPool.getResource();
+            //设置数据
+            jedis.set("name", "李振");
+            //获得数据
+            jedis.get("name");
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            //释放资源
+            if (null != jedisPool) {
+                jedisPool.close();
+            }
         }
     }
 

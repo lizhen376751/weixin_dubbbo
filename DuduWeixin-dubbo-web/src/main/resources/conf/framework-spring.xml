@@ -86,5 +86,7 @@
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
 
+	<bean class="com.dudu.soa.weixindubbo.weixin.urlweixin.URLConfig"
+		  p:weixinURL="${dudu.wx.url.base}"/>
 
 </beans>

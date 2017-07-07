@@ -7,6 +7,7 @@
         <groupId>com.dudu.soa</groupId>
         <artifactId>DuduFramework</artifactId>
         <version>1.0-SNAPSHOT</version>
+
     </parent>
     <groupId>com.dudu.soa</groupId>
     <artifactId>DuduWeixin-dubbo</artifactId>

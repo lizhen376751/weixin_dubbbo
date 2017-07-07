@@ -471,6 +471,7 @@ public class AllWeiXinRquestTest extends TestBase {
         Template template = new Template();
         template.setTopColor("#00DD00");
         template.setToUser("owQtWt8L6RVxj_cTUaPyH27RWdbA");
+        template.setUrl("http://eqxiu.com/s/aX0KOheU");
         template.setTemplateId("PR8mojxujaqOYtdp3LJa_Rt8N0QxwRdtG6IOJ71r0js");
         List<TemplateData> paras = new ArrayList<TemplateData>();
         paras.add(new TemplateData().setName("first").setColor("#FF3333").setValue("我们已收到您的货款，开始为您打包商品，请耐心等待: "));
@@ -541,4 +542,6 @@ public class AllWeiXinRquestTest extends TestBase {
         String weixinpay = allWeiXinRquest.weixinpay(sweepPay);
         log.info("微信扫码支付url为:========================================" + weixinpay);
     }
+
+
 }

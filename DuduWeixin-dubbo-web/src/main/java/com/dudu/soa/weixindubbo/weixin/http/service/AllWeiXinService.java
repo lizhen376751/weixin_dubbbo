@@ -12,6 +12,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.http.util.MapUtils;
 import com.dudu.soa.weixindubbo.weixin.http.util.PayCommonUtil;
 import com.dudu.soa.weixindubbo.weixin.http.util.XMLUtil;
+import com.dudu.soa.weixindubbo.weixin.urlweixin.URLConfig;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Mpnews;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
@@ -194,6 +195,16 @@ public class AllWeiXinService {
      * @return template
      */
     public String sendTemplateMsg(String appid, String appSecret, Template template) {
+        URLConfig urlConfig = new URLConfig();
+        String url = template.getUrl();
+        if (null != url && !"".equals(url) && !"null".equals(url)) {
+            int ahiTiXing = url.indexOf("ahiTiXing");
+            if (ahiTiXing >= 0) {
+                url = urlConfig.getWeixinURL() + url;
+                log.info("ahi检车的报告详情url为======" + url);
+                template.setUrl(url);
+            }
+        }
         //获取token
         AccessToken tokengetTicket = this.getTokengetTicket(appid, appSecret);
         String flag = "";
