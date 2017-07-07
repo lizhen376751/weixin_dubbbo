@@ -12,7 +12,6 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.http.util.MapUtils;
 import com.dudu.soa.weixindubbo.weixin.http.util.PayCommonUtil;
 import com.dudu.soa.weixindubbo.weixin.http.util.XMLUtil;
-import com.dudu.soa.weixindubbo.weixin.urlweixin.URLConfig;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Mpnews;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
@@ -51,7 +50,11 @@ public class AllWeiXinService {
      */
     @Autowired
     private FileUpload fileUpload;
-
+    /**
+     * 微信环境url配置
+     */
+    @Autowired
+    private URLConfig urlConfig;
     /**
      * 获取开发者的token和jssdk的jsapiticket
      *
@@ -186,6 +189,7 @@ public class AllWeiXinService {
         return flag;
     }
 
+
     /**
      * 模板消息的发送
      *
@@ -195,7 +199,6 @@ public class AllWeiXinService {
      * @return template
      */
     public String sendTemplateMsg(String appid, String appSecret, Template template) {
-        URLConfig urlConfig = new URLConfig();
         log.info("整体的环境路径哇为======" + urlConfig.toString());
         String url = template.getUrl();
         if (null != url && !"".equals(url) && !"null".equals(url)) {
