@@ -196,6 +196,7 @@ public class AllWeiXinService {
      */
     public String sendTemplateMsg(String appid, String appSecret, Template template) {
         URLConfig urlConfig = new URLConfig();
+        log.info("整体的环境路径哇为======" + urlConfig.toString());
         String url = template.getUrl();
         if (null != url && !"".equals(url) && !"null".equals(url)) {
             int ahiTiXing = url.indexOf("ahiTiXing");
