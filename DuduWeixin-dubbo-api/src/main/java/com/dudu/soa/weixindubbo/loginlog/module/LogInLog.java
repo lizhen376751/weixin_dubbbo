@@ -30,6 +30,10 @@ public class LogInLog implements Serializable {
      * 微信昵称
      */
     private String nickname;
+    /**
+     * 密码
+     */
+    private String password;
 
     /**
      *  LogInLog(Created by lizhen on 2017330.) 字符串形式
@@ -37,12 +41,12 @@ public class LogInLog implements Serializable {
      */
     @Override
     public String toString() {
-        return "id:" + id + ",openid:" + openid + ",plateNumber:" + plateNumber + ",lmcode:" + lmcode + ",userid:" + userid + ",nickname:" + nickname;
+        return "id:" + id + ",openid:" + openid + ",plateNumber:" + plateNumber + ",lmcode:" + lmcode + ",userid:" + userid + ",nickname:" + nickname
+                + ",password:" + password;
     }
 
     /**
      * 获取 主键id
-     *
      * @return id 主键id
      */
     public int getId() {
@@ -51,7 +55,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 设置 主键id
-     *
      * @param id 主键id
      * @return 返回 LogInLog(Created by lizhen on 2017330.)
      */
@@ -62,7 +65,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 获取 weixin的id
-     *
      * @return openid weixin的id
      */
     public String getOpenid() {
@@ -71,7 +73,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 设置 weixin的id
-     *
      * @param openid weixin的id
      * @return 返回 LogInLog(Created by lizhen on 2017330.)
      */
@@ -82,7 +83,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 获取 车牌号
-     *
      * @return plateNumber 车牌号
      */
     public String getPlateNumber() {
@@ -91,7 +91,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 设置 车牌号
-     *
      * @param plateNumber 车牌号
      * @return 返回 LogInLog(Created by lizhen on 2017330.)
      */
@@ -102,7 +101,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 获取 联盟code
-     *
      * @return lmcode 联盟code
      */
     public String getLmcode() {
@@ -111,7 +109,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 设置 联盟code
-     *
      * @param lmcode 联盟code
      * @return 返回 LogInLog(Created by lizhen on 2017330.)
      */
@@ -122,7 +119,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 获取 用户id与联盟的用户表的id对应
-     *
      * @return userid 用户id与联盟的用户表的id对应
      */
     public int getUserid() {
@@ -131,7 +127,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 设置 用户id与联盟的用户表的id对应
-     *
      * @param userid 用户id与联盟的用户表的id对应
      * @return 返回 LogInLog(Created by lizhen on 2017330.)
      */
@@ -142,7 +137,6 @@ public class LogInLog implements Serializable {
 
     /**
      * 获取 微信昵称
-     *
      * @return nickname 微信昵称
      */
     public String getNickname() {
@@ -151,12 +145,29 @@ public class LogInLog implements Serializable {
 
     /**
      * 设置 微信昵称
-     *
      * @param nickname 微信昵称
      * @return 返回 LogInLog(Created by lizhen on 2017330.)
      */
     public LogInLog setNickname(String nickname) {
         this.nickname = nickname;
+        return this;
+    }
+
+    /**
+     * 获取 密码
+     * @return password 密码
+     */
+    public String getPassword() {
+        return this.password;
+    }
+
+    /**
+     * 设置 密码
+     * @param password 密码
+     * @return 返回 LogInLog(Created by lizhen on 2017330.)
+     */
+    public LogInLog setPassword(String password) {
+        this.password = password;
         return this;
     }
 }
