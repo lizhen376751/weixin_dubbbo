@@ -112,7 +112,7 @@ public final class MsgDispatcher {
                     newmsg.setArticles(list);
                     log.info("==============店管家微信关注事件！");
                 } else if (null != lmcode) { //联盟微信发送操作步骤说明
-                    if ("chaungke".equals(lmcode)) {
+                    if ("YZ000".equals(lmcode)) {
                         article.setDescription("点击图片查看详情"); //图文消息的描述
                         article.setPicUrl("http://www.duduchewang.com/images/banweixin.jpg"); //图文消息图片地址
                         article.setTitle("感谢关注创客之家");  //图文消息标题

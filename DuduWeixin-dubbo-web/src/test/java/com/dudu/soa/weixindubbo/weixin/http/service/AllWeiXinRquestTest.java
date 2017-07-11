@@ -19,7 +19,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -228,6 +231,7 @@ public class AllWeiXinRquestTest extends TestBase {
         String menu1 = allWeiXinRquest.createMenu(menu, "wx67bc0c5ab36233d8", "8b746d68471784a770a76c79b17e242e");
         log.info("个人创建菜单======================================" + menu1);
     }
+
     //嘟嘟车网测试平台
     @Test
     public void duDuMenu() throws Exception {
@@ -543,5 +547,17 @@ public class AllWeiXinRquestTest extends TestBase {
         log.info("微信扫码支付url为:========================================" + weixinpay);
     }
 
-
+    @Test
+    public void ss() {
+        String str ="1499683815000";
+        Long timeLong = Long.parseLong(str);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null; //你要的日期格式
+        try {
+            date = sdf.parse(sdf.format(timeLong));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println("============================="+sdf.format(date).toString());
+    }
 }
