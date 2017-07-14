@@ -187,5 +187,4 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     public String weixinpay(SweepPay sweepPay) {
         return weChatTask.weixinpay(sweepPay);
     }
-
 }

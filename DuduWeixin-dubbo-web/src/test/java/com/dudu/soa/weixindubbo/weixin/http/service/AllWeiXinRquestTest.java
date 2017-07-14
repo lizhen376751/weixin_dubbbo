@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.util.DuduTestUtil;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Button;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.CommonButton;
@@ -19,10 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -549,15 +548,24 @@ public class AllWeiXinRquestTest extends TestBase {
 
     @Test
     public void ss() {
-        String str ="1499683815000";
-        Long timeLong = Long.parseLong(str);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null; //你要的日期格式
-        try {
-            date = sdf.parse(sdf.format(timeLong));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        List<String> list =new ArrayList<String>();
+        list.add("sss");
+        list.add("数据库单身快乐");
+        DuduTestUtil.printResponseForTest(list);
+        String sss = "[\"美容\",\"维修\"]";
+        JSONArray objects = JSONObject.parseArray(sss);
+        System.out.println(objects);
+        System.out.println(objects.get(0));
+        System.out.println(objects.size());
+        for (int i=0;i<objects.size();i++){
+            System.out.println(objects.get(i));
+            System.out.println(objects.get(i).equals("美容"));
         }
-        System.out.println("============================="+sdf.format(date).toString());
+//       String aa = "{"美容","维系"}"
+//        Object parse = JSONObject.parse(sss);
+//        System.out.println(parse);
+//        List list = java.util.Arrays.asList(parse);
+//        System.out.println(list);
+
     }
 }
