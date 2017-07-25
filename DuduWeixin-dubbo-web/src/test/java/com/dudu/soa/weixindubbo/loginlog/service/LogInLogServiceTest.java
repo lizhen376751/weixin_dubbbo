@@ -1,6 +1,9 @@
 package com.dudu.soa.weixindubbo.loginlog.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.weixindubbo.loginlog.module.LogInLog;
+import com.dudu.soa.weixindubbo.thirdmessage.module.Dsasd;
+import com.dudu.soa.weixindubbo.thirdmessage.module.TextContent;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +77,28 @@ public class LogInLogServiceTest extends TestBase {
         System.out.println("==========================" + e.getMessage());
         e.printStackTrace();
     }
+    }
+
+    @Test
+    public void  setLogInLo(){
+        String ss = "{\n" +
+                "    \"touser\":\"OPENID\",\n" +
+                "    \"msgtype\":\"text\",\n" +
+                "    \"text\":\n" +
+                "    {\n" +
+                "         \"content\":\"Hello World\"\n" +
+                "    }\n" +
+                "}";
+        JSONObject jsonObject = JSONObject.parseObject(ss);
+        Dsasd dsasd = JSONObject.toJavaObject(jsonObject, Dsasd.class);
+        System.out.println("========================"+dsasd.toString());
+        Dsasd dsasd1 = new Dsasd();
+        TextContent textContent = new TextContent();
+        textContent.setContent("Hello World");
+        dsasd1.setMsgtype("text").setText(textContent).setTouser("OPENID");
+        Object o = JSONObject.toJSON(dsasd1);
+        System.out.println("======================="+o.toString());
+
     }
 
 }

@@ -1,0 +1,298 @@
+package com.dudu.soa.weixindubbo.third.service;
+
+
+import com.dudu.soa.weixindubbo.third.api.ApiThird;
+import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
+import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
+import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
+import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
+import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
+import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
+import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
+import com.dudu.soa.weixindubbo.weixin.http.util.ThirdUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 第三方开发平台
+ * Created by lizhen on 2017/7/17.
+ */
+@Service
+public class ThirdService implements ApiThird {
+    /**
+     * 日志打印
+     */
+    private static Logger log = LoggerFactory.getLogger(ThirdService.class);
+    /**
+     * 引用解析的json字符串的方法
+     */
+    @Autowired
+    private AllWeiXinService allWeiXinService;
+
+    /**
+     * 判断是否加密
+     *
+     * @param signature 前文描述密文消息体
+     * @param timestamp URL上原有参数,时间戳
+     * @param nonce     URL上原有参数,随机数
+     * @return true或者false
+     */
+    @Override
+    public boolean checkSignature(String signature, String timestamp, String nonce) {
+        log.info("判断是否加密 token:" + ThirdUtil.TOKEN + ";signature:" + signature + ";timestamp:" + timestamp + "nonce:" + nonce);
+        boolean flag = false;
+        if (signature != null && !signature.equals("") && timestamp != null && !timestamp.equals("") && nonce != null && !nonce.equals("")) {
+            String sha1 = "";
+            String[] ss = new String[]{ThirdUtil.TOKEN, timestamp, nonce};
+            Arrays.sort(ss);
+            for (String s : ss) {
+                sha1 += s;
+            }
+
+            sha1 = AddSHA1.shi1(sha1);
+
+            if (sha1.equals(signature)) {
+                flag = true;
+            }
+            log.info("判断是否加密=========" + flag);
+        }
+        return flag;
+    }
+
+    /**
+     * 十分钟推送一次,不需要解密直接获取appid
+     * 获取密文的授权的Appid
+     *
+     * @param xml 内容
+     * @return appid
+     */
+    @Override
+    public String getAuthorizerAppidFromXml(String xml) {
+        Document doc;
+        try {
+            doc = DocumentHelper.parseText(xml);
+            Element rootElt = doc.getRootElement();
+            String toUserName = rootElt.elementText("ToUserName");
+            log.info("十分钟推送一次,不需要解密直接获取appid=" + toUserName);
+            return toUserName;
+        } catch (DocumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    /**
+     * 在解密后的xml中获取ticket,并保存Ticket
+     *
+     * @param xml 解密后的xml
+     * @return 协议的ticket
+     */
+    @Override
+    public ComponentVerifyTicket processAuthorizationEvent(String xml) {
+        log.info("十分钟发过来协议 在解密后的xml中获取ticket,xml = " + xml);
+        Document doc;
+        ComponentVerifyTicket entity = new ComponentVerifyTicket();
+        try {
+            //TODO 从数据库中获取appsecret
+            doc = DocumentHelper.parseText(xml);
+            Element rootElt = doc.getRootElement();
+            String ticket = rootElt.elementText("ComponentVerifyTicket");
+            String appId = rootElt.elementText("AppId");
+            String createTime = rootElt.elementText("CreateTime");
+            String infoType = rootElt.elementText("InfoType");
+            if (StringUtils.isNotEmpty(ticket)) {
+                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret("");
+            }
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        log.info("十分钟发过来协议 在解密后的xml中获取ticket,并保存Ticket = " + entity.toString());
+        return entity;
+    }
+
+    /**
+     * 获取第三方开发平台的token
+     *
+     * @param componentVerifyTicket ticket协议的实体类
+     * @return 第三方token的实体类
+     */
+    @Override
+    public ComponentAccessToken getComponentAccessToken(ComponentVerifyTicket componentVerifyTicket) {
+        log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
+        Map<String, String> params = new HashMap<String, String>();
+        if (null != componentVerifyTicket) {
+            params.put("component_appid", componentVerifyTicket.getAppId());
+            params.put("component_appsecret", componentVerifyTicket.getAppsecret());
+            params.put("component_verify_ticket", componentVerifyTicket.getComponentVerifyTicket());
+        }
+
+        ComponentAccessToken componentAccessToken = new ComponentAccessToken();
+        try {
+            String token = HttpUtils.sendPost(url, params);
+            String componentAccessToken1 = allWeiXinService.pareJsonDate(token, "component_access_token");
+            String expiresIn = allWeiXinService.pareJsonDate(token, "expires_in");
+            componentAccessToken.setAppid(componentVerifyTicket.getAppId());
+            componentAccessToken.setComponentAccessToken(componentAccessToken1);
+            componentAccessToken.setExpiresIn(expiresIn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("获取第三方开发平台的token = " + componentAccessToken.toString());
+        return componentAccessToken;
+    }
+
+    /**
+     * 获取预授权码
+     *
+     * @param componentAccessToken token实体类
+     * @return 预授权码
+     */
+    @Override
+    public PreAuthCode getPreAuthCode(ComponentAccessToken componentAccessToken) {
+        log.info("获取预授权码 参数第三方开发平台的token = " + componentAccessToken.toString());
+        PreAuthCode preAuthCode = new PreAuthCode();
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
+        Map<String, String> params = new HashMap<String, String>();
+        if (null != componentAccessToken) {
+            params.put("component_appid", componentAccessToken.getAppid());
+        }
+        try {
+            String sendPost = HttpUtils.sendPost(url, params);
+            String preAuthCode1 = allWeiXinService.pareJsonDate(sendPost, "pre_auth_code");
+            String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
+            preAuthCode.setAppid(componentAccessToken.getAppid());
+            preAuthCode.setPreAuthCode(preAuthCode1);
+            preAuthCode.setExpiresIn(expiresIn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("获取预授权码 = " + preAuthCode.toString());
+        return preAuthCode;
+    }
+
+    /**
+     * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
+     *
+     * @param componentAccessToken 第三方appid及token相关信息
+     * @param authorizationCode    授权的公众的授权码
+     * @return 授权相关的信息
+     */
+    @Override
+    public AuthorizationInfo getAuthorizationInfo(ComponentAccessToken componentAccessToken, String authorizationCode) {
+        log.info("获取授权信息 参数获取第三方ComponentAccessToken=" + componentAccessToken.toString() + ",授权码authorizationCode=" + authorizationCode);
+        AuthorizationInfo authorizationInfo = new AuthorizationInfo();
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken.getComponentAccessToken();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("component_appid", componentAccessToken.getAppid());
+        params.put("authorization_code", authorizationCode);
+        try {
+            String sendPost = HttpUtils.sendPost(url, params);
+            String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
+            String authorizerAppid = allWeiXinService.pareJsonDate(sendPost, "authorizer_appid");
+            String authorizerAccessToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_access_token");
+            String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
+            String authorizerRefreshToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_refresh_token");
+            String funcInfo = allWeiXinService.pareJsonDate(sendPost, "func_info");
+            authorizationInfo.setAuthorizationInfo(authorizationInfo1).setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
+                    .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("获取授权信息  = " + authorizationInfo.toString());
+        return authorizationInfo;
+    }
+
+    /**
+     * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
+     *
+     * @param componentAccessToken 第三方平台的token
+     * @param authorizationInfo    公众号的授权信息
+     * @return 公众号的授权信息
+     */
+    @Override
+    public AuthorizationInfo refreshToken(ComponentAccessToken componentAccessToken, AuthorizationInfo authorizationInfo) {
+        log.info("获取（刷新）授权公众号或小程序的接口调用凭据（令牌）componentAccessToken =" + componentAccessToken.toString()
+                + ",AuthorizationInfo=" + authorizationInfo.toString());
+        String url = "https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token=" + componentAccessToken.getComponentAccessToken();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("component_appid", componentAccessToken.getAppid());
+        params.put("authorizer_appid", authorizationInfo.getAuthorizerAppid());
+        params.put("authorizer_refresh_token", authorizationInfo.getAuthorizerRefreshToken());
+        try {
+            String sendPost = HttpUtils.sendPost(url, params);
+            String authorizerAccessToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_access_token");
+            String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
+            String authorizerRefreshToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_refresh_token");
+            authorizationInfo.setAuthorizerRefreshToken(authorizerRefreshToken).setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("获取（刷新）授权公众号或小程序的接口调用凭据" + authorizationInfo.toString());
+        return authorizationInfo;
+    }
+
+    /**
+     * 获取授权方的帐号基本信息
+     *
+     * @param componentAccessToken 第三方的token实体类
+     * @param authorizerAppid      appid
+     * @return 授权方的帐号基本信息
+     */
+    @Override
+    public AuthorizerInfo getAuthorizerInfo(ComponentAccessToken componentAccessToken, String authorizerAppid) {
+        log.info("获取授权方的帐号基本信息ComponentAccessToken=" + componentAccessToken.toString() + ",授权方的appid=" + authorizerAppid);
+        AuthorizerInfo authorizerInfo = new AuthorizerInfo();
+        AuthorizationInfo authorizationInfo = new AuthorizationInfo();
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_get_authorizer_info?component_access_token=" + componentAccessToken.getComponentAccessToken();
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("component_appid", componentAccessToken.getAppid());
+        params.put("authorizer_appid", authorizerAppid);
+        try {
+            String sendPost = HttpUtils.sendPost(url, params);
+            String nickName = allWeiXinService.pareJsonDate(sendPost, "nick_name");
+            String headImg = allWeiXinService.pareJsonDate(sendPost, "head_img");
+            String serviceTypeInfo = allWeiXinService.pareJsonDate(sendPost, "service_type_info");
+            String verifyTypeInfo = allWeiXinService.pareJsonDate(sendPost, "verify_type_info");
+            String userName = allWeiXinService.pareJsonDate(sendPost, "user_name");
+            String principalName = allWeiXinService.pareJsonDate(sendPost, "principal_name");
+            String alias = allWeiXinService.pareJsonDate(sendPost, "alias");
+            String businessInfo = allWeiXinService.pareJsonDate(sendPost, "business_info");
+            String qrcodeUrl = allWeiXinService.pareJsonDate(sendPost, "qrcode_url");
+            String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
+            String appid = allWeiXinService.pareJsonDate(sendPost, "appid");
+            String funcInfo = allWeiXinService.pareJsonDate(sendPost, "func_info");
+            authorizerInfo.setNickName(nickName);
+            authorizerInfo.setAlias(alias);
+            authorizerInfo.setBusinessInfo(businessInfo);
+            authorizerInfo.setHeadImg(headImg);
+            authorizerInfo.setPrincipalName(principalName);
+            authorizerInfo.setQrcodeUrl(qrcodeUrl);
+            authorizerInfo.setServiceTypeInfo(serviceTypeInfo);
+            authorizerInfo.setUserName(userName);
+            authorizerInfo.setVerifyTypeInfo(verifyTypeInfo);
+            authorizationInfo.setAuthorizerAppid(appid);
+            authorizationInfo.setFuncInfo(funcInfo);
+            authorizerInfo.setAuthorizationInfo(authorizationInfo);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        log.info("获取授权方的帐号基本信息authorizerInfo=" + authorizerInfo.toString());
+        return authorizerInfo;
+    }
+
+}

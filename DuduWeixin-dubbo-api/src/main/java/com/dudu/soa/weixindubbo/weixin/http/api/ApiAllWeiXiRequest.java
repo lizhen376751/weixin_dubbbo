@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.api;
 
 
+import com.dudu.soa.weixindubbo.thirdmessage.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
@@ -8,6 +9,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -114,4 +116,14 @@ public interface ApiAllWeiXiRequest {
      * @return 微信二维码的url string
      */
     String weixinpay(SweepPay sweepPay);
+
+
+    /**
+     * 客服接口-发消息
+     *
+     * @param token        第三方开发平台的token
+     * @param customerText 文本消息
+     * @return 发送成功后的回调
+     */
+    String customerSmsSend(String token, CustomerText customerText);
 }

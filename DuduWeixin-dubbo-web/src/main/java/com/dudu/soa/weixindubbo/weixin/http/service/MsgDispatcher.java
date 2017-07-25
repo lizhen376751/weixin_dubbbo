@@ -4,6 +4,7 @@ import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Article;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.NewsMessage;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TextMessage;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +59,37 @@ public final class MsgDispatcher {
          * 联盟code
          */
         String lmcode = map.get("lmcode");
+        //全网发布检测相关测试
+        if (mpid.equals("wx570bc396a51b8ff8")) {
+            TextMessage txtmsg = new TextMessage();
+            txtmsg.setToUserName(openid);
+            txtmsg.setFromUserName(mpid);
+            txtmsg.setCreateTime(new Date().getTime() / 1000);
+            txtmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_TEXT);
+            //事件检测
+            if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_EVENT)) { // 关注事件及推送地理位置
+                //普通文本消息
+                txtmsg.setContent(map.get("Event") + "from_callback");
+                log.info("==============模拟粉丝触发专用测试公众号的事件！");
+                return MessageUtil.textMessageToXml(txtmsg);
+            }
+            //文本消息检测
+            if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
+                //自动检测第二步
+                if ("TESTCOMPONENT_MSG_TYPE_TEXT".equals(map.get("Content"))) {
+                    txtmsg.setContent("TESTCOMPONENT_MSG_TYPE_TEXT_callback");
+                } else if (StringUtils.startsWithIgnoreCase(map.get("Content"), "QUERY_AUTH_CODE")) {
+                    //自动检测第三步 传送xml时,如果是第三方开发平台的,第一次回复空,第二次根据xml的判断直接调用客服接口
+                    if (map.get("businessType").equals("test")) {
+                        String content = map.get("Content");
+                        String split = content.split(":")[1].toString() + "_from_api";
+                        txtmsg.setContent(split);
+                        return MessageUtil.textMessageToXml(txtmsg);
+                    }
+                    return "";
+                }
+            }
+        }
 
 
         if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) { // 文本消息
@@ -81,10 +113,11 @@ public final class MsgDispatcher {
             newmsg.setCreateTime(new Date().getTime() / 1000);
             newmsg.setMsgType(MessageUtil.RESP_MESSAGE_TYPE_NEWS);
             Article article = new Article();
+
 //            http://www.duduchewang.com/images/banweixin.jpg  图片展示
 //            http://eqxiu.com/s/aX0KOheU  图片详情跳转url
 //            "http://shop.duduchewang.com/upload/"+ strWxShopcode + "/shopimg/" + WelcomeImg;  图片地址
-            if (map.get("Event").equals("subscribe")) { //微信关注事件
+            if (map.get("Event").equals(MessageUtil.EVENT_TYPE_SUBSCRIBE)) { //微信关注事件
                 if (null != shopcode) { //店管家微信发送欢迎图文消息
                     String shopName = shopInfo.getShopName();
                     String description = shopInfo.getWelcomeTxt(); //欢迎文字

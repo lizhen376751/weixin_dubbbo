@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dudu.soa.weixindubbo.thirdmessage.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinBaseParamter;
@@ -459,6 +460,26 @@ public class AllWeiXinService {
         String urlCode = (String) map.get("code_url");
         log.info("第三步:微信扫码支付返回的url数据为=========" + urlCode);
         return urlCode;
+    }
+
+
+    /**
+     * 客服接口-发消息
+     *
+     * @param token        第三方开发平台的token
+     * @param customerText 文本消息
+     * @return 发送成功后的回调
+     */
+    public String customerSmsSend(String token, CustomerText customerText) {
+        String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + token;
+        String json = JSONObject.toJSONString(customerText);
+        String jsonResult = "";
+        try {
+            jsonResult = HttpUtils.sendPostJson(url, json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonResult;
     }
 
 }

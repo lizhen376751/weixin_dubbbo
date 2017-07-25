@@ -52,9 +52,7 @@ public class ShopWeixinUserServiceTest extends TestBase {
 
     }
 
-    @Test
-    public void deleteShopWeixinUser() throws Exception {
 
-    }
+
 
 }

@@ -2,6 +2,7 @@ package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
+import com.dudu.soa.weixindubbo.thirdmessage.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
@@ -186,5 +187,17 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     @Override
     public String weixinpay(SweepPay sweepPay) {
         return weChatTask.weixinpay(sweepPay);
+    }
+
+    /**
+     * 客服接口-发消息
+     *
+     * @param token        第三方开发平台的token
+     * @param customerText 文本消息
+     * @return 发送成功后的回调
+     */
+    @Override
+    public String customerSmsSend(String token, CustomerText customerText) {
+        return weChatTask.customerSmsSend(token, customerText);
     }
 }
