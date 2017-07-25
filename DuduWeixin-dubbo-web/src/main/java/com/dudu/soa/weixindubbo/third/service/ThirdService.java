@@ -9,7 +9,6 @@ import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
 import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
 import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
-import com.dudu.soa.weixindubbo.weixin.http.util.ThirdUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -49,12 +48,12 @@ public class ThirdService implements ApiThird {
      * @return true或者false
      */
     @Override
-    public boolean checkSignature(String signature, String timestamp, String nonce) {
-        log.info("判断是否加密 token:" + ThirdUtil.TOKEN + ";signature:" + signature + ";timestamp:" + timestamp + "nonce:" + nonce);
+    public boolean checkSignature(String token, String signature, String timestamp, String nonce) {
+        log.info("判断是否加密 token:" + token + ";signature:" + signature + ";timestamp:" + timestamp + "nonce:" + nonce);
         boolean flag = false;
         if (signature != null && !signature.equals("") && timestamp != null && !timestamp.equals("") && nonce != null && !nonce.equals("")) {
             String sha1 = "";
-            String[] ss = new String[]{ThirdUtil.TOKEN, timestamp, nonce};
+            String[] ss = new String[]{token, timestamp, nonce};
             Arrays.sort(ss);
             for (String s : ss) {
                 sha1 += s;

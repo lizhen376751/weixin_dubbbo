@@ -12,15 +12,17 @@ import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
  */
 
 public interface ApiThird {
+
     /**
      * 判断是否加密
      *
+     * @param token     第三方的token
      * @param signature 前文描述密文消息体
      * @param timestamp URL上原有参数,时间戳
      * @param nonce     URL上原有参数,随机数
      * @return true或者false
      */
-    boolean checkSignature(String signature, String timestamp, String nonce);
+    boolean checkSignature(String token, String signature, String timestamp, String nonce);
 
     /**
      * 十分钟推送一次,不需要解密直接获取appid
