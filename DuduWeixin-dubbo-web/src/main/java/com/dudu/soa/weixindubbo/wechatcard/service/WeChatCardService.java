@@ -33,7 +33,6 @@ public class WeChatCardService implements ApiCard {
      * @param filePath 文件的
      * @param in       文件的
      * @return String url的响应信息返回值
-     * @throws IOException 异常
      */
     @Override
     public String send(String token, String filePath, DataInputStream in) {
