@@ -20,11 +20,11 @@ import java.net.URL;
  * Created by lizhen on 2017/7/27.
  */
 @Service
-public class FileUpload implements ApiCard {
+public class WeChatCardService implements ApiCard {
     /**
      * 日誌打印
      */
-    private static Logger log = LoggerFactory.getLogger(FileUpload.class);
+    private static Logger log = LoggerFactory.getLogger(WeChatCardService.class);
 
     /**
      * 模拟form表单的形式 ，上传文件 以输出流的形式把文件写入到url中，然后用输入流来获取url的响应
