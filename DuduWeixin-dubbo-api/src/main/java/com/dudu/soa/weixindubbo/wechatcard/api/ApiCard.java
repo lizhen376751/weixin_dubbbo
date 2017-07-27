@@ -1,7 +1,6 @@
 package com.dudu.soa.weixindubbo.wechatcard.api;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 
 /**
  * 微信卡包相關接口
@@ -16,7 +15,6 @@ public interface ApiCard {
      * @param filePath 文件的
      * @param in       文件的
      * @return String url的响应信息返回值
-     * @throws IOException 异常
      */
      String send(String token, String filePath, DataInputStream in);
 }
