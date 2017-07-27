@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -31,12 +32,12 @@ public class WeChatCardService implements ApiCard {
      *
      * @param token    请求地址 form表单url地址
      * @param filePath 文件的
-     * @param in       文件的
+     * @param fileInputStream       文件的
      * @return String url的响应信息返回值
      */
     @Override
-    public String send(String token, String filePath, DataInputStream in) {
-        log.info("token=" + token + ",filePath=" + filePath + ",in=" + in);
+    public String send(String token, String filePath, FileInputStream fileInputStream) {
+        log.info("token=" + token + ",filePath=" + filePath + ",in=" + fileInputStream);
         String url = "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token="
                 + "j3fbhrXYGowMKHxH5E3UBJsPoaYKfgTl6DT-fiieFUEXjDS8xoSzv9uwW56i5COWrKgULUp1ZZw7zHyfEivT2in__JMW4uPCW-pkLNkPpxkPxCLoiP8S88aUlkgG-sqTXCFeAIAOTW&type=image";
 
@@ -100,7 +101,7 @@ public class WeChatCardService implements ApiCard {
 
             // 文件正文部分
             // 把文件已流文件的方式 推入到url中
-//        DataInputStream in = new DataInputStream(new FileInputStream(file));
+            DataInputStream in = new DataInputStream(fileInputStream);
 
             int bytes = 0;
             byte[] bufferOut = new byte[1024];
