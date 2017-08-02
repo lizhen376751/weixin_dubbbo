@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.third.service;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.dudu.soa.framework.cache.RedisUtil;
 import com.dudu.soa.weixindubbo.third.api.ApiThird;
 import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
 import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
@@ -29,10 +31,16 @@ import java.util.Map;
  */
 @Service
 public class ThirdService implements ApiThird {
+
     /**
      * 日志打印
      */
     private static Logger log = LoggerFactory.getLogger(ThirdService.class);
+    /**
+     * redis util
+     */
+    @Autowired
+    private RedisUtil redisUtil;
     /**
      * 引用解析的json字符串的方法
      */
@@ -114,12 +122,38 @@ public class ThirdService implements ApiThird {
             String infoType = rootElt.elementText("InfoType");
             if (StringUtils.isNotEmpty(ticket)) {
                 entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret("");
+                saveTicket(entity);
             }
         } catch (DocumentException e) {
             e.printStackTrace();
         }
         log.info("十分钟发过来协议 在解密后的xml中获取ticket,并保存Ticket = " + entity.toString());
         return entity;
+    }
+
+    /**
+     * ticket缓存
+     *
+     * @param ticket ticket
+     */
+    private void saveTicket(ComponentVerifyTicket ticket) {
+        String appId = ticket.getAppId();
+
+        // 10分钟时间
+        int seconds = 60 * 10;
+
+        redisUtil.set("ticket/" + appId, seconds, JSONObject.toJSONString(ticket));
+    }
+
+    /**
+     * 获取Ticket
+     *
+     * @param appId appId
+     * @return 返回ticket
+     */
+    private ComponentVerifyTicket getTicket(String appId) {
+        String ticketStr = redisUtil.get("ticket/" + appId);
+        return ticketStr == null ? null : JSONObject.parseObject(redisUtil.get("ticket/" + appId), ComponentVerifyTicket.class);
     }
 
     /**
@@ -130,6 +164,19 @@ public class ThirdService implements ApiThird {
      */
     @Override
     public ComponentAccessToken getComponentAccessToken(ComponentVerifyTicket componentVerifyTicket) {
+        String appId = componentVerifyTicket.getAppId();
+        String appSecret = componentVerifyTicket.getAppsecret();
+        //token 2小时有效期
+        int seconds = 2 * 60 * 60;
+
+        String key = "token/" + appId + "_" + appSecret;
+        String tokenStr = redisUtil.get(key);
+
+        if (tokenStr != null) {
+            return JSONObject.parseObject(tokenStr, ComponentAccessToken.class);
+        }
+
+
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
         Map<String, String> params = new HashMap<String, String>();
@@ -151,6 +198,7 @@ public class ThirdService implements ApiThird {
             e.printStackTrace();
         }
         log.info("获取第三方开发平台的token = " + componentAccessToken.toString());
+        redisUtil.set(key, seconds, JSONObject.toJSONString(componentAccessToken));
         return componentAccessToken;
     }
 

@@ -31,6 +31,7 @@
 				<value>classpath:dubbo.properties</value>
 				<value>classpath:Duduweixin-dubbo.properties</value>
 				<value>classpath:logback.xml</value>
+				<value>classpath:redis.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -85,6 +86,22 @@
 		<property name="basePackage" value="com.dudu.soa.**.mapper" />
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 	</bean>
+
+	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxIdle" value="${redis.maxIdle}"/>
+		<property name="maxTotal" value="${redis.maxTotal}"/>
+		<property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+		<property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+	</bean>
+
+	<bean id="jedistFactory" class="com.dudu.soa.framework.cache.JedisFactoryUtil"
+		  p:poolConfig-ref="poolConfig"
+		  p:host="${redis.host}"
+		  p:port="${redis.port}"
+		  p:password="${redis.password}"/>
+
+	<bean class="com.dudu.soa.framework.cache.RedisUtil"
+		p:prefix="weixin"/>
 
 	<bean class="com.dudu.soa.weixindubbo.weixin.http.service.URLConfig"
 		  p:weixinURL="${dudu.wx.url.base}"/>
