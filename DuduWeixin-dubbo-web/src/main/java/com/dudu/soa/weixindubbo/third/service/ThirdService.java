@@ -11,6 +11,8 @@ import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
 import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
 import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.service.WeiXinConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -46,6 +48,11 @@ public class ThirdService implements ApiThird {
      */
     @Autowired
     private AllWeiXinService allWeiXinService;
+    /**
+     * 微信配置相关
+     */
+    @Autowired
+    private WeiXinConfigService weiXinConfigService;
 
     /**
      * 判断是否加密
@@ -113,7 +120,7 @@ public class ThirdService implements ApiThird {
         Document doc;
         ComponentVerifyTicket entity = new ComponentVerifyTicket();
         try {
-            //TODO 从数据库中获取appsecret
+            WeiXinConfig third = weiXinConfigService.getWeiXinConfig("third");
             doc = DocumentHelper.parseText(xml);
             Element rootElt = doc.getRootElement();
             String ticket = rootElt.elementText("ComponentVerifyTicket");
@@ -121,7 +128,7 @@ public class ThirdService implements ApiThird {
             String createTime = rootElt.elementText("CreateTime");
             String infoType = rootElt.elementText("InfoType");
             if (StringUtils.isNotEmpty(ticket)) {
-                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret("");
+                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret(third.getAppserect());
                 saveTicket(entity);
             }
         } catch (DocumentException e) {
