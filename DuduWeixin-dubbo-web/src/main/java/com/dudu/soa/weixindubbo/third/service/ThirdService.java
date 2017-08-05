@@ -118,6 +118,7 @@ public class ThirdService implements ApiThird {
      */
     @Override
     public String decrypt(AESParams aesParams) {
+        log.info("解密传过来的参数为=" + aesParams.toString());
         WXBizMsgCrypt pc = null;
         String xml = "";
         try {
