@@ -212,6 +212,21 @@ public class ThirdService implements ApiThird {
     public PreAuthCode getPreAuthCode(ComponentAccessToken componentAccessToken) {
         log.info("获取预授权码 参数第三方开发平台的token = " + componentAccessToken.toString());
         PreAuthCode preAuthCode = new PreAuthCode();
+
+        String appId = componentAccessToken.getAppId();
+        String token = componentAccessToken.getComponentAccessToken();
+        //token 20分钟有效期
+        int seconds = 20 * 60;
+
+        String key = "preauthcode/" + appId + "_" + token;
+        String authStr = redisUtil.get(key);
+
+        if (null != authStr) {
+            preAuthCode = JSONObject.parseObject(authStr, PreAuthCode.class);
+             return preAuthCode;
+        }
+
+
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
         Map<String, String> params = new HashMap<String, String>();
         if (null != componentAccessToken) {
@@ -227,6 +242,9 @@ public class ThirdService implements ApiThird {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        redisUtil.set(key, seconds, JSONObject.toJSONString(preAuthCode));
+
         log.info("获取预授权码 = " + preAuthCode.toString());
         return preAuthCode;
     }
