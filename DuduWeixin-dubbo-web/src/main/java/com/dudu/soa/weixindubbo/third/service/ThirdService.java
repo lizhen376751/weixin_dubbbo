@@ -3,7 +3,10 @@ package com.dudu.soa.weixindubbo.third.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.cache.RedisUtil;
+import com.dudu.soa.weixindubbo.third.aes.AesException;
+import com.dudu.soa.weixindubbo.third.aes.WXBizMsgCrypt;
 import com.dudu.soa.weixindubbo.third.api.ApiThird;
+import com.dudu.soa.weixindubbo.third.module.AESParams;
 import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
 import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
 import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
@@ -107,6 +110,26 @@ public class ThirdService implements ApiThird {
         return null;
     }
 
+    /**
+     * 消息解密
+     *
+     * @param aesParams 解密所需要的参数
+     * @return 解密后的xml
+     */
+    @Override
+    public String decrypt(AESParams aesParams) {
+        WXBizMsgCrypt pc = null;
+        String xml = "";
+        try {
+            pc = new WXBizMsgCrypt(aesParams.getToken(), aesParams.getEncodingAesKey(), aesParams.getAppId());
+            //解密
+            xml = pc.decryptMsg(aesParams.getMsgSignature(), aesParams.getTimestamp(), aesParams.getNonce(), aesParams.getXml());
+        } catch (AesException e) {
+            e.printStackTrace();
+            xml = "xml解密错误!!!!";
+        }
+        return xml;
+    }
 
     /**
      * 在解密后的xml中获取ticket,并保存Ticket

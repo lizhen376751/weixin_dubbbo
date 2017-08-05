@@ -26,23 +26,23 @@ public class WXBizMsgCryptTest extends TestBase{
     /**
      *
      */
-    private String encodingAesKey = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFG";
+    private String encodingAesKey = "6o24ph2raAINvT45jKLeruT59sPsJ9QXCwXFXUK4Vhr";
     /**
      *
      */
-    private String token = "pamtest";
+    private String token = "yirenyiche";
     /**
      *
      */
-    private String timestamp = "1409304348";
+    private String timestamp = "1501898982";
     /**
      *
      */
-    private String nonce = "xxxxxx";
+    private String nonce = "659135570";
     /**
      *
      */
-    private String appId = "wxb11529c136998cb6";
+    private String appId = "wx77ea274ef9f3e504";
     /**
      *
      */
