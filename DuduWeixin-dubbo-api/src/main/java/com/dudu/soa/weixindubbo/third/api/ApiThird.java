@@ -1,5 +1,6 @@
 package com.dudu.soa.weixindubbo.third.api;
 
+import com.dudu.soa.weixindubbo.third.module.AESParams;
 import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
 import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
 import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
@@ -33,6 +34,13 @@ public interface ApiThird {
      */
     String getAuthorizerAppidFromXml(String xml);
 
+    /**
+     * 消息解密
+     *
+     * @param aesParams 解密所需要的参数
+     * @return 解密后的xml
+     */
+    String decrypt(AESParams aesParams);
 
     /**
      * 在解密后的xml中获取ticket,并保存Ticket

@@ -3,7 +3,10 @@ package com.dudu.soa.weixindubbo.third.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.cache.RedisUtil;
+import com.dudu.soa.weixindubbo.third.aes.AesException;
+import com.dudu.soa.weixindubbo.third.aes.WXBizMsgCrypt;
 import com.dudu.soa.weixindubbo.third.api.ApiThird;
+import com.dudu.soa.weixindubbo.third.module.AESParams;
 import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
 import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
 import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
@@ -11,6 +14,8 @@ import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
 import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
 import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.service.WeiXinConfigService;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -46,6 +51,11 @@ public class ThirdService implements ApiThird {
      */
     @Autowired
     private AllWeiXinService allWeiXinService;
+    /**
+     * 微信配置相关
+     */
+    @Autowired
+    private WeiXinConfigService weiXinConfigService;
 
     /**
      * 判断是否加密
@@ -100,6 +110,26 @@ public class ThirdService implements ApiThird {
         return null;
     }
 
+    /**
+     * 消息解密
+     *
+     * @param aesParams 解密所需要的参数
+     * @return 解密后的xml
+     */
+    @Override
+    public String decrypt(AESParams aesParams) {
+        WXBizMsgCrypt pc = null;
+        String xml = "";
+        try {
+            pc = new WXBizMsgCrypt(aesParams.getToken(), aesParams.getEncodingAesKey(), aesParams.getAppId());
+            //解密
+            xml = pc.decryptMsg(aesParams.getMsgSignature(), aesParams.getTimestamp(), aesParams.getNonce(), aesParams.getXml());
+        } catch (AesException e) {
+            e.printStackTrace();
+            xml = "xml解密错误!!!!";
+        }
+        return xml;
+    }
 
     /**
      * 在解密后的xml中获取ticket,并保存Ticket
@@ -113,7 +143,7 @@ public class ThirdService implements ApiThird {
         Document doc;
         ComponentVerifyTicket entity = new ComponentVerifyTicket();
         try {
-            //TODO 从数据库中获取appsecret
+            WeiXinConfig third = weiXinConfigService.getWeiXinConfig("third");
             doc = DocumentHelper.parseText(xml);
             Element rootElt = doc.getRootElement();
             String ticket = rootElt.elementText("ComponentVerifyTicket");
@@ -121,7 +151,7 @@ public class ThirdService implements ApiThird {
             String createTime = rootElt.elementText("CreateTime");
             String infoType = rootElt.elementText("InfoType");
             if (StringUtils.isNotEmpty(ticket)) {
-                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret("");
+                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret(third.getAppserect());
                 saveTicket(entity);
             }
         } catch (DocumentException e) {
