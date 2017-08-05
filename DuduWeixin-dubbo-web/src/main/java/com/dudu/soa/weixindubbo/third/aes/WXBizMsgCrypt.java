@@ -74,6 +74,14 @@
  * 针对org.apache.commons.codec.binary.Base64，
  * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
  * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
+ * <p>
+ * 针对org.apache.commons.codec.binary.Base64，
+ * 需要导入架包commons-codec-1.9（或commons-codec-1.8等其他版本）
+ * 官方下载地址：http://commons.apache.org/proper/commons-codec/download_codec.cgi
  */
 
 // ------------------------------------------------------------------------
@@ -86,6 +94,9 @@
 package com.dudu.soa.weixindubbo.third.aes;
 
 import org.apache.commons.codec.binary.Base64;
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -279,16 +290,25 @@ public class WXBizMsgCrypt {
             int xmlLength = recoverNetworkBytesOrder(networkOrder);
 
             xmlContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), charset);
-            fromappid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length), bytes.length);
+
+            Document doc = DocumentHelper.parseText(xmlContent);
+            Element rootElt = doc.getRootElement();
+            fromappid = rootElt.elementText("AppId");
+            System.out.println("+++" + fromappid);
+
+//            fromappid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length), bytes.length);
         } catch (Exception e) {
             e.printStackTrace();
             throw new AesException(AesException.ILLEGALBUFFER);
         }
 
         // appid不相同的情况
-        if (!fromappid.equals(appId)) {
-            throw new AesException(AesException.VALIDATEAPPIDERROR);
+        if (fromappid != null && !"".equals(fromappid) && !"null".equals(fromappid)) {
+            if (!fromappid.equals(appId)) {
+                throw new AesException(AesException.VALIDATEAPPIDERROR);
+            }
         }
+
         return xmlContent;
 
     }

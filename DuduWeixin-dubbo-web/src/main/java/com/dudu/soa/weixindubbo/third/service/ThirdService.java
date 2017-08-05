@@ -126,7 +126,8 @@ public class ThirdService implements ApiThird {
             xml = pc.decryptMsg(aesParams.getMsgSignature(), aesParams.getTimestamp(), aesParams.getNonce(), aesParams.getXml());
         } catch (AesException e) {
             e.printStackTrace();
-            xml = "xml解密错误!!!!";
+            log.info("消息加密失败原因:" + e.getMessage());
+            xml = e.getMessage();
         }
         return xml;
     }
@@ -242,8 +243,8 @@ public class ThirdService implements ApiThird {
     public PreAuthCode getPreAuthCode(ComponentAccessToken componentAccessToken) {
         log.info("获取预授权码 参数第三方开发平台的token = " + componentAccessToken.toString());
         PreAuthCode preAuthCode = new PreAuthCode();
-
-        String appId = componentAccessToken.getAppId();
+        String appId = componentAccessToken.getAppid();
+//        String appId = componentAccessToken.getAppId();
         String token = componentAccessToken.getComponentAccessToken();
         //token 20分钟有效期
         int seconds = 20 * 60;
@@ -253,7 +254,7 @@ public class ThirdService implements ApiThird {
 
         if (null != authStr) {
             preAuthCode = JSONObject.parseObject(authStr, PreAuthCode.class);
-             return preAuthCode;
+            return preAuthCode;
         }
 
 
