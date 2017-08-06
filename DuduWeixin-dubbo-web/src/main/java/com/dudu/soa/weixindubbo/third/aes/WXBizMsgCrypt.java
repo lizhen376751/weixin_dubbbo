@@ -97,6 +97,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -121,6 +123,10 @@ import java.util.Random;
  * </ol>
  */
 public class WXBizMsgCrypt {
+    /**
+     * 日志打印
+     */
+    private static Logger log = LoggerFactory.getLogger(WXBizMsgCrypt.class);
     /**
      *
      */
@@ -276,7 +282,7 @@ public class WXBizMsgCrypt {
             original = cipher.doFinal(encrypted);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("===========aes解密失败原因=" + e.getMessage());
+           log.info("===========aes解密失败原因=" + e.getMessage());
             throw new AesException(AesException.DECRYPTAESERROR);
         }
 
