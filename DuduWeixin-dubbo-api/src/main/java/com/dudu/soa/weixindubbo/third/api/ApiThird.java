@@ -43,6 +43,14 @@ public interface ApiThird {
     String decrypt(AESParams aesParams);
 
     /**
+     * 消息加密
+     *
+     * @param aesParams 解密所需要的参数
+     * @return 加密后的xml
+     */
+    String encrypt(AESParams aesParams);
+
+    /**
      * 在解密后的xml中获取ticket,并保存Ticket
      *
      * @param xml 解密后的xml

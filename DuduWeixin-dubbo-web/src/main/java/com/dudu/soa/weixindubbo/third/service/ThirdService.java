@@ -127,6 +127,29 @@ public class ThirdService implements ApiThird {
             xml = pc.decryptMsg(aesParams.getMsgSignature(), aesParams.getTimestamp(), aesParams.getNonce(), aesParams.getXml());
         } catch (AesException e) {
             e.printStackTrace();
+            log.info("消息解密失败原因:" + e.getMessage());
+            xml = e.getMessage();
+        }
+        return xml;
+    }
+    /**
+     * 消息加密
+     *
+     * @param aesParams 解密所需要的参数
+     * @return 解密后的xml
+     */
+    @Override
+    public String encrypt(AESParams aesParams) {
+        log.info("加密传过来的参数为=" + aesParams.toString());
+        WXBizMsgCrypt pc = null;
+        String xml = "";
+        try {
+
+            pc = new WXBizMsgCrypt(aesParams.getToken(), aesParams.getEncodingAesKey(), aesParams.getAppId());
+            //加密
+            xml = pc.encryptMsg(aesParams.getXml(), aesParams.getTimestamp(), aesParams.getNonce());
+        } catch (AesException e) {
+            e.printStackTrace();
             log.info("消息加密失败原因:" + e.getMessage());
             xml = e.getMessage();
         }
