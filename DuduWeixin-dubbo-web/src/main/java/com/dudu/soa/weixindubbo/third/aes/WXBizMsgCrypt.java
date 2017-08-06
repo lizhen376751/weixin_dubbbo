@@ -276,6 +276,7 @@ public class WXBizMsgCrypt {
             original = cipher.doFinal(encrypted);
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("===========aes解密失败原因=" + e.getMessage());
             throw new AesException(AesException.DECRYPTAESERROR);
         }
 
