@@ -35,6 +35,42 @@
     </insert>
 
 
+    <select id="getOpenid" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" resultMap="loginlog">
+        select top 1
+        id,
+        openid,
+        plateNumber,
+        lmcode,
+        userid,
+        nickname,
+        password
+        from
+        DDWX_loginlog
+        WHERE 1=1
+        <trim suffixOverrides="">
+
+            <if test="lmcode !=null and lmcode != ''">
+                AND lmcode = #{lmcode}
+            </if>
+
+            <if test="plateNumber !=null and plateNumber != ''">
+                AND plateNumber = #{plateNumber}
+            </if>
+
+            <if test="openid !=null and openid != ''">
+                AND openid = #{openid}
+            </if>
+
+            <if test="userid !=null and userid != ''">
+                AND userid = #{userid}
+            </if>
+            <if test="nickname !=null and nickname != ''">
+                AND nickname = #{nickname}
+            </if>
+        </trim>
+        order by id DESC
+    </select>
+
     <select id="getLogInLog" parameterType="com.dudu.soa.weixindubbo.loginlog.module.LogInLog" resultMap="loginlog">
         select top 1
         id,
@@ -64,8 +100,6 @@
                 AND nickname = #{nickname}
             </if>
         </trim>
-
-
     </select>
 
 

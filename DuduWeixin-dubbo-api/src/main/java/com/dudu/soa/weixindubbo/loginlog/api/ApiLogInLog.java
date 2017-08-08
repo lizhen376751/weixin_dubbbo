@@ -42,5 +42,11 @@ public interface ApiLogInLog {
      */
     Integer deleLogInLog(LogInLog logInLog);
 
+    /**
+     * 登录记录获取openid
+     * @param logInLog 登录记录
+     * @return 登录记录
+     */
+    LogInLog getOpenid(LogInLog logInLog);
 
 }

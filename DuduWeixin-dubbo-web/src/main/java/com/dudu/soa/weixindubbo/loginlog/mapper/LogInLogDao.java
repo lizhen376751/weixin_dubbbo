@@ -36,4 +36,11 @@ public interface LogInLogDao {
      * @return 一条短息记录
      */
     Integer deleLogInLog(LogInLog logInLog);
+
+    /**
+     * @param logInLog logInLog
+     * @return 一条登录记录
+     */
+    LogInLog getOpenid(LogInLog logInLog);
+
 }

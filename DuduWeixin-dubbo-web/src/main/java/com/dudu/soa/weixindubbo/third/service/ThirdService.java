@@ -133,6 +133,7 @@ public class ThirdService implements ApiThird {
         }
         return xml;
     }
+
     /**
      * 消息加密
      *
@@ -176,6 +177,7 @@ public class ThirdService implements ApiThird {
             String appId = rootElt.elementText("AppId");
             String createTime = rootElt.elementText("CreateTime");
             String infoType = rootElt.elementText("InfoType");
+            log.info("ticket解析后 ticket=" + ticket + ",appId=" + appId + ",createTime=" + createTime + ",infoType=" + infoType);
             if (StringUtils.isNotEmpty(ticket)) {
                 entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret(third.getAppserect());
                 saveTicket(entity);

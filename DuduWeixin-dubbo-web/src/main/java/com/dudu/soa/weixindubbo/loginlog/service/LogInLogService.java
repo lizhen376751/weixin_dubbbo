@@ -19,6 +19,11 @@ public class LogInLogService implements ApiLogInLog {
     private LogInLogDao logInLogDao;
 
     @Override
+    public LogInLog getOpenid(LogInLog logInLog) {
+        return logInLogDao.getOpenid(logInLog);
+    }
+
+    @Override
     public LogInLog getLogInLog(LogInLog logInLog) {
         return logInLogDao.getLogInLog(logInLog);
     }
