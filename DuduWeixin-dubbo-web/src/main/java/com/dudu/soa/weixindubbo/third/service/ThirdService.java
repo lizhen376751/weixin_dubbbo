@@ -236,15 +236,18 @@ public class ThirdService implements ApiThird {
             return JSONObject.parseObject(tokenStr, ComponentAccessToken.class);
         }
 
-
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
 //        Map<String, String> params = new HashMap<String, String>();
-        String json = "";
+        String jsonData = "";
         if (null != componentVerifyTicket) {
-            json = "{'component_appid':'" + componentVerifyTicket.getAppId()
-                    + "','component_appsecret':'" + componentVerifyTicket.getAppsecret() + "','component_verify_ticket':'" + componentVerifyTicket.getComponentVerifyTicket() + "'}";
-            log.debug("獲取token時封裝的json數據為======" + json);
+
+            jsonData += "{";
+            jsonData += "\"component_appid\":" + "\"" + componentVerifyTicket.getAppId() + "\",";
+            jsonData += "\"component_appsecret\":" + "\"" + componentVerifyTicket.getAppsecret() + "\",";
+            jsonData += "\"component_verify_ticket\":" + "\"" + componentVerifyTicket.getComponentVerifyTicket() + "\",}";
+
+            log.debug("獲取token時封裝的json數據為======" + jsonData);
 //            params.put("component_appid", componentVerifyTicket.getAppId());
 //            params.put("component_appsecret", componentVerifyTicket.getAppsecret());
 //            params.put("component_verify_ticket", componentVerifyTicket.getComponentVerifyTicket());
@@ -252,7 +255,7 @@ public class ThirdService implements ApiThird {
 
         ComponentAccessToken componentAccessToken = new ComponentAccessToken();
         try {
-            String token = HttpUtils.sendPostJson(url, json);
+            String token = HttpUtils.sendPostJson(url, jsonData);
             log.info("获取第三方的token返回的结果为====" + token);
             String componentAccessToken1 = allWeiXinService.pareJsonDate(token, "component_access_token");
             String expiresIn = allWeiXinService.pareJsonDate(token, "expires_in");
