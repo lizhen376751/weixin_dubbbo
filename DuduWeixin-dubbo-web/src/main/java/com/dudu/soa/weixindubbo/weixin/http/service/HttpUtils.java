@@ -126,7 +126,7 @@ public final class HttpUtils {
      * @param urls   urls
      * @param params params
      * @return String
-     * @throws IOException             IOException
+     * @throws IOException IOException
      * @Description: http post请求json数据(入参和接受都是json)
      */
     public static String sendPostJson(String urls, String params) throws IOException {
@@ -252,6 +252,7 @@ public final class HttpUtils {
                     try {
                         //6. 对得到后的内容进行处理
                         String result = getJsonStringFromGZIP(inputStream);
+                        log.info("http post请求共用方法返回结果为===" + result);
                         return result;
                     } finally {
                         //5. 释放连接。无论执行方法是否成功，都必须释放连接
