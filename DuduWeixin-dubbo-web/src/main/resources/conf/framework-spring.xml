@@ -99,7 +99,7 @@
           p:poolConfig-ref="poolConfig"
           p:host="${redis.host}"
           p:port="${redis.port}"
-          p:password="${redis.password}"/>
+          p:password="${redis.password}" init-method="init"/>
 
     <bean class="com.dudu.soa.framework.cache.RedisUtil"
           p:prefix="weixin"
