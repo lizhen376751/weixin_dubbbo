@@ -248,6 +248,7 @@ public class ThirdService implements ApiThird {
         ComponentAccessToken componentAccessToken = new ComponentAccessToken();
         try {
             String token = HttpUtils.sendPost(url, params);
+            log.info("获取第三方的token返回的结果为====" + token);
             String componentAccessToken1 = allWeiXinService.pareJsonDate(token, "component_access_token");
             String expiresIn = allWeiXinService.pareJsonDate(token, "expires_in");
             componentAccessToken.setAppid(componentVerifyTicket.getAppId());
