@@ -1,109 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-	   xmlns:p="http://www.springframework.org/schema/p"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+<beans xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
-	   default-lazy-init="true">
+       default-lazy-init="true">
 
-	<!-- 使用disconf必须添加以下配置 -->
-	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
-		  destroy-method="destroy">
-		<property name="scanPackage" value="com.baidu"/>
-	</bean>
+    <!-- 使用disconf必须添加以下配置 -->
+    <bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+          destroy-method="destroy">
+        <property name="scanPackage" value="com.baidu"/>
+    </bean>
 
-	<bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
-		  init-method="init" destroy-method="destroy">
-	</bean>
+    <bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+          init-method="init" destroy-method="destroy">
+    </bean>
 
-	<!-- 使用托管方式的disconf配置(无代码侵入, 配置更改不会自动reload)-->
-	<bean id="configproperties_no_reloadable_disconf"
-		  class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
-		<property name="locations">
-			<list>
-				<value>classpath:dubbo.properties</value>
-				<value>classpath:Duduweixin-dubbo.properties</value>
-				<value>classpath:logback.xml</value>
-				<value>classpath:redis.properties</value>
-			</list>
-		</property>
-	</bean>
+    <!-- 使用托管方式的disconf配置(无代码侵入, 配置更改不会自动reload)-->
+    <bean id="configproperties_no_reloadable_disconf"
+          class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:dubbo.properties</value>
+                <value>classpath:Duduweixin-dubbo.properties</value>
+                <value>classpath:logback.xml</value>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+    </bean>
 
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="ignoreResourceNotFound" value="true"/>
-		<property name="ignoreUnresolvablePlaceholders" value="true"/>
-		<property name="systemPropertiesMode" value="2"/>
-		<property name="propertiesArray">
-			<list>
-				<ref bean="configproperties_no_reloadable_disconf"/>
-			</list>
-		</property>
-	</bean>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="systemPropertiesMode" value="2"/>
+        <property name="propertiesArray">
+            <list>
+                <ref bean="configproperties_no_reloadable_disconf"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- 开启组件扫描 -->
-	<context:component-scan base-package = "com.dudu"/>
-	<!-- 开器注解处理器 -->
-	<context:annotation-config />
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!-- 开启组件扫描 -->
+    <context:component-scan base-package="com.dudu"/>
+    <!-- 开器注解处理器 -->
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-	<dubbo:annotation package="com.dudu" />
-	<dubbo:application name = "DuduWeixinDubbo" />
-	<dubbo:registry address="${dubbo.registry.address}" />
-	<dubbo:consumer check="false"/>
+    <dubbo:annotation package="com.dudu"/>
+    <dubbo:application name="DuduWeixinDubbo"/>
+    <dubbo:registry address="${dubbo.registry.address}"/>
+    <dubbo:consumer check="false"/>
 
 
-	<bean id="DataSource_weixin" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-		<property name="name" value="weixin"/>
-		<property name="url" value="${duduweixin_dubbo.url}"/>
-		<property name="username" value="${duduweixin_dubbo.username}"/>
-		<property name="password" value="${duduweixin_dubbo.password}"/>
-		<!-- initialSize: 初始化连接  -->
-		<property name="filters" value="wall" />
-	</bean>
+    <bean id="DataSource_weixin" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+        <property name="name" value="weixin"/>
+        <property name="url" value="${duduweixin_dubbo.url}"/>
+        <property name="username" value="${duduweixin_dubbo.username}"/>
+        <property name="password" value="${duduweixin_dubbo.password}"/>
+        <!-- initialSize: 初始化连接  -->
+        <property name="filters" value="wall"/>
+    </bean>
 
-	<!-- 开启事务注解驱动 -->
-	<tx:annotation-driven />
+    <!-- 开启事务注解驱动 -->
+    <tx:annotation-driven/>
 
-	<!-- 事务管理器 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="DataSource_weixin" />
-	</bean>
+    <!-- 事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="DataSource_weixin"/>
+    </bean>
 
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="DataSource_weixin" />
-		<property name="configLocation" value="classpath:conf/mybatis-config.xml"  />
-		<property name="mapperLocations" value="classpath*:com/dudu/soa/weixindubbo/**/mapping/*.xml" />
-	</bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="DataSource_weixin"/>
+        <property name="configLocation" value="classpath:conf/mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath*:com/dudu/soa/weixindubbo/**/mapping/*.xml"/>
+    </bean>
 
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.dudu.soa.**.mapper" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-	</bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.dudu.soa.**.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 
-	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxIdle" value="${redis.maxIdle}"/>
-		<property name="maxTotal" value="${redis.maxTotal}"/>
-		<property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
-		<property name="testOnBorrow" value="${redis.testOnBorrow}"/>
-	</bean>
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
 
-	<bean id="jedistFactory" class="com.dudu.soa.framework.cache.JedisFactoryUtil"
-		  p:poolConfig-ref="poolConfig"
-		  p:host="${redis.host}"
-		  p:port="${redis.port}"
-		  p:password="${redis.password}"/>
+    <bean id="jedistFactory" class="com.dudu.soa.framework.cache.JedisFactoryUtil"
+          p:poolConfig-ref="poolConfig"
+          p:host="${redis.host}"
+          p:port="${redis.port}"
+          p:password="${redis.password}" init-method="init"/>
 
-	<bean class="com.dudu.soa.framework.cache.RedisUtil"
-		p:prefix="weixin"/>
+    <bean class="com.dudu.soa.framework.cache.RedisUtil"
+          p:prefix="weixin"
+          p:jedisFactoryUtil-ref="jedistFactory"/>
 
-	<bean class="com.dudu.soa.weixindubbo.weixin.http.service.URLConfig"
-		  p:weixinURL="${dudu.wx.url.base}"/>
+    <bean class="com.dudu.soa.weixindubbo.weixin.http.service.URLConfig"
+          p:weixinURL="${dudu.wx.url.base}"/>
 
 </beans>
