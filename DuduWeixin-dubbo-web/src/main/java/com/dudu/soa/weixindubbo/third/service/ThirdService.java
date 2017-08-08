@@ -196,11 +196,11 @@ public class ThirdService implements ApiThird {
      */
     private void saveTicket(ComponentVerifyTicket ticket) {
         String appId = ticket.getAppId();
-
+        String key = appId + ":ticket";
         // 10分钟时间
         int seconds = 60 * 10;
 
-        redisUtil.set("ticket:" + appId, seconds, JSONObject.toJSONString(ticket));
+        redisUtil.set(key, seconds, JSONObject.toJSONString(ticket));
     }
 
     /**
@@ -210,7 +210,8 @@ public class ThirdService implements ApiThird {
      * @return 返回ticket
      */
     private ComponentVerifyTicket getTicket(String appId) {
-        String ticketStr = redisUtil.get("ticket:" + appId);
+        String key = appId + ":ticket";
+        String ticketStr = redisUtil.get(key);
         return ticketStr == null ? null : JSONObject.parseObject(redisUtil.get("ticket:" + appId), ComponentVerifyTicket.class);
     }
 
@@ -227,7 +228,7 @@ public class ThirdService implements ApiThird {
         //token 2小时有效期
         int seconds = 2 * 60 * 60;
 
-        String key = "token:" + appId;
+        String key = appId + ":token";
         String tokenStr = redisUtil.get(key);
 
         if (tokenStr != null) {
@@ -276,7 +277,7 @@ public class ThirdService implements ApiThird {
         //token 20分钟有效期
         int seconds = 20 * 60;
 
-        String key = "preauthcode:" + appId;
+        String key = appId + ":preauthcode";
         String authStr = redisUtil.get(key);
 
         if (null != authStr) {
