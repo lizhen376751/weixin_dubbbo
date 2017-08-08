@@ -101,7 +101,8 @@
 		  p:password="${redis.password}"/>
 
 	<bean class="com.dudu.soa.framework.cache.RedisUtil"
-		p:prefix="weixin"/>
+		p:prefix="weixin"
+		p:jedisFactoryUtil="jedistFactory"/>
 
 	<bean class="com.dudu.soa.weixindubbo.weixin.http.service.URLConfig"
 		  p:weixinURL="${dudu.wx.url.base}"/>
