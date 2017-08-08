@@ -466,7 +466,7 @@ public class AllWeiXinService {
     /**
      * 客服接口-发消息
      *
-     * @param token        第三方开发平台的token
+     * @param token        公众号的token
      * @param customerText 文本消息
      * @return 发送成功后的回调
      */

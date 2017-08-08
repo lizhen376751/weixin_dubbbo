@@ -57,6 +57,7 @@ public class ThirdService implements ApiThird {
     @Autowired
     private WeiXinConfigService weiXinConfigService;
 
+
     /**
      * 判断是否加密
      *
@@ -224,7 +225,7 @@ public class ThirdService implements ApiThird {
         //token 2小时有效期
         int seconds = 2 * 60 * 60;
 
-        String key = "token/" + appId + "_" + appSecret;
+        String key = "token/" + appId;
         String tokenStr = redisUtil.get(key);
 
         if (tokenStr != null) {
@@ -273,7 +274,7 @@ public class ThirdService implements ApiThird {
         //token 20分钟有效期
         int seconds = 20 * 60;
 
-        String key = "preauthcode/" + appId + "_" + token;
+        String key = "preauthcode/" + appId;
         String authStr = redisUtil.get(key);
 
         if (null != authStr) {
