@@ -6,15 +6,26 @@ import com.dudu.soa.weixindubbo.thirdmessage.module.Dsasd;
 import com.dudu.soa.weixindubbo.thirdmessage.module.TextContent;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Administrator on 2017/3/30.
  */
 public class LogInLogServiceTest extends TestBase {
+    private static Logger log = LoggerFactory.getLogger(LogInLogServiceTest.class);
+
     @Autowired
     private LogInLogService logInLogService;
-
+    @Test
+    public void getOpenid() throws Exception {
+        LogInLog logInLog = new LogInLog();
+        logInLog.setLmcode("cs000");
+        logInLog.setPlateNumber("鲁A2032");
+        LogInLog openid = logInLogService.getOpenid(logInLog);
+        log.info("查询============================"+openid.toString());
+    }
     @Test
     public void addLogInLog() throws Exception {
         try {

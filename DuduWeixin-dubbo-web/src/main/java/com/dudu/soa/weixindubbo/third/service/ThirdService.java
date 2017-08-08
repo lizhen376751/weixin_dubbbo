@@ -16,7 +16,6 @@ import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
 import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
 import com.dudu.soa.weixindubbo.weixin.weixinconfig.service.WeiXinConfigService;
-import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -178,8 +177,9 @@ public class ThirdService implements ApiThird {
             String createTime = rootElt.elementText("CreateTime");
             String infoType = rootElt.elementText("InfoType");
             log.info("ticket解析后 ticket=" + ticket + ",appId=" + appId + ",createTime=" + createTime + ",infoType=" + infoType);
-            if (StringUtils.isNotEmpty(ticket)) {
+            if (ticket != null && !"".equals(ticket) && !"null".equals(ticket)) {
                 entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret(third.getAppserect());
+                log.info("redis保存ticket...");
                 saveTicket(entity);
             }
         } catch (DocumentException e) {
