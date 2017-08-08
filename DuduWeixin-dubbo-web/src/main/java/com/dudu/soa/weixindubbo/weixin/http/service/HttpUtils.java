@@ -260,6 +260,7 @@ public final class HttpUtils {
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                    log.info("http post请求共用方法返回异常为===" + ex.getMessage());
                     throw new Exception("网络连接失败,请连接网络后再试");
                 }
             } else {
@@ -267,6 +268,7 @@ public final class HttpUtils {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            log.info("http post请求共用方法返回异常为===" + ex.getMessage());
             throw new Exception("发送未知异常");
         }
     }
@@ -279,6 +281,7 @@ public final class HttpUtils {
      */
     private static String getJsonStringFromGZIP(InputStream is) {
         String jsonString = null;
+        log.info("对请求结果进行格式处理" + is.toString());
         try {
             BufferedInputStream bis = new BufferedInputStream(is);
             bis.mark(2);
