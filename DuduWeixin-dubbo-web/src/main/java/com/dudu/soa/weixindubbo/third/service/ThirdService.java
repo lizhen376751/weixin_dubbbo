@@ -239,16 +239,20 @@ public class ThirdService implements ApiThird {
 
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
-        Map<String, String> params = new HashMap<String, String>();
+//        Map<String, String> params = new HashMap<String, String>();
+        String json = "";
         if (null != componentVerifyTicket) {
-            params.put("component_appid", componentVerifyTicket.getAppId());
-            params.put("component_appsecret", componentVerifyTicket.getAppsecret());
-            params.put("component_verify_ticket", componentVerifyTicket.getComponentVerifyTicket());
+             json = "{'component_appid':'" + componentVerifyTicket.getAppId()
+                    + "','component_appsecret':'" + componentVerifyTicket.getAppsecret() + "','component_verify_ticket':'" + componentVerifyTicket.getComponentVerifyTicket() + "'}";
+
+//            params.put("component_appid", componentVerifyTicket.getAppId());
+//            params.put("component_appsecret", componentVerifyTicket.getAppsecret());
+//            params.put("component_verify_ticket", componentVerifyTicket.getComponentVerifyTicket());
         }
 
         ComponentAccessToken componentAccessToken = new ComponentAccessToken();
         try {
-            String token = HttpUtils.sendPost(url, params);
+            String token = HttpUtils.sendPostJson(url, json);
             log.info("获取第三方的token返回的结果为====" + token);
             String componentAccessToken1 = allWeiXinService.pareJsonDate(token, "component_access_token");
             String expiresIn = allWeiXinService.pareJsonDate(token, "expires_in");
