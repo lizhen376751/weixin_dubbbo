@@ -238,19 +238,13 @@ public class ThirdService implements ApiThird {
 
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
-//        Map<String, String> params = new HashMap<String, String>();
         String jsonData = "";
         if (null != componentVerifyTicket) {
-
             jsonData += "{";
             jsonData += "\"component_appid\":" + "\"" + componentVerifyTicket.getAppId() + "\",";
             jsonData += "\"component_appsecret\":" + "\"" + componentVerifyTicket.getAppsecret() + "\",";
             jsonData += "\"component_verify_ticket\":" + "\"" + componentVerifyTicket.getComponentVerifyTicket() + "\",}";
-
             log.debug("獲取token時封裝的json數據為======" + jsonData);
-//            params.put("component_appid", componentVerifyTicket.getAppId());
-//            params.put("component_appsecret", componentVerifyTicket.getAppsecret());
-//            params.put("component_verify_ticket", componentVerifyTicket.getComponentVerifyTicket());
         }
 
         ComponentAccessToken componentAccessToken = new ComponentAccessToken();
@@ -300,13 +294,16 @@ public class ThirdService implements ApiThird {
 
 
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
-        Map<String, String> params = new HashMap<String, String>();
+
+        String jsonData = "";
         if (null != componentAccessToken) {
-            params.put("component_appid", componentAccessToken.getAppid());
+            jsonData += "{";
+            jsonData += "\"component_appid\":" + "\"" + appId + "\",}";
+            log.debug("獲取預授權時封裝的json數據為======" + jsonData);
         }
         String preAuthCode1 = "";
         try {
-            String sendPost = HttpUtils.sendPost(url, params);
+            String sendPost = HttpUtils.sendPostJson(url, jsonData);
             preAuthCode1 = allWeiXinService.pareJsonDate(sendPost, "pre_auth_code");
             String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
             preAuthCode.setAppid(componentAccessToken.getAppid());
