@@ -311,7 +311,7 @@ public class ThirdService implements ApiThird {
         if (preAuthCode1 != null && !"".equals(preAuthCode1) && !"null".equals(preAuthCode1)) {
             redisUtil.set(key, seconds, JSONObject.toJSONString(preAuthCode));
         }
-        
+
         log.info("获取预授权码 = " + preAuthCode.toString());
         return preAuthCode;
     }
