@@ -90,7 +90,7 @@ public final class MsgDispatcher {
                         txtmsg.setContent(split);
                         return MessageUtil.textMessageToXml(txtmsg);
                     }
-                    return "";
+                    return null;
                 }
             }
         }
