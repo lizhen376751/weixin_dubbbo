@@ -297,9 +297,10 @@ public class ThirdService implements ApiThird {
         if (null != componentAccessToken) {
             params.put("component_appid", componentAccessToken.getAppid());
         }
+        String preAuthCode1 = "";
         try {
             String sendPost = HttpUtils.sendPost(url, params);
-            String preAuthCode1 = allWeiXinService.pareJsonDate(sendPost, "pre_auth_code");
+            preAuthCode1 = allWeiXinService.pareJsonDate(sendPost, "pre_auth_code");
             String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
             preAuthCode.setAppid(componentAccessToken.getAppid());
             preAuthCode.setPreAuthCode(preAuthCode1);
@@ -307,9 +308,10 @@ public class ThirdService implements ApiThird {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        redisUtil.set(key, seconds, JSONObject.toJSONString(preAuthCode));
-
+        if (preAuthCode1 != null && !"".equals(preAuthCode1) && !"null".equals(preAuthCode1)) {
+            redisUtil.set(key, seconds, JSONObject.toJSONString(preAuthCode));
+        }
+        
         log.info("获取预授权码 = " + preAuthCode.toString());
         return preAuthCode;
     }
