@@ -77,8 +77,11 @@ public final class MsgDispatcher {
             //文本消息检测
             if (map.get("MsgType").equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
                 //自动检测第二步
+                log.debug("自动检测第二步content的值=" + map.get("Content") + "相等=" + "TESTCOMPONENT_MSG_TYPE_TEXT".equals(map.get("Content")));
+                log.debug("自动检测第二步content的值=" + map.get("Content") + "相等=" + StringUtils.startsWithIgnoreCase(map.get("Content"), "QUERY_AUTH_CODE"));
                 if ("TESTCOMPONENT_MSG_TYPE_TEXT".equals(map.get("Content"))) {
                     txtmsg.setContent("TESTCOMPONENT_MSG_TYPE_TEXT_callback");
+                    return MessageUtil.textMessageToXml(txtmsg);
                 } else if (StringUtils.startsWithIgnoreCase(map.get("Content"), "QUERY_AUTH_CODE")) {
                     //自动检测第三步 传送xml时,如果是第三方开发平台的,第一次回复空,第二次根据xml的判断直接调用客服接口
                     if (map.get("businessType").equals("test")) {

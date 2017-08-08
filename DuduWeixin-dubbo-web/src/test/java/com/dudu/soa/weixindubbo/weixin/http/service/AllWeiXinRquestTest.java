@@ -1,8 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.util.DuduTestUtil;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Button;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.CommonButton;
@@ -16,6 +14,7 @@ import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TemplateData;
 import com.dudu.soa.wxd.test.TestBase;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -548,24 +547,7 @@ public class AllWeiXinRquestTest extends TestBase {
 
     @Test
     public void ss() {
-        List<String> list =new ArrayList<String>();
-        list.add("sss");
-        list.add("数据库单身快乐");
-        DuduTestUtil.printResponseForTest(list);
-        String sss = "[\"美容\",\"维修\"]";
-        JSONArray objects = JSONObject.parseArray(sss);
-        System.out.println(objects);
-        System.out.println(objects.get(0));
-        System.out.println(objects.size());
-        for (int i=0;i<objects.size();i++){
-            System.out.println(objects.get(i));
-            System.out.println(objects.get(i).equals("美容"));
-        }
-//       String aa = "{"美容","维系"}"
-//        Object parse = JSONObject.parse(sss);
-//        System.out.println(parse);
-//        List list = java.util.Arrays.asList(parse);
-//        System.out.println(list);
-
+        boolean query_auth_code = StringUtils.startsWithIgnoreCase("QUERY_AUTH_CODE:queryauthcode@@@VVsCRBdcAaqEQzvF-yfKFmgdMUNTf2gccC7IgFnkCAWwNIv9w09eFCLbUpcGyfFmcRezFEYH13LCltl3LxZU9g", "QUERY_AUTH_CODE");
+        System.out.println("==========================="+query_auth_code);
     }
 }
