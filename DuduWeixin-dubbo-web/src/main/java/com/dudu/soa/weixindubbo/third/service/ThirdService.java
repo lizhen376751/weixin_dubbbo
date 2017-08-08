@@ -242,9 +242,9 @@ public class ThirdService implements ApiThird {
 //        Map<String, String> params = new HashMap<String, String>();
         String json = "";
         if (null != componentVerifyTicket) {
-             json = "{'component_appid':'" + componentVerifyTicket.getAppId()
+            json = "{'component_appid':'" + componentVerifyTicket.getAppId()
                     + "','component_appsecret':'" + componentVerifyTicket.getAppsecret() + "','component_verify_ticket':'" + componentVerifyTicket.getComponentVerifyTicket() + "'}";
-
+            log.debug("獲取token時封裝的json數據為======" + json);
 //            params.put("component_appid", componentVerifyTicket.getAppId());
 //            params.put("component_appsecret", componentVerifyTicket.getAppsecret());
 //            params.put("component_verify_ticket", componentVerifyTicket.getComponentVerifyTicket());
