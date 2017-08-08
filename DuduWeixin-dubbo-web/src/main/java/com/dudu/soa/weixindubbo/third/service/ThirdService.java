@@ -258,7 +258,10 @@ public class ThirdService implements ApiThird {
             e.printStackTrace();
         }
         log.info("获取第三方开发平台的token = " + componentAccessToken.toString());
-        redisUtil.set(key, seconds, JSONObject.toJSONString(componentAccessToken));
+        String accessToken = componentAccessToken.getComponentAccessToken();
+        if (accessToken != null && "".equals(accessToken) && !"null".equals(accessToken)) {
+            redisUtil.set(key, seconds, JSONObject.toJSONString(componentAccessToken));
+        }
         return componentAccessToken;
     }
 
