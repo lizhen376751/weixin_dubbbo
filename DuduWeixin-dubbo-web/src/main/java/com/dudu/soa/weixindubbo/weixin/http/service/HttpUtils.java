@@ -236,6 +236,7 @@ public final class HttpUtils {
                 //存入list里面
                 list.add(new BasicNameValuePair(key, params.get(key)));
             }
+            log.info("http post传过来参数为===" + params.toString() + "http post封装参数为===" + list.toString());
             if (list.size() > 0) {
                 try {
                     //HttpClient 提供的主要的功能，（1）实现了所有 HTTP 的方法（GET,POST,PUT,HEAD 等）（2）支持代理服务器等
