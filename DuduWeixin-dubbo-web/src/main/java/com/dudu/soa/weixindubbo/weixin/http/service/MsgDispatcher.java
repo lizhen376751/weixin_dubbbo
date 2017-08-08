@@ -60,7 +60,8 @@ public final class MsgDispatcher {
          */
         String lmcode = map.get("lmcode");
         //全网发布检测相关测试
-        if (mpid.equals("wx570bc396a51b8ff8")) {
+        log.debug("公众号原始ID=" + mpid + "是否相等=" + mpid.equals("gh_3c884a361561"));
+        if (mpid.equals("gh_3c884a361561")) {
             TextMessage txtmsg = new TextMessage();
             txtmsg.setToUserName(openid);
             txtmsg.setFromUserName(mpid);
