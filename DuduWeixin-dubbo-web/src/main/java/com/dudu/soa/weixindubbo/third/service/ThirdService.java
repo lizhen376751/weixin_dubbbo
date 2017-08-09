@@ -300,8 +300,8 @@ public class ThirdService implements ApiThird {
         String jsonData = "";
         if (null != componentAccessToken) {
             jsonData += "{";
-            jsonData += "\"component_appid\":" + "\"" + appId + "\",}";
-            log.debug("獲取預授權時封裝的json數據為======" + jsonData);
+            jsonData += "\"component_appid\":" + "\"" + appId + "\"}";
+            log.debug("获取预授权码的json数据======" + jsonData);
         }
         String preAuthCode1 = "";
         try {
@@ -335,11 +335,16 @@ public class ThirdService implements ApiThird {
         log.info("获取授权信息 参数获取第三方ComponentAccessToken=" + componentAccessToken.toString() + ",授权码authorizationCode=" + authorizationCode);
         AuthorizationInfo authorizationInfo = new AuthorizationInfo();
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken.getComponentAccessToken();
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("component_appid", componentAccessToken.getAppid());
-        params.put("authorization_code", authorizationCode);
+        String jsonData = "";
+        if (null != componentAccessToken) {
+            jsonData += "{";
+            jsonData += "\"component_appid\":" + "\"" + componentAccessToken.getAppid() + "\",";
+            jsonData += "\"authorization_code\":" + "\"" + authorizationCode + "\"}";
+            log.debug("获取授权信息的json数据======" + jsonData);
+        }
+
         try {
-            String sendPost = HttpUtils.sendPost(url, params);
+            String sendPost = HttpUtils.sendPostJson(url, jsonData);
             String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
             String authorizerAppid = allWeiXinService.pareJsonDate(sendPost, "authorizer_appid");
             String authorizerAccessToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_access_token");
