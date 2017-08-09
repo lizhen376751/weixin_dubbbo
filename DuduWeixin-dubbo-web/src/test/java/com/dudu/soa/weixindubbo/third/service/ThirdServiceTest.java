@@ -1,5 +1,6 @@
 package com.dudu.soa.weixindubbo.third.service;
 
+import com.dudu.soa.framework.cache.RedisUtil;
 import com.dudu.soa.weixindubbo.third.module.AESParams;
 import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
 import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
@@ -15,8 +16,17 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Administrator on 2017/8/5.
  */
 public class ThirdServiceTest extends TestBase{
+    /**
+     * redis util
+     */
+    @Autowired
+    private RedisUtil redisUtil;
+
     @Test
     public void getComponentAccessToken() throws Exception {
+//        String tokenStr = redisUtil.get("wx77ea274ef9f3e504" + ":ticket");
+        String tokenStr = redisUtil.get("wx77ea274ef9f3e504:preauthcode");
+        System.out.println("===="+tokenStr);
         ComponentVerifyTicket componentVerifyTicket = new ComponentVerifyTicket();
         componentVerifyTicket.setAppId("wx77ea274ef9f3e504");
         ComponentAccessToken componentAccessToken = thirdService.getComponentAccessToken(componentVerifyTicket);

@@ -229,12 +229,13 @@ public class ThirdService implements ApiThird {
         //token 2小时有效期
         int seconds = 2 * 60 * 60;
 
-        String key = appId + ":token";
+        String key =  appId + ":token";
         String tokenStr = redisUtil.get(key);
 
         if (tokenStr != null) {
-            log.info("不为空的情况下redis缓存中获取token");
-            return JSONObject.parseObject(tokenStr, ComponentAccessToken.class);
+            ComponentAccessToken componentAccessToken = JSONObject.parseObject(tokenStr, ComponentAccessToken.class);
+            log.info("不为空的情况下redis缓存中获取token" + componentAccessToken.toString());
+            return componentAccessToken;
         }
 
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
@@ -245,7 +246,7 @@ public class ThirdService implements ApiThird {
             jsonData += "\"component_appid\":" + "\"" + componentVerifyTicket.getAppId() + "\",";
             jsonData += "\"component_appsecret\":" + "\"" + componentVerifyTicket.getAppsecret() + "\",";
             jsonData += "\"component_verify_ticket\":" + "\"" + componentVerifyTicket.getComponentVerifyTicket() + "\",}";
-            log.debug("獲取token時封裝的json數據為======" + jsonData);
+            log.debug("获取token时json的数据封装======" + jsonData);
         }
 
         ComponentAccessToken componentAccessToken = new ComponentAccessToken();
@@ -280,7 +281,6 @@ public class ThirdService implements ApiThird {
         log.info("获取预授权码 参数第三方开发平台的token = " + componentAccessToken.toString());
         PreAuthCode preAuthCode = new PreAuthCode();
         String appId = componentAccessToken.getAppid();
-//        String appId = componentAccessToken.getAppId();
         String token = componentAccessToken.getComponentAccessToken();
         //token 20分钟有效期
         int seconds = 20 * 60;
@@ -290,6 +290,7 @@ public class ThirdService implements ApiThird {
 
         if (null != authStr) {
             preAuthCode = JSONObject.parseObject(authStr, PreAuthCode.class);
+            log.debug("不为空的情况下在redis里面获取预授权码" + preAuthCode.toString());
             return preAuthCode;
         }
 
