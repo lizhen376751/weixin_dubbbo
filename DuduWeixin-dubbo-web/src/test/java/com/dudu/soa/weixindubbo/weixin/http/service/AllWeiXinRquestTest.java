@@ -492,14 +492,13 @@ public class AllWeiXinRquestTest extends TestBase {
     @Test
     public void receivemessage() throws Exception {
         Map<String, String> map = new HashMap<String, String>();
-        map.put("CreateTime", "1498119742");
-        map.put("EventKey", "");
-        map.put("Event", "subscribe");
-        map.put("ToUserName", "gh_5d6457ad54bf");
-        map.put("FromUserName", "oSsYXwMun4NrZE8b_OQi6kMaPyg4");
-        map.put("shopcode", "0533001");
-        map.put("lmcode", null);
-        map.put("MsgType", "event");
+        map.put("ToUserName", "gh_3c884a361561");
+        map.put("FromUserName", "ozy4qt5QUADNXORxCVipKMV9dss0");
+        map.put("CreateTime", "1502242343");
+        map.put("MsgType", "text");
+        map.put("Content", "QUERY_AUTH_CODE:queryauthcode@@@TtNOi8GZN94hkYtgA9BTa0nvltJwL1W6UqSBnzXdRjdQ-7lplFJTp5Y1up9QSmMSSrxxNFG-kalalYWeXgoplw");
+        map.put("MsgId", "6452081734258176800");
+
 //        map.put("CreateTime", "1494330495");
 //        map.put("Content", "微信");
 //        map.put("CreateTime", "1494330495");
