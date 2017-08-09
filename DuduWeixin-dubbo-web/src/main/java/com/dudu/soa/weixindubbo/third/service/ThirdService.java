@@ -181,12 +181,13 @@ public class ThirdService implements ApiThird {
                 entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret(third.getAppserect());
                 log.info("redis保存ticket...");
                 saveTicket(entity);
+                return entity;
             }
         } catch (DocumentException e) {
             e.printStackTrace();
         }
         log.info("十分钟发过来协议 在解密后的xml中获取ticket,并保存Ticket = " + entity.toString());
-        return entity;
+        return null;
     }
 
     /**

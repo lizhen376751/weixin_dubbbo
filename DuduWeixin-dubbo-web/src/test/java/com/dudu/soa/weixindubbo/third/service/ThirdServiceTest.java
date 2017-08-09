@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.third.service;
 
 import com.dudu.soa.weixindubbo.third.module.AESParams;
+import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
+import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
 import com.dudu.soa.wxd.test.TestBase;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -13,6 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Administrator on 2017/8/5.
  */
 public class ThirdServiceTest extends TestBase{
+    @Test
+    public void getComponentAccessToken() throws Exception {
+        ComponentVerifyTicket componentVerifyTicket = new ComponentVerifyTicket();
+        componentVerifyTicket.setAppId("wx77ea274ef9f3e504");
+        ComponentAccessToken componentAccessToken = thirdService.getComponentAccessToken(componentVerifyTicket);
+        System.out.println("--------------"+componentAccessToken.toString());
+    }
+
     @Autowired
     private ThirdService thirdService;
     @Test
