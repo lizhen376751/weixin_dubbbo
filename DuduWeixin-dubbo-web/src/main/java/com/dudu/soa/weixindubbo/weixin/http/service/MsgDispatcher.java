@@ -85,7 +85,7 @@ public final class MsgDispatcher {
                 } else if (StringUtils.startsWithIgnoreCase(map.get("Content"), "QUERY_AUTH_CODE")) {
                     //自动检测第三步 传送xml时,如果是第三方开发平台的,第一次回复空,第二次根据xml的判断直接调用客服接口
                     String test = map.get("businessType");
-                    if (null != test && !"".equals(test) && "null".equals(test)) {
+                    if (null != test && !"".equals(test) && !"null".equals(test)) {
                         if (test.equals("test")) {
                             log.debug("自动检测第三步加入了test值");
                             String content = map.get("Content");
