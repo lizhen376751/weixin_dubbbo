@@ -476,6 +476,7 @@ public class AllWeiXinService {
         String jsonResult = "";
         try {
             jsonResult = HttpUtils.sendPostJson(url, json);
+            log.debug("发送客服消息返回的数据为==" + jsonResult);
         } catch (IOException e) {
             e.printStackTrace();
         }

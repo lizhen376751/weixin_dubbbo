@@ -30,6 +30,10 @@ public class ComponentVerifyTicket implements Serializable {
      * Ticket内容
      */
     private String componentVerifyTicket;
+    /**
+     * 保存时间
+     */
+    private Long ticketTime;
 
 
     /**
@@ -38,7 +42,8 @@ public class ComponentVerifyTicket implements Serializable {
      */
     @Override
     public String toString() {
-        return "appId:" + appId + ",appsecret:" + appsecret + ",createTime:" + createTime + ",infoType:" + infoType + ",componentVerifyTicket:" + componentVerifyTicket;
+        return "appId:" + appId + ",appsecret:" + appsecret + ",createTime:" + createTime + ",infoType:" + infoType + ",componentVerifyTicket:" + componentVerifyTicket
+                + ",ticketTime:" + ticketTime;
     }
 
     /**
@@ -128,6 +133,24 @@ public class ComponentVerifyTicket implements Serializable {
      */
     public ComponentVerifyTicket setComponentVerifyTicket(String componentVerifyTicket) {
         this.componentVerifyTicket = componentVerifyTicket;
+        return this;
+    }
+
+    /**
+     * 获取 保存时间
+     * @return ticketTime 保存时间
+     */
+    public Long getTicketTime() {
+        return this.ticketTime;
+    }
+
+    /**
+     * 设置 保存时间
+     * @param ticketTime 保存时间
+     * @return 返回 ComponentVerifyTicket(每十分钟推送过来的协议)
+     */
+    public ComponentVerifyTicket setTicketTime(Long ticketTime) {
+        this.ticketTime = ticketTime;
         return this;
     }
 }

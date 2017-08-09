@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -145,7 +146,6 @@ public class ThirdService implements ApiThird {
         WXBizMsgCrypt pc = null;
         String xml = "";
         try {
-
             pc = new WXBizMsgCrypt(aesParams.getToken(), aesParams.getEncodingAesKey(), aesParams.getAppId());
             //加密
             xml = pc.encryptMsg(aesParams.getXml(), aesParams.getTimestamp(), aesParams.getNonce());
@@ -176,9 +176,11 @@ public class ThirdService implements ApiThird {
             String appId = rootElt.elementText("AppId");
             String createTime = rootElt.elementText("CreateTime");
             String infoType = rootElt.elementText("InfoType");
+            Long time = new Date().getTime();
             log.info("ticket解析后 ticket=" + ticket + ",appId=" + appId + ",createTime=" + createTime + ",infoType=" + infoType);
             if (ticket != null && !"".equals(ticket) && !"null".equals(ticket)) {
-                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).setAppsecret(third.getAppserect());
+                entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).
+                        setAppsecret(third.getAppserect()).setTicketTime(time);
                 log.info("redis保存ticket...");
                 saveTicket(entity);
                 return entity;
@@ -224,18 +226,23 @@ public class ThirdService implements ApiThird {
      */
     @Override
     public ComponentAccessToken getComponentAccessToken(ComponentVerifyTicket componentVerifyTicket) {
+        Long time = new Date().getTime() / 1000;
         String appId = componentVerifyTicket.getAppId();
         String appSecret = componentVerifyTicket.getAppsecret();
         //token 2小时有效期
         int seconds = 2 * 60 * 60;
 
-        String key =  appId + ":token";
+        String key = appId + ":token";
         String tokenStr = redisUtil.get(key);
 
         if (tokenStr != null) {
             ComponentAccessToken componentAccessToken = JSONObject.parseObject(tokenStr, ComponentAccessToken.class);
-            log.info("不为空的情况下redis缓存中获取token" + componentAccessToken.toString());
-            return componentAccessToken;
+            Long tokenTime = componentAccessToken.getTokenTime();
+            int expiresIn1 = Integer.parseInt(componentAccessToken.getExpiresIn());
+            log.info("不为空的情况下redis缓存中获取token" + componentAccessToken.toString() + "保存时间:" + tokenTime.toString());
+            if (time - tokenTime < expiresIn1) {
+                return componentAccessToken;
+            }
         }
 
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
@@ -258,6 +265,7 @@ public class ThirdService implements ApiThird {
             componentAccessToken.setAppid(componentVerifyTicket.getAppId());
             componentAccessToken.setComponentAccessToken(componentAccessToken1);
             componentAccessToken.setExpiresIn(expiresIn);
+            componentAccessToken.setTokenTime(time - 600); //提前十分钟获取
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -279,6 +287,7 @@ public class ThirdService implements ApiThird {
     @Override
     public PreAuthCode getPreAuthCode(ComponentAccessToken componentAccessToken) {
         log.info("获取预授权码 参数第三方开发平台的token = " + componentAccessToken.toString());
+        Long time = new Date().getTime() / 1000;
         PreAuthCode preAuthCode = new PreAuthCode();
         String appId = componentAccessToken.getAppid();
         String token = componentAccessToken.getComponentAccessToken();
@@ -290,11 +299,13 @@ public class ThirdService implements ApiThird {
 
         if (null != authStr) {
             preAuthCode = JSONObject.parseObject(authStr, PreAuthCode.class);
-            log.debug("不为空的情况下在redis里面获取预授权码" + preAuthCode.toString());
-            return preAuthCode;
+            Long preAuthCodeTime = preAuthCode.getPreAuthCodeTime();
+            int expiresIn = Integer.parseInt(preAuthCode.getExpiresIn());
+            log.debug("不为空的情况下在redis里面获取预授权码" + preAuthCode.toString() + "保存时间" + preAuthCodeTime.toString());
+            if (time - preAuthCodeTime < expiresIn) {
+                return preAuthCode;
+            }
         }
-
-
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
 
         String jsonData = "";
@@ -311,6 +322,7 @@ public class ThirdService implements ApiThird {
             preAuthCode.setAppid(componentAccessToken.getAppid());
             preAuthCode.setPreAuthCode(preAuthCode1);
             preAuthCode.setExpiresIn(expiresIn);
+            preAuthCode.setPreAuthCodeTime(time - 60);
         } catch (Exception e) {
             e.printStackTrace();
         }

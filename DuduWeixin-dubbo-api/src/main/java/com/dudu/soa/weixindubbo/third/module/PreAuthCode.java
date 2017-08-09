@@ -22,12 +22,18 @@ public class PreAuthCode implements Serializable {
     private String expiresIn;
 
     /**
+     * 保存时间
+     */
+    private Long preAuthCodeTime;
+
+
+    /**
      *  PreAuthCode(获取预授权码) 字符串形式
      * @return PreAuthCode(获取预授权码)字符串
      */
     @Override
     public String toString() {
-        return "appid:" + appid + ",preAuthCode:" + preAuthCode + ",expiresIn:" + expiresIn;
+        return "appid:" + appid + ",preAuthCode:" + preAuthCode + ",expiresIn:" + expiresIn + ",preAuthCodeTime:" + preAuthCodeTime;
     }
 
     /**
@@ -81,6 +87,24 @@ public class PreAuthCode implements Serializable {
      */
     public PreAuthCode setExpiresIn(String expiresIn) {
         this.expiresIn = expiresIn;
+        return this;
+    }
+
+    /**
+     * 获取 保存时间
+     * @return preAuthCodeTime 保存时间
+     */
+    public Long getPreAuthCodeTime() {
+        return this.preAuthCodeTime;
+    }
+
+    /**
+     * 设置 保存时间
+     * @param preAuthCodeTime 保存时间
+     * @return 返回 PreAuthCode(获取预授权码)
+     */
+    public PreAuthCode setPreAuthCodeTime(Long preAuthCodeTime) {
+        this.preAuthCodeTime = preAuthCodeTime;
         return this;
     }
 }

@@ -12,6 +12,8 @@ import org.dom4j.Element;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/8/5.
  */
@@ -24,6 +26,7 @@ public class ThirdServiceTest extends TestBase{
 
     @Test
     public void getComponentAccessToken() throws Exception {
+        System.out.println("当前时间"+new Date().getTime());
 //        String tokenStr = redisUtil.get("wx77ea274ef9f3e504" + ":ticket");
         String tokenStr = redisUtil.get("wx77ea274ef9f3e504:preauthcode");
         System.out.println("===="+tokenStr);

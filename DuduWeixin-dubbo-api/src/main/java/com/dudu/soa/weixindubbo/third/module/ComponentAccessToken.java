@@ -22,18 +22,22 @@ public class ComponentAccessToken implements Serializable {
     private String expiresIn;
 
     /**
-     * ComponentAccessToken(微信第三方平台的token) 字符串形式
-     *
+     * 保存时间
+     */
+    private Long tokenTime;
+
+
+    /**
+     *  ComponentAccessToken(微信第三方平台的token) 字符串形式
      * @return ComponentAccessToken(微信第三方平台的token)字符串
      */
     @Override
     public String toString() {
-        return "appid:" + appid + ",componentAccessToken:" + componentAccessToken + ",expiresIn:" + expiresIn;
+        return "appid:" + appid + ",componentAccessToken:" + componentAccessToken + ",expiresIn:" + expiresIn + ",tokenTime:" + tokenTime;
     }
 
     /**
      * 获取 第三方平台appid
-     *
      * @return appid 第三方平台appid
      */
     public String getAppid() {
@@ -42,7 +46,6 @@ public class ComponentAccessToken implements Serializable {
 
     /**
      * 设置 第三方平台appid
-     *
      * @param appid 第三方平台appid
      * @return 返回 ComponentAccessToken(微信第三方平台的token)
      */
@@ -53,7 +56,6 @@ public class ComponentAccessToken implements Serializable {
 
     /**
      * 获取 第三方平台access_token
-     *
      * @return componentAccessToken 第三方平台access_token
      */
     public String getComponentAccessToken() {
@@ -62,7 +64,6 @@ public class ComponentAccessToken implements Serializable {
 
     /**
      * 设置 第三方平台access_token
-     *
      * @param componentAccessToken 第三方平台access_token
      * @return 返回 ComponentAccessToken(微信第三方平台的token)
      */
@@ -73,7 +74,6 @@ public class ComponentAccessToken implements Serializable {
 
     /**
      * 获取 有效期
-     *
      * @return expiresIn 有效期
      */
     public String getExpiresIn() {
@@ -82,12 +82,29 @@ public class ComponentAccessToken implements Serializable {
 
     /**
      * 设置 有效期
-     *
      * @param expiresIn 有效期
      * @return 返回 ComponentAccessToken(微信第三方平台的token)
      */
     public ComponentAccessToken setExpiresIn(String expiresIn) {
         this.expiresIn = expiresIn;
+        return this;
+    }
+
+    /**
+     * 获取 保存时间
+     * @return tokenTime 保存时间
+     */
+    public Long getTokenTime() {
+        return this.tokenTime;
+    }
+
+    /**
+     * 设置 保存时间
+     * @param tokenTime 保存时间
+     * @return 返回 ComponentAccessToken(微信第三方平台的token)
+     */
+    public ComponentAccessToken setTokenTime(Long tokenTime) {
+        this.tokenTime = tokenTime;
         return this;
     }
 }
