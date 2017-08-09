@@ -7,15 +7,16 @@ import java.io.Serializable;
  * Created by lizhen on 2017/8/9.
  */
 
-public class FuncInfo implements Serializable{
+public class FuncInfo implements Serializable {
     /**
-     *公众号授权给开发者的权限集列表
+     * 公众号授权给开发者的权限集列表
      */
     private FuncscopeCategory funcscopeCategory;
 
 
     /**
-     *  FuncInfo(公众号授权给开发者的权限集列表，ID为1到15时分别代表) 字符串形式
+     * FuncInfo(公众号授权给开发者的权限集列表，ID为1到15时分别代表) 字符串形式
+     *
      * @return FuncInfo(公众号授权给开发者的权限集列表，ID为1到15时分别代表)字符串
      */
     @Override
@@ -25,6 +26,7 @@ public class FuncInfo implements Serializable{
 
     /**
      * 获取 公众号授权给开发者的权限集列表
+     *
      * @return funcscopeCategory 公众号授权给开发者的权限集列表
      */
     public FuncscopeCategory getFuncscopeCategory() {
@@ -33,6 +35,7 @@ public class FuncInfo implements Serializable{
 
     /**
      * 设置 公众号授权给开发者的权限集列表
+     *
      * @param funcscopeCategory 公众号授权给开发者的权限集列表
      * @return 返回 FuncInfo(公众号授权给开发者的权限集列表，ID为1到15时分别代表)
      */
