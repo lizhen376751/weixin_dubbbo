@@ -2,8 +2,7 @@ package com.dudu.soa.weixindubbo.third.service;
 
 import com.dudu.soa.framework.cache.RedisUtil;
 import com.dudu.soa.weixindubbo.third.module.AESParams;
-import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
-import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
+import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.wxd.test.TestBase;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -11,8 +10,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Date;
 
 /**
  * Created by Administrator on 2017/8/5.
@@ -23,17 +20,22 @@ public class ThirdServiceTest extends TestBase{
      */
     @Autowired
     private RedisUtil redisUtil;
-
+    /**
+     * 引用解析的json字符串的方法
+     */
+    @Autowired
+    private AllWeiXinService allWeiXinService;
     @Test
     public void getComponentAccessToken() throws Exception {
-        System.out.println("当前时间"+new Date().getTime());
-//        String tokenStr = redisUtil.get("wx77ea274ef9f3e504" + ":ticket");
-        String tokenStr = redisUtil.get("wx77ea274ef9f3e504:preauthcode");
-        System.out.println("===="+tokenStr);
-        ComponentVerifyTicket componentVerifyTicket = new ComponentVerifyTicket();
-        componentVerifyTicket.setAppId("wx77ea274ef9f3e504");
-        ComponentAccessToken componentAccessToken = thirdService.getComponentAccessToken(componentVerifyTicket);
-        System.out.println("--------------"+componentAccessToken.toString());
+        String sendPost = "{\"authorization_info\":{\"authorizer_appid\":\"wx570bc396a51b8ff8\",\"authorizer_access_token\":\"g773VasgZfOu_bYrbbPNjpRTxSIwAMDFYpODWaGfQW6xwgBprLj_U6ZiNayyilv2ewmt35fKo3byPJOututQ9tPkQ06ieeSNd0wazbz3XcmnnZw8hW2pvEXwjWGElubXJGJbAIDAXA\",\"expires_in\":7200,\"authorizer_refresh_token\":\"refreshtoken@@@8nBUHdj9hKazGwk4BOQoC6l-97b4FeuXZxGuIGgTMX4\",\"func_info\":[{\"funcscope_category\":{\"id\":1}},{\"funcscope_category\":{\"id\":15}},{\"funcscope_category\":{\"id\":4}},{\"funcscope_category\":{\"id\":7}},{\"funcscope_category\":{\"id\":2}},{\"funcscope_category\":{\"id\":3}},{\"funcscope_category\":{\"id\":11}},{\"funcscope_category\":{\"id\":6}},{\"funcscope_category\":{\"id\":5}},{\"funcscope_category\":{\"id\":8}},{\"funcscope_category\":{\"id\":13}},{\"funcscope_category\":{\"id\":9}},{\"funcscope_category\":{\"id\":10}},{\"funcscope_category\":{\"id\":12}},{\"funcscope_category\":{\"id\":22}},{\"funcscope_category\":{\"id\":23}},{\"funcscope_category\":{\"id\":24},\"confirm_info\":{\"need_confirm\":0,\"already_confirm\":0,\"can_confirm\":0}},{\"funcscope_category\":{\"id\":26}}]}}";
+        String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
+        String authorizerAppid = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_appid");
+        String authorizerAccessToken = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_access_token");
+        String expiresIn = allWeiXinService.pareJsonDate(authorizationInfo1, "expires_in");
+        String authorizerRefreshToken = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_refresh_token");
+        String funcInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "func_info");
+        String sss = "[{\"funcscope_category\":{\"id\":1}},{\"funcscope_category\":{\"id\":15}},{\"funcscope_category\":{\"id\":4}},{\"funcscope_category\":{\"id\":7}},{\"funcscope_category\":{\"id\":2}},{\"funcscope_category\":{\"id\":3}},{\"funcscope_category\":{\"id\":11}},{\"funcscope_category\":{\"id\":6}},{\"funcscope_category\":{\"id\":5}},{\"funcscope_category\":{\"id\":8}},{\"funcscope_category\":{\"id\":13}},{\"funcscope_category\":{\"id\":9}},{\"funcscope_category\":{\"id\":10}},{\"funcscope_category\":{\"id\":12}},{\"funcscope_category\":{\"id\":22}},{\"funcscope_category\":{\"id\":23}},{\"funcscope_category\":{\"id\":24},\"confirm_info\":{\"need_confirm\":0,\"can_confirm\":0,\"already_confirm\":0}},{\"funcscope_category\":{\"id\":26}}]";
+
     }
 
     @Autowired

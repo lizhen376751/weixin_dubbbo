@@ -338,14 +338,16 @@ public class ThirdService implements ApiThird {
     /**
      * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
      *
-     * @param componentAccessToken 第三方appid及token相关信息
+     * @param componentVerifyTicket 第三方appid
      * @param authorizationCode    授权的公众的授权码
      * @return 授权相关的信息
      */
     @Override
-    public AuthorizationInfo getAuthorizationInfo(ComponentAccessToken componentAccessToken, String authorizationCode) {
+    public AuthorizationInfo getAuthorizationInfo(ComponentVerifyTicket componentVerifyTicket, String authorizationCode) {
+        ComponentAccessToken componentAccessToken = getComponentAccessToken(componentVerifyTicket);
         log.info("获取授权信息 参数获取第三方ComponentAccessToken=" + componentAccessToken.toString() + ",授权码authorizationCode=" + authorizationCode);
         AuthorizationInfo authorizationInfo = new AuthorizationInfo();
+        Long time = new Date().getTime() / 1000;
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken.getComponentAccessToken();
         String jsonData = "";
         if (null != componentAccessToken) {
@@ -358,13 +360,13 @@ public class ThirdService implements ApiThird {
         try {
             String sendPost = HttpUtils.sendPostJson(url, jsonData);
             String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
-            String authorizerAppid = allWeiXinService.pareJsonDate(sendPost, "authorizer_appid");
-            String authorizerAccessToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_access_token");
-            String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
-            String authorizerRefreshToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_refresh_token");
-            String funcInfo = allWeiXinService.pareJsonDate(sendPost, "func_info");
+            String authorizerAppid = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_appid");
+            String authorizerAccessToken = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_access_token");
+            String expiresIn = allWeiXinService.pareJsonDate(authorizationInfo1, "expires_in");
+            String authorizerRefreshToken = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_refresh_token");
+            String funcInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "func_info");
             authorizationInfo.setAuthorizationInfo(authorizationInfo1).setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
-                    .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo);
+                    .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo).setAuthorizationInfoTime(time - 600);
         } catch (Exception e) {
             e.printStackTrace();
         }

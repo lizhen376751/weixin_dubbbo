@@ -77,11 +77,11 @@ public interface ApiThird {
     /**
      * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
      *
-     * @param componentAccessToken 第三方appid及token相关信息
-     * @param authorizationCode    授权的公众的授权码
+     * @param componentVerifyTicket 第三方appid
+     * @param authorizationCode     授权的公众的授权码
      * @return 授权相关的信息
      */
-    AuthorizationInfo getAuthorizationInfo(ComponentAccessToken componentAccessToken, String authorizationCode);
+    AuthorizationInfo getAuthorizationInfo(ComponentVerifyTicket componentVerifyTicket, String authorizationCode);
 
     /**
      * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）

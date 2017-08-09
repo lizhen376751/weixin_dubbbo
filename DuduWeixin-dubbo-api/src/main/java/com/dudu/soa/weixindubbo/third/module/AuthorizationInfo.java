@@ -33,6 +33,10 @@ public class AuthorizationInfo implements Serializable {
      * 公众号授权给开发者的权限集列表，ID为1到15时分别代表：
      */
     private String funcInfo;
+    /**
+     * 授权时间
+     */
+    private Long authorizationInfoTime;
 
     /**
      *  AuthorizationInfo(公众号凭据和授权信息) 字符串形式
@@ -41,7 +45,7 @@ public class AuthorizationInfo implements Serializable {
     @Override
     public String toString() {
         return "authorizationInfo:" + authorizationInfo + ",authorizerAppid:" + authorizerAppid + ",authorizerAccessToken:" + authorizerAccessToken
-                + ",expiresIn:" + expiresIn + ",authorizerRefreshToken:" + authorizerRefreshToken + ",funcInfo:" + funcInfo;
+                + ",expiresIn:" + expiresIn + ",authorizerRefreshToken:" + authorizerRefreshToken + ",funcInfo:" + funcInfo + ",authorizationInfoTime:" + authorizationInfoTime;
     }
 
     /**
@@ -149,6 +153,24 @@ public class AuthorizationInfo implements Serializable {
      */
     public AuthorizationInfo setFuncInfo(String funcInfo) {
         this.funcInfo = funcInfo;
+        return this;
+    }
+
+    /**
+     * 获取 授权时间
+     * @return authorizationInfoTime 授权时间
+     */
+    public Long getAuthorizationInfoTime() {
+        return this.authorizationInfoTime;
+    }
+
+    /**
+     * 设置 授权时间
+     * @param authorizationInfoTime 授权时间
+     * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
+     */
+    public AuthorizationInfo setAuthorizationInfoTime(Long authorizationInfoTime) {
+        this.authorizationInfoTime = authorizationInfoTime;
         return this;
     }
 }
