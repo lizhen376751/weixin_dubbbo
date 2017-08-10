@@ -176,7 +176,7 @@ public class ThirdService implements ApiThird {
             String appId = rootElt.elementText("AppId");
             String createTime = rootElt.elementText("CreateTime");
             String infoType = rootElt.elementText("InfoType");
-            Long time = new Date().getTime();
+            Long time = new Date().getTime() / 1000;
             log.info("ticket解析后 ticket=" + ticket + ",appId=" + appId + ",createTime=" + createTime + ",infoType=" + infoType);
             if (ticket != null && !"".equals(ticket) && !"null".equals(ticket)) {
                 entity.setAppId(appId).setComponentVerifyTicket(ticket).setCreateTime(createTime).setInfoType(infoType).
@@ -339,7 +339,7 @@ public class ThirdService implements ApiThird {
      * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
      *
      * @param componentVerifyTicket 第三方appid
-     * @param authorizationCode    授权的公众的授权码
+     * @param authorizationCode     授权的公众的授权码
      * @return 授权相关的信息
      */
     @Override
