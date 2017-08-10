@@ -240,7 +240,7 @@ public class ThirdService implements ApiThird {
             Long tokenTime = componentAccessToken.getTokenTime();
             int expiresIn1 = Integer.parseInt(componentAccessToken.getExpiresIn());
             log.info("不为空的情况下redis缓存中获取token" + componentAccessToken.toString() + "保存时间:" + tokenTime.toString());
-            if (time - tokenTime < expiresIn1) {
+            if (time - tokenTime < expiresIn1 || componentVerifyTicket.getComponentVerifyTicket() == null || "".equals(componentVerifyTicket.getComponentVerifyTicket())) {
                 return componentAccessToken;
             }
         }
@@ -302,7 +302,8 @@ public class ThirdService implements ApiThird {
             Long preAuthCodeTime = preAuthCode.getPreAuthCodeTime();
             int expiresIn = Integer.parseInt(preAuthCode.getExpiresIn());
             log.debug("不为空的情况下在redis里面获取预授权码" + preAuthCode.toString() + "保存时间" + preAuthCodeTime.toString());
-            if (time - preAuthCodeTime < expiresIn) {
+            if (time - preAuthCodeTime < expiresIn || null == token || "".equals(token)) {
+                //提前一分钟进行获取,如果需要token,如果为空便是通过其他途径获取...
                 return preAuthCode;
             }
         }
@@ -367,12 +368,17 @@ public class ThirdService implements ApiThird {
             String funcInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "func_info");
             authorizationInfo.setAuthorizationInfo(authorizationInfo1).setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
                     .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo).setAuthorizationInfoTime(time - 600);
+            //TODO 保存授权信息至redis
         } catch (Exception e) {
             e.printStackTrace();
         }
         log.info("获取授权信息  = " + authorizationInfo.toString());
         return authorizationInfo;
     }
+
+/**
+ * TODO 在redis中获取预授权码,如果过期调用刷新接口进行刷新,同时删除原来的或者更新原来的授权信息
+ */
 
     /**
      * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
@@ -383,19 +389,26 @@ public class ThirdService implements ApiThird {
      */
     @Override
     public AuthorizationInfo refreshToken(ComponentAccessToken componentAccessToken, AuthorizationInfo authorizationInfo) {
+        Long time = new Date().getTime() / 1000;
         log.info("获取（刷新）授权公众号或小程序的接口调用凭据（令牌）componentAccessToken =" + componentAccessToken.toString()
                 + ",AuthorizationInfo=" + authorizationInfo.toString());
         String url = "https:// api.weixin.qq.com /cgi-bin/component/api_authorizer_token?component_access_token=" + componentAccessToken.getComponentAccessToken();
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("component_appid", componentAccessToken.getAppid());
-        params.put("authorizer_appid", authorizationInfo.getAuthorizerAppid());
-        params.put("authorizer_refresh_token", authorizationInfo.getAuthorizerRefreshToken());
+
+        String jsonData = "";
+        if (null != componentAccessToken) {
+            jsonData += "{";
+            jsonData += "\"component_appid\":" + "\"" + componentAccessToken.getAppid() + "\",";
+            jsonData += "\"authorizer_appid\":" + "\"" + authorizationInfo.getAuthorizerAppid() + "\",";
+            jsonData += "\"authorizer_refresh_token\":" + "\"" + authorizationInfo.getAuthorizerRefreshToken() + "\",}";
+            log.debug("刷新授权公众号的json数据======" + jsonData);
+        }
         try {
-            String sendPost = HttpUtils.sendPost(url, params);
+            String sendPost = HttpUtils.sendPostJson(url, jsonData);
             String authorizerAccessToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_access_token");
             String expiresIn = allWeiXinService.pareJsonDate(sendPost, "expires_in");
             String authorizerRefreshToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_refresh_token");
-            authorizationInfo.setAuthorizerRefreshToken(authorizerRefreshToken).setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn);
+            authorizationInfo.setAuthorizerRefreshToken(authorizerRefreshToken).setAuthorizerAccessToken(authorizerAccessToken).
+                    setExpiresIn(expiresIn).setAuthorizationInfoTime(time - 600);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -421,18 +434,19 @@ public class ThirdService implements ApiThird {
         params.put("authorizer_appid", authorizerAppid);
         try {
             String sendPost = HttpUtils.sendPost(url, params);
-            String nickName = allWeiXinService.pareJsonDate(sendPost, "nick_name");
-            String headImg = allWeiXinService.pareJsonDate(sendPost, "head_img");
-            String serviceTypeInfo = allWeiXinService.pareJsonDate(sendPost, "service_type_info");
-            String verifyTypeInfo = allWeiXinService.pareJsonDate(sendPost, "verify_type_info");
-            String userName = allWeiXinService.pareJsonDate(sendPost, "user_name");
-            String principalName = allWeiXinService.pareJsonDate(sendPost, "principal_name");
-            String alias = allWeiXinService.pareJsonDate(sendPost, "alias");
-            String businessInfo = allWeiXinService.pareJsonDate(sendPost, "business_info");
-            String qrcodeUrl = allWeiXinService.pareJsonDate(sendPost, "qrcode_url");
-            String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
-            String appid = allWeiXinService.pareJsonDate(sendPost, "appid");
-            String funcInfo = allWeiXinService.pareJsonDate(sendPost, "func_info");
+            String authorizationInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorizer_info");
+            String nickName = allWeiXinService.pareJsonDate(authorizationInfo1, "nick_name");
+            String headImg = allWeiXinService.pareJsonDate(authorizationInfo1, "head_img");
+            String serviceTypeInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "service_type_info");
+            String verifyTypeInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "verify_type_info");
+            String userName = allWeiXinService.pareJsonDate(authorizationInfo1, "user_name");
+            String principalName = allWeiXinService.pareJsonDate(authorizationInfo1, "principal_name");
+            String alias = allWeiXinService.pareJsonDate(authorizationInfo1, "alias");
+            String businessInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "business_info");
+            String qrcodeUrl = allWeiXinService.pareJsonDate(authorizationInfo1, "qrcode_url");
+            String authorizerInfo1 = allWeiXinService.pareJsonDate(sendPost, "authorization_info");
+            String appid = allWeiXinService.pareJsonDate(authorizerInfo1, "appid");
+            String funcInfo = allWeiXinService.pareJsonDate(authorizerInfo1, "func_info");
             authorizerInfo.setNickName(nickName);
             authorizerInfo.setAlias(alias);
             authorizerInfo.setBusinessInfo(businessInfo);
