@@ -177,6 +177,7 @@ public class ThirdService implements ApiThird {
      */
     @Override
     public ComponentAccessToken getComponentAccessToken(ComponentVerifyTicket componentVerifyTicket) {
+        String componentVerifyTicket1 = componentVerifyTicket.getComponentVerifyTicket();
         Long time = new Date().getTime() / 1000;
         String appId = componentVerifyTicket.getAppId();
         String appSecret = componentVerifyTicket.getAppsecret();
@@ -195,7 +196,7 @@ public class ThirdService implements ApiThird {
                 return componentAccessToken;
             }
         }
-        if (componentVerifyTicket == null || "".equals(componentVerifyTicket) || "null".equals(componentVerifyTicket)) {
+        if (componentVerifyTicket1 == null || "".equals(componentVerifyTicket1) || "null".equals(componentVerifyTicket1)) {
             log.debug("redis里面没有获取到token,返回空.....");
             return null;
         }
@@ -246,7 +247,7 @@ public class ThirdService implements ApiThird {
         String appId = componentAccessToken.getAppid();
         String token = componentAccessToken.getComponentAccessToken();
         //token 20分钟有效期
-        int seconds = 20 * 60;
+        int seconds = 30 * 60;
 
         String key = appId + ":preauthcode";
         String authStr = redisUtil.get(key);
@@ -256,7 +257,7 @@ public class ThirdService implements ApiThird {
             preAuthCode = JSONObject.parseObject(authStr, PreAuthCode.class);
             Long preAuthCodeTime = preAuthCode.getPreAuthCodeTime();
             int expiresIn = Integer.parseInt(preAuthCode.getExpiresIn());
-            log.debug("不为空的情况下在redis里面获取预授权码" + preAuthCode.toString() + "保存时间" + preAuthCodeTime.toString());
+            log.debug("不为空的情况下在redis里面获取预授权码" + preAuthCode.toString() + ",保存时间" + preAuthCodeTime.toString());
             if (time - preAuthCodeTime < expiresIn || null == token || "".equals(token)) {
                 //提前一分钟进行获取,如果需要token,如果为空便是通过其他途径获取...
                 return preAuthCode;

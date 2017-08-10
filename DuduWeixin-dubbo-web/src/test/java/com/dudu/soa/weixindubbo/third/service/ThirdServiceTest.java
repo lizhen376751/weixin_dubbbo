@@ -26,9 +26,9 @@ public class ThirdServiceTest extends TestBase {
         componentAccessToken.setAppid("wx77ea274ef9f3e504");
         ComponentVerifyTicket componentVerifyTicket = new ComponentVerifyTicket();
         componentVerifyTicket.setAppId("wx77ea274ef9f3e504");
-        thirdService.getComponentAccessToken(componentVerifyTicket);
+        ComponentAccessToken componentAccessToken1 = thirdService.getComponentAccessToken(componentVerifyTicket);
         PreAuthCode preAuthCode = thirdService.getPreAuthCode(componentAccessToken);
-        System.out.println("=================="+preAuthCode);
+        System.out.println("=================="+componentAccessToken1.toString());
     }
 
 
