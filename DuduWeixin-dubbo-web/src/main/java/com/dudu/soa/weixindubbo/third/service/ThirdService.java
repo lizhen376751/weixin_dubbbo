@@ -367,8 +367,10 @@ public class ThirdService implements ApiThird {
             String authorizerRefreshToken = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_refresh_token");
             String funcInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "func_info");
             authorizationInfo.setAuthorizationInfo(authorizationInfo1).setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
-                    .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo).setAuthorizationInfoTime(time - 600);
-            //TODO 保存授权信息至redis
+                    .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo).setAuthorizationInfoTime(time - 60);
+            //redis保存授权信息
+            saveAuthorizationInfo(authorizationInfo);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -376,9 +378,53 @@ public class ThirdService implements ApiThird {
         return authorizationInfo;
     }
 
-/**
- * TODO 在redis中获取预授权码,如果过期调用刷新接口进行刷新,同时删除原来的或者更新原来的授权信息
- */
+
+    /**
+     * 获取公众号的授权信息
+     *
+     * @param appid                公众号的appid
+     * @param componentAccessToken 第三方的token
+     * @return 授权信息
+     */
+    public AuthorizationInfo getWeiXinToken(String appid, ComponentAccessToken componentAccessToken) {
+        Long time = new Date().getTime() / 1000;
+        String key = appid + ":authorizationinfo";
+        String authStr = redisUtil.get(key);
+        AuthorizationInfo authorizationInfo;
+        if (null != authStr) {
+            authorizationInfo = JSONObject.parseObject(authStr, AuthorizationInfo.class);
+            Long authorizationInfoTime = authorizationInfo.getAuthorizationInfoTime();
+            int expiresIn = Integer.parseInt(authorizationInfo.getExpiresIn());
+            log.debug("不为空的情况下在redis里面获取预授信息" + authorizationInfo.toString());
+            //如果失效,重新获取
+            if (time - authorizationInfoTime > expiresIn) {
+                AuthorizationInfo authorizationInfo1 = refreshToken(componentAccessToken, authorizationInfo);
+                return authorizationInfo1;
+            }
+            return authorizationInfo;
+        }
+        return null;
+    }
+
+    /**
+     * redis保存授权信息
+     *
+     * @param authorizationInfo 授权信息
+     */
+    private void saveAuthorizationInfo(AuthorizationInfo authorizationInfo) {
+        String authorizerAppid = authorizationInfo.getAuthorizerAppid();
+        String authorizerAccessToken = authorizationInfo.getAuthorizerAccessToken();
+        String authorizerRefreshToken = authorizationInfo.getAuthorizerRefreshToken();
+        //保存授权信息至redis
+        if (null != authorizerAppid && !"".equals(authorizerAppid) && !"null".equals(authorizerAppid)
+                && null != authorizerAccessToken && !"".equals(authorizerAccessToken) && !"null".equals(authorizerAccessToken)
+                && null != authorizerRefreshToken && !"".equals(authorizerRefreshToken) && !"null".equals(authorizerRefreshToken)) {
+            int seconds = 2 * 60 * 60;
+            String key = authorizerAppid + ":authorizationinfo";
+            log.debug("redis保存公众号的授权信息中..............");
+            redisUtil.set(key, seconds, JSONObject.toJSONString(authorizationInfo));
+        }
+    }
 
     /**
      * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
@@ -389,6 +435,7 @@ public class ThirdService implements ApiThird {
      */
     @Override
     public AuthorizationInfo refreshToken(ComponentAccessToken componentAccessToken, AuthorizationInfo authorizationInfo) {
+
         Long time = new Date().getTime() / 1000;
         log.info("获取（刷新）授权公众号或小程序的接口调用凭据（令牌）componentAccessToken =" + componentAccessToken.toString()
                 + ",AuthorizationInfo=" + authorizationInfo.toString());
@@ -409,6 +456,8 @@ public class ThirdService implements ApiThird {
             String authorizerRefreshToken = allWeiXinService.pareJsonDate(sendPost, "authorizer_refresh_token");
             authorizationInfo.setAuthorizerRefreshToken(authorizerRefreshToken).setAuthorizerAccessToken(authorizerAccessToken).
                     setExpiresIn(expiresIn).setAuthorizationInfoTime(time - 600);
+            //保存授权信息至redis
+            saveAuthorizationInfo(authorizationInfo);
         } catch (Exception e) {
             e.printStackTrace();
         }
