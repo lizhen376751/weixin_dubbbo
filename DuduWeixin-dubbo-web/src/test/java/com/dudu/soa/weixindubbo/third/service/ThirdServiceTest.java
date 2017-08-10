@@ -4,6 +4,9 @@ import com.dudu.soa.framework.cache.RedisUtil;
 import com.dudu.soa.weixindubbo.third.module.AESParams;
 import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
 import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
+import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
+import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
+import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
 import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.wxd.test.TestBase;
 import org.dom4j.Document;
@@ -17,6 +20,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by Administrator on 2017/8/5.
  */
 public class ThirdServiceTest extends TestBase {
+    @Test
+    public void getPreAuthCode() throws Exception {
+        ComponentAccessToken componentAccessToken = new ComponentAccessToken();
+        componentAccessToken.setAppid("wx77ea274ef9f3e504");
+        ComponentVerifyTicket componentVerifyTicket = new ComponentVerifyTicket();
+        componentVerifyTicket.setAppId("wx77ea274ef9f3e504");
+        thirdService.getComponentAccessToken(componentVerifyTicket);
+        PreAuthCode preAuthCode = thirdService.getPreAuthCode(componentAccessToken);
+        System.out.println("=================="+preAuthCode);
+    }
 
 
     /**

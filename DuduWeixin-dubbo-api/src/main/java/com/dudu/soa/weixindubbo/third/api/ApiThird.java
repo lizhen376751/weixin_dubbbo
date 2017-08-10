@@ -14,25 +14,6 @@ import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
 
 public interface ApiThird {
 
-    /**
-     * 判断是否加密
-     *
-     * @param token     第三方的token
-     * @param signature 前文描述密文消息体
-     * @param timestamp URL上原有参数,时间戳
-     * @param nonce     URL上原有参数,随机数
-     * @return true或者false
-     */
-    boolean checkSignature(String token, String signature, String timestamp, String nonce);
-
-    /**
-     * 十分钟推送一次,不需要解密直接获取appid
-     * 获取密文的授权的Appid
-     *
-     * @param xml 内容
-     * @return appid
-     */
-    String getAuthorizerAppidFromXml(String xml);
 
     /**
      * 消息解密
@@ -100,4 +81,14 @@ public interface ApiThird {
      * @return 授权方的帐号基本信息
      */
     AuthorizerInfo getAuthorizerInfo(ComponentAccessToken componentAccessToken, String authorizerAppid);
+
+
+    /**
+     * 获取公众号的授权信息
+     *
+     * @param appid                公众号的appid
+     * @param componentAccessToken 第三方的token
+     * @return 授权信息
+     */
+     AuthorizationInfo getWeiXinToken(String appid, ComponentAccessToken componentAccessToken);
 }

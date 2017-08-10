@@ -25,7 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,60 +55,7 @@ public class ThirdService implements ApiThird {
      */
     @Autowired
     private WeiXinConfigService weiXinConfigService;
-
-
-    /**
-     * 判断是否加密
-     *
-     * @param signature 前文描述密文消息体
-     * @param timestamp URL上原有参数,时间戳
-     * @param nonce     URL上原有参数,随机数
-     * @return true或者false
-     */
-    @Override
-    public boolean checkSignature(String token, String signature, String timestamp, String nonce) {
-        log.info("判断是否加密 token:" + token + ";signature:" + signature + ";timestamp:" + timestamp + "nonce:" + nonce);
-        boolean flag = false;
-        if (signature != null && !signature.equals("") && timestamp != null && !timestamp.equals("") && nonce != null && !nonce.equals("")) {
-            String sha1 = "";
-            String[] ss = new String[]{token, timestamp, nonce};
-            Arrays.sort(ss);
-            for (String s : ss) {
-                sha1 += s;
-            }
-
-            sha1 = AddSHA1.shi1(sha1);
-
-            if (sha1.equals(signature)) {
-                flag = true;
-            }
-            log.info("判断是否加密=========" + flag);
-        }
-        return flag;
-    }
-
-    /**
-     * 十分钟推送一次,不需要解密直接获取appid
-     * 获取密文的授权的Appid
-     *
-     * @param xml 内容
-     * @return appid
-     */
-    @Override
-    public String getAuthorizerAppidFromXml(String xml) {
-        Document doc;
-        try {
-            doc = DocumentHelper.parseText(xml);
-            Element rootElt = doc.getRootElement();
-            String toUserName = rootElt.elementText("ToUserName");
-            log.info("十分钟推送一次,不需要解密直接获取appid=" + toUserName);
-            return toUserName;
-        } catch (DocumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return null;
-    }
+//========以 下 是加密解密======================================================================================================================
 
     /**
      * 消息解密
@@ -156,6 +102,10 @@ public class ThirdService implements ApiThird {
         }
         return xml;
     }
+    //=========以 上 是加密解密======================================================================================================================
+
+
+    //==========以 下 是ticket=====================================================================================================================
 
     /**
      * 在解密后的xml中获取ticket,并保存Ticket
@@ -218,6 +168,7 @@ public class ThirdService implements ApiThird {
         return ticketStr == null ? null : JSONObject.parseObject(redisUtil.get("ticket:" + appId), ComponentVerifyTicket.class);
     }
 
+
     /**
      * 获取第三方开发平台的token
      *
@@ -244,7 +195,10 @@ public class ThirdService implements ApiThird {
                 return componentAccessToken;
             }
         }
-
+        if (componentVerifyTicket == null || "".equals(componentVerifyTicket) || "null".equals(componentVerifyTicket)) {
+            log.debug("redis里面没有获取到token,返回空.....");
+            return null;
+        }
         log.info("获取第三方开发平台的token 传过来的Ticket = " + componentVerifyTicket.toString());
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
         String jsonData = "";
@@ -297,6 +251,7 @@ public class ThirdService implements ApiThird {
         String key = appId + ":preauthcode";
         String authStr = redisUtil.get(key);
 
+
         if (null != authStr) {
             preAuthCode = JSONObject.parseObject(authStr, PreAuthCode.class);
             Long preAuthCodeTime = preAuthCode.getPreAuthCodeTime();
@@ -307,7 +262,10 @@ public class ThirdService implements ApiThird {
                 return preAuthCode;
             }
         }
-        String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
+        if (null == token || "".equals(token) || "null".equals(token)) {
+            return null;
+        }
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + token;
 
         String jsonData = "";
         if (null != componentAccessToken) {
@@ -335,6 +293,41 @@ public class ThirdService implements ApiThird {
         log.info("获取预授权码 = " + preAuthCode.toString());
         return preAuthCode;
     }
+
+
+    //=========以 上 是ticket 预授权码以及第三方的token=============================================================================================================================
+
+
+//=========以 下 授权公众号的相关信息=============================================================================================================================
+
+    /**
+     * 获取公众号的授权信息
+     *
+     * @param appid                公众号的appid
+     * @param componentAccessToken 第三方的token
+     * @return 授权信息
+     */
+    @Override
+    public AuthorizationInfo getWeiXinToken(String appid, ComponentAccessToken componentAccessToken) {
+        Long time = new Date().getTime() / 1000;
+        String key = appid + ":authorizationinfo";
+        String authStr = redisUtil.get(key);
+        AuthorizationInfo authorizationInfo;
+        if (null != authStr) {
+            authorizationInfo = JSONObject.parseObject(authStr, AuthorizationInfo.class);
+            Long authorizationInfoTime = authorizationInfo.getAuthorizationInfoTime();
+            int expiresIn = Integer.parseInt(authorizationInfo.getExpiresIn());
+            log.debug("不为空的情况下在redis里面获取预授信息" + authorizationInfo.toString());
+            //如果失效,重新获取
+            if (time - authorizationInfoTime > expiresIn) {
+                AuthorizationInfo authorizationInfo1 = refreshToken(componentAccessToken, authorizationInfo);
+                return authorizationInfo1;
+            }
+            return authorizationInfo;
+        }
+        return null;
+    }
+
 
     /**
      * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
@@ -378,54 +371,6 @@ public class ThirdService implements ApiThird {
         return authorizationInfo;
     }
 
-
-    /**
-     * 获取公众号的授权信息
-     *
-     * @param appid                公众号的appid
-     * @param componentAccessToken 第三方的token
-     * @return 授权信息
-     */
-    public AuthorizationInfo getWeiXinToken(String appid, ComponentAccessToken componentAccessToken) {
-        Long time = new Date().getTime() / 1000;
-        String key = appid + ":authorizationinfo";
-        String authStr = redisUtil.get(key);
-        AuthorizationInfo authorizationInfo;
-        if (null != authStr) {
-            authorizationInfo = JSONObject.parseObject(authStr, AuthorizationInfo.class);
-            Long authorizationInfoTime = authorizationInfo.getAuthorizationInfoTime();
-            int expiresIn = Integer.parseInt(authorizationInfo.getExpiresIn());
-            log.debug("不为空的情况下在redis里面获取预授信息" + authorizationInfo.toString());
-            //如果失效,重新获取
-            if (time - authorizationInfoTime > expiresIn) {
-                AuthorizationInfo authorizationInfo1 = refreshToken(componentAccessToken, authorizationInfo);
-                return authorizationInfo1;
-            }
-            return authorizationInfo;
-        }
-        return null;
-    }
-
-    /**
-     * redis保存授权信息
-     *
-     * @param authorizationInfo 授权信息
-     */
-    private void saveAuthorizationInfo(AuthorizationInfo authorizationInfo) {
-        String authorizerAppid = authorizationInfo.getAuthorizerAppid();
-        String authorizerAccessToken = authorizationInfo.getAuthorizerAccessToken();
-        String authorizerRefreshToken = authorizationInfo.getAuthorizerRefreshToken();
-        //保存授权信息至redis
-        if (null != authorizerAppid && !"".equals(authorizerAppid) && !"null".equals(authorizerAppid)
-                && null != authorizerAccessToken && !"".equals(authorizerAccessToken) && !"null".equals(authorizerAccessToken)
-                && null != authorizerRefreshToken && !"".equals(authorizerRefreshToken) && !"null".equals(authorizerRefreshToken)) {
-            int seconds = 2 * 60 * 60;
-            String key = authorizerAppid + ":authorizationinfo";
-            log.debug("redis保存公众号的授权信息中..............");
-            redisUtil.set(key, seconds, JSONObject.toJSONString(authorizationInfo));
-        }
-    }
-
     /**
      * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
      *
@@ -464,6 +409,28 @@ public class ThirdService implements ApiThird {
         log.info("获取（刷新）授权公众号或小程序的接口调用凭据" + authorizationInfo.toString());
         return authorizationInfo;
     }
+
+
+    /**
+     * redis保存授权信息
+     *
+     * @param authorizationInfo 授权信息
+     */
+    private void saveAuthorizationInfo(AuthorizationInfo authorizationInfo) {
+        String authorizerAppid = authorizationInfo.getAuthorizerAppid();
+        String authorizerAccessToken = authorizationInfo.getAuthorizerAccessToken();
+        String authorizerRefreshToken = authorizationInfo.getAuthorizerRefreshToken();
+        //保存授权信息至redis
+        if (null != authorizerAppid && !"".equals(authorizerAppid) && !"null".equals(authorizerAppid)
+                && null != authorizerAccessToken && !"".equals(authorizerAccessToken) && !"null".equals(authorizerAccessToken)
+                && null != authorizerRefreshToken && !"".equals(authorizerRefreshToken) && !"null".equals(authorizerRefreshToken)) {
+            int seconds = 2 * 60 * 60;
+            String key = authorizerAppid + ":authorizationinfo";
+            log.debug("redis保存公众号的授权信息中..............");
+            redisUtil.set(key, seconds, JSONObject.toJSONString(authorizationInfo));
+        }
+    }
+
 
     /**
      * 获取授权方的帐号基本信息
