@@ -64,8 +64,6 @@ public interface ApiThird {
      * @return 授权相关的信息
      */
     AuthorizationInfo getAuthorizationInfo(ComponentVerifyTicket componentVerifyTicket, String authorizationCode);
-    
-
     /**
      * 获取授权方的帐号基本信息
      *
@@ -83,5 +81,5 @@ public interface ApiThird {
      * @param componentAccessToken 第三方的token
      * @return 授权信息
      */
-     AuthorizationInfo getWeiXinToken(String appid, ComponentAccessToken componentAccessToken);
+    AuthorizationInfo getWeiXinToken(String appid, ComponentAccessToken componentAccessToken);
 }
