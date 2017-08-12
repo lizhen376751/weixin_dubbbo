@@ -1,11 +1,12 @@
-package com.dudu.soa.weixindubbo.third.api;
+package com.dudu.soa.weixindubbo.third.commonwx.api;
 
-import com.dudu.soa.weixindubbo.third.module.AESParams;
-import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
-import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
-import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
-import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
-import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
+import com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo;
+import com.dudu.soa.weixindubbo.third.commonwx.module.AESParams;
+import com.dudu.soa.weixindubbo.third.commonwx.module.AuthorizerInfo;
+import com.dudu.soa.weixindubbo.third.commonwx.module.ComponentAccessToken;
+import com.dudu.soa.weixindubbo.third.commonwx.module.ComponentVerifyTicket;
+import com.dudu.soa.weixindubbo.third.commonwx.module.PreAuthCode;
+
 
 /**
  * 第三方开发的相关接口

@@ -1,12 +1,12 @@
-package com.dudu.soa.weixindubbo.third.service;
+package com.dudu.soa.weixindubbo.third.commonwx.service;
 
 import com.dudu.soa.framework.cache.RedisUtil;
-import com.dudu.soa.weixindubbo.third.module.AESParams;
-import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
-import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
-import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
-import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
-import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
+import com.dudu.soa.weixindubbo.third.commonwx.module.AESParams;
+import com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo;
+import com.dudu.soa.weixindubbo.third.commonwx.module.AuthorizerInfo;
+import com.dudu.soa.weixindubbo.third.commonwx.module.ComponentAccessToken;
+import com.dudu.soa.weixindubbo.third.commonwx.module.ComponentVerifyTicket;
+import com.dudu.soa.weixindubbo.third.commonwx.module.PreAuthCode;
 import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.wxd.test.TestBase;
 import org.dom4j.Document;

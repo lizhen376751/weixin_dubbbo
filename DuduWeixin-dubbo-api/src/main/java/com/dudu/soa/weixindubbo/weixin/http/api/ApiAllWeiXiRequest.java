@@ -1,7 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.api;
 
 
-import com.dudu.soa.weixindubbo.thirdmessage.module.CustomerText;
+import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;

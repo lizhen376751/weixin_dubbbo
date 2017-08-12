@@ -10,6 +10,15 @@ import java.util.Date;
 public class AccessToken implements Serializable {
 
     /**
+     * appid
+     */
+    private String appid;
+    /**
+     * appsecret
+     */
+    private String appsecret;
+
+    /**
      * token
      */
     private String token;
@@ -34,7 +43,47 @@ public class AccessToken implements Serializable {
      */
     @Override
     public String toString() {
-        return "token:" + token + ",ticket:" + ticket + ",expiresIn:" + expiresIn + ",createTime:" + createTime;
+        return "appid:" + appid + ",appsecret:" + appsecret + ",token:" + token + ",ticket:" + ticket + ",expiresIn:" + expiresIn + ",createTime:" + createTime;
+    }
+
+    /**
+     * 获取 appid
+     *
+     * @return appid appid
+     */
+    public String getAppid() {
+        return this.appid;
+    }
+
+    /**
+     * 设置 appid
+     *
+     * @param appid appid
+     * @return 返回 AccessToken(开发者的token的实体类)
+     */
+    public AccessToken setAppid(String appid) {
+        this.appid = appid;
+        return this;
+    }
+
+    /**
+     * 获取 appsecret
+     *
+     * @return appsecret appsecret
+     */
+    public String getAppsecret() {
+        return this.appsecret;
+    }
+
+    /**
+     * 设置 appsecret
+     *
+     * @param appsecret appsecret
+     * @return 返回 AccessToken(开发者的token的实体类)
+     */
+    public AccessToken setAppsecret(String appsecret) {
+        this.appsecret = appsecret;
+        return this;
     }
 
     /**
@@ -58,18 +107,18 @@ public class AccessToken implements Serializable {
     }
 
     /**
-     * 获取 前端页面的ticket
+     * 获取 调用微信JS接口的临时票据
      *
-     * @return ticket 前端页面的ticket
+     * @return ticket 调用微信JS接口的临时票据
      */
     public String getTicket() {
         return this.ticket;
     }
 
     /**
-     * 设置 前端页面的ticket
+     * 设置 调用微信JS接口的临时票据
      *
-     * @param ticket 前端页面的ticket
+     * @param ticket 调用微信JS接口的临时票据
      * @return 返回 AccessToken(开发者的token的实体类)
      */
     public AccessToken setTicket(String ticket) {

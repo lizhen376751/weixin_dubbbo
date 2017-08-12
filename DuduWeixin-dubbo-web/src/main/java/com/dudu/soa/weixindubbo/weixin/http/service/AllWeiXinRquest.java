@@ -2,7 +2,8 @@ package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
-import com.dudu.soa.weixindubbo.thirdmessage.module.CustomerText;
+import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
+import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
@@ -38,6 +39,11 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Autowired
     private JSSDKConfig jssdkConfig;
+    /**
+     * 微信公众号的token
+     */
+    @Autowired
+    private AccessTokenService accessTokenService;
 
     /**
      * 将token、timestamp、nonce三个参数进行字典序排序
@@ -76,7 +82,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Override
     public AccessToken getTokengetTicket(String appid, String appSecret) {
-        AccessToken tokengetTicket = AllWeiXinService.getTokengetTicket(appid, appSecret);
+        AccessToken tokengetTicket = accessTokenService.getAuthorizationInfo(appid, appSecret);
         return tokengetTicket;
     }
 

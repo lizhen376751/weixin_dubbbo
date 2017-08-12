@@ -1,7 +1,8 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.alibaba.fastjson.JSONObject;
-import com.dudu.soa.weixindubbo.thirdmessage.module.CustomerText;
+import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
+import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinBaseParamter;
@@ -28,7 +29,6 @@ import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -56,62 +56,11 @@ public class AllWeiXinService {
      */
     @Autowired
     private URLConfig urlConfig;
-
     /**
-     * 获取开发者的token和jssdk的jsapiticket
-     *
-     * @param appid     appid
-     * @param appSecret appSecret
-     * @return 开发者的token
-     * @throws IOException        网络异常
-     * @throws URISyntaxException 异常
+     * 微信公众号的token
      */
-    public static AccessToken getTokengetTicket(String appid, String appSecret) {
-        AccessToken accessToken = new AccessToken();
-        WeixinActionMethodDefine weixinActionMethodDefine = new WeixinActionMethodDefine()
-                .setIsNeedAccssToken(false)
-                .setHttpMethod(HttpMethod.GET)
-                .setUri("/cgi-bin/token")
-                .setWeixinBaseParamter(new WeixinBaseParamter().setAppid(appid).setSecret(appSecret))
-                .putActionConfigParamter("grant_type", "client_credential");
-        String jstoken = null;
-        //调用微信JS接口的临时票据
-        String jsticket = null;
-        //token
-        String accesstoken = null;
-        try {
-            jstoken = HttpUtils.request(weixinActionMethodDefine);
-            accesstoken = JSONObject.parseObject(jstoken).getString("access_token");
-            WeixinActionMethodDefine weixinActionMethodDefine2 = new WeixinActionMethodDefine()
-                    .setHttpMethod(HttpMethod.GET)
-                    .setIsNeedAppid(false)
-                    .setUri("/cgi-bin/ticket/getticket")
-                    .putActionConfigParamter("type", "jsapi")
-                    .setWeixinBaseParamter(new WeixinBaseParamter().setToken(accesstoken));
-            jsticket = HttpUtils.request(weixinActionMethodDefine2);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
-        String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");
-        int expiresin = 0;
-        if (null != expiresin1 && !"".equals(expiresin1)) {
-            expiresin = Integer.parseInt(expiresin1);
-        }
-        // 获取到token并赋值保存
-        accessToken.setCreateTime(System.currentTimeMillis() / 1000)
-                .setToken(accesstoken)
-                .setExpiresIn(expiresin)
-                .setTicket(jsapiticket);
-        log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
-                + "token为==============================" + accesstoken
-                + "jsticket为==============================" + jsapiticket);
-
-
-        return accessToken;
-    }
+    @Autowired
+    private AccessTokenService accessTokenService;
 
     /**
      * 利用redis获取token
@@ -170,7 +119,7 @@ public class AllWeiXinService {
         String flag = "";
         AccessToken tokengetTicket = null;
         try {
-            tokengetTicket = this.getTokengetTicket(appid, appSecret);
+            tokengetTicket = accessTokenService.getAuthorizationInfo(appid, appSecret);
             String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", tokengetTicket.getToken());
             String jsonMenu = JSONObject.toJSONString(menu);
             String jsonResult = HttpUtils.sendPostJson(url, jsonMenu);
@@ -210,7 +159,7 @@ public class AllWeiXinService {
             }
         }
         //获取token
-        AccessToken tokengetTicket = this.getTokengetTicket(appid, appSecret);
+        AccessToken tokengetTicket = accessTokenService.getAuthorizationInfo(appid, appSecret);
         String flag = "";
         String requestUrl = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
         requestUrl = requestUrl.replace("ACCESS_TOKEN", tokengetTicket.getToken());
@@ -289,7 +238,7 @@ public class AllWeiXinService {
         //1.获取开发者的access_token
         AccessToken tokengetTicket = null;
         try {
-            tokengetTicket = this.getTokengetTicket(appid, secret);
+            tokengetTicket = accessTokenService.getAuthorizationInfo(appid, secret);
             String token = tokengetTicket.getToken();
             //2.获取openid
             OauthOpenIdToken oauthAccessToken = this.getOauthAccessToken(code, appid, secret);
@@ -381,7 +330,7 @@ public class AllWeiXinService {
     public String sendGroupMessage(ParamSendWeChat paramSendWeChat) {
 
         //需要token,(appid,sercert)
-        AccessToken tokengetTicket = this.getTokengetTicket(paramSendWeChat.getAppid(), paramSendWeChat.getAppSecret());
+        AccessToken tokengetTicket = accessTokenService.getAuthorizationInfo(paramSendWeChat.getAppid(), paramSendWeChat.getAppSecret());
         String accessToken = tokengetTicket.getToken();
         String url = "https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN".replace("ACCESS_TOKEN", accessToken);
         String jsonResult = null;

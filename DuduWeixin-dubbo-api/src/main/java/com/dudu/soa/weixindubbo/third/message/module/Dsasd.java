@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.thirdmessage.module;
+package com.dudu.soa.weixindubbo.third.message.module;
 
 /**
  * Created by Administrator on 2017/7/24.

@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.third.module;
+package com.dudu.soa.weixindubbo.third.commonwx.module;
 
 import java.io.Serializable;
 

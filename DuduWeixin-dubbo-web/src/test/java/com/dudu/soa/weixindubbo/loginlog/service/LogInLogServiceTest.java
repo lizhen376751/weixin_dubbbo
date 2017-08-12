@@ -2,8 +2,8 @@ package com.dudu.soa.weixindubbo.loginlog.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.weixindubbo.loginlog.module.LogInLog;
-import com.dudu.soa.weixindubbo.thirdmessage.module.Dsasd;
-import com.dudu.soa.weixindubbo.thirdmessage.module.TextContent;
+import com.dudu.soa.weixindubbo.third.message.module.Dsasd;
+import com.dudu.soa.weixindubbo.third.message.module.TextContent;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.thirdmessage.module;
+package com.dudu.soa.weixindubbo.third.message.module;
 
 import java.io.Serializable;
 

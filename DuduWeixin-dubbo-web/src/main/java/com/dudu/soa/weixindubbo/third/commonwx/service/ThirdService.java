@@ -1,17 +1,17 @@
-package com.dudu.soa.weixindubbo.third.service;
+package com.dudu.soa.weixindubbo.third.commonwx.service;
 
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.cache.RedisUtil;
 import com.dudu.soa.weixindubbo.third.aes.AesException;
 import com.dudu.soa.weixindubbo.third.aes.WXBizMsgCrypt;
-import com.dudu.soa.weixindubbo.third.api.ApiThird;
-import com.dudu.soa.weixindubbo.third.module.AESParams;
-import com.dudu.soa.weixindubbo.third.module.AuthorizationInfo;
-import com.dudu.soa.weixindubbo.third.module.AuthorizerInfo;
-import com.dudu.soa.weixindubbo.third.module.ComponentAccessToken;
-import com.dudu.soa.weixindubbo.third.module.ComponentVerifyTicket;
-import com.dudu.soa.weixindubbo.third.module.PreAuthCode;
+import com.dudu.soa.weixindubbo.third.commonwx.api.ApiThird;
+import com.dudu.soa.weixindubbo.third.commonwx.module.AESParams;
+import com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo;
+import com.dudu.soa.weixindubbo.third.commonwx.module.AuthorizerInfo;
+import com.dudu.soa.weixindubbo.third.commonwx.module.ComponentAccessToken;
+import com.dudu.soa.weixindubbo.third.commonwx.module.ComponentVerifyTicket;
+import com.dudu.soa.weixindubbo.third.commonwx.module.PreAuthCode;
 import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
 import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
@@ -360,7 +360,7 @@ public class ThirdService implements ApiThird {
             String expiresIn = allWeiXinService.pareJsonDate(authorizationInfo1, "expires_in");
             String authorizerRefreshToken = allWeiXinService.pareJsonDate(authorizationInfo1, "authorizer_refresh_token");
             String funcInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "func_info");
-            authorizationInfo.setAuthorizationInfo(authorizationInfo1).setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
+            authorizationInfo.setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
                     .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo).setAuthorizationInfoTime(time - 60);
             //redis保存授权信息
             saveAuthorizationInfo(authorizationInfo);

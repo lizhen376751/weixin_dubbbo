@@ -1,4 +1,6 @@
-package com.dudu.soa.weixindubbo.third.module;
+package com.dudu.soa.weixindubbo.third.commonwx.module;
+
+import com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo;
 
 import java.io.Serializable;
 

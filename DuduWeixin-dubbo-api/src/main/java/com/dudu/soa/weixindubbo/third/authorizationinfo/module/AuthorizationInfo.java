@@ -1,4 +1,4 @@
-package com.dudu.soa.weixindubbo.third.module;
+package com.dudu.soa.weixindubbo.third.authorizationinfo.module;
 
 import java.io.Serializable;
 
@@ -8,10 +8,6 @@ import java.io.Serializable;
  */
 
 public class AuthorizationInfo implements Serializable {
-    /**
-     * 授权信息
-     */
-    private String authorizationInfo;
     /**
      * 授权方appid
      */
@@ -38,36 +34,22 @@ public class AuthorizationInfo implements Serializable {
      */
     private Long authorizationInfoTime;
 
+
+
     /**
-     *  AuthorizationInfo(公众号凭据和授权信息) 字符串形式
+     * AuthorizationInfo(公众号凭据和授权信息) 字符串形式
+     *
      * @return AuthorizationInfo(公众号凭据和授权信息)字符串
      */
     @Override
     public String toString() {
-        return "authorizationInfo:" + authorizationInfo + ",authorizerAppid:" + authorizerAppid + ",authorizerAccessToken:" + authorizerAccessToken
-                + ",expiresIn:" + expiresIn + ",authorizerRefreshToken:" + authorizerRefreshToken + ",funcInfo:" + funcInfo + ",authorizationInfoTime:" + authorizationInfoTime;
-    }
-
-    /**
-     * 获取 授权信息
-     * @return authorizationInfo 授权信息
-     */
-    public String getAuthorizationInfo() {
-        return this.authorizationInfo;
-    }
-
-    /**
-     * 设置 授权信息
-     * @param authorizationInfo 授权信息
-     * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
-     */
-    public AuthorizationInfo setAuthorizationInfo(String authorizationInfo) {
-        this.authorizationInfo = authorizationInfo;
-        return this;
+        return "authorizerAppid:" + authorizerAppid + ",authorizerAccessToken:" + authorizerAccessToken + ",expiresIn:" + expiresIn + ",authorizerRefreshToken:" + authorizerRefreshToken
+                + ",funcInfo:" + funcInfo + ",authorizationInfoTime:" + authorizationInfoTime;
     }
 
     /**
      * 获取 授权方appid
+     *
      * @return authorizerAppid 授权方appid
      */
     public String getAuthorizerAppid() {
@@ -76,6 +58,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 设置 授权方appid
+     *
      * @param authorizerAppid 授权方appid
      * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
      */
@@ -86,6 +69,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 获取 授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌
+     *
      * @return authorizerAccessToken 授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌
      */
     public String getAuthorizerAccessToken() {
@@ -94,6 +78,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 设置 授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌
+     *
      * @param authorizerAccessToken 授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌
      * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
      */
@@ -104,6 +89,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 获取 有效期（在授权的公众号或小程序具备API权限时，才有此返回值）
+     *
      * @return expiresIn 有效期（在授权的公众号或小程序具备API权限时，才有此返回值）
      */
     public String getExpiresIn() {
@@ -112,6 +98,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 设置 有效期（在授权的公众号或小程序具备API权限时，才有此返回值）
+     *
      * @param expiresIn 有效期（在授权的公众号或小程序具备API权限时，才有此返回值）
      * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
      */
@@ -122,6 +109,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 获取 接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），      刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。
+     *
      * @return authorizerRefreshToken 接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），      刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。
      */
     public String getAuthorizerRefreshToken() {
@@ -130,6 +118,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 设置 接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），      刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。
+     *
      * @param authorizerRefreshToken 接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），      刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。
      * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
      */
@@ -140,6 +129,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 获取 公众号授权给开发者的权限集列表，ID为1到15时分别代表：
+     *
      * @return funcInfo 公众号授权给开发者的权限集列表，ID为1到15时分别代表：
      */
     public String getFuncInfo() {
@@ -148,6 +138,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 设置 公众号授权给开发者的权限集列表，ID为1到15时分别代表：
+     *
      * @param funcInfo 公众号授权给开发者的权限集列表，ID为1到15时分别代表：
      * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
      */
@@ -158,6 +149,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 获取 授权时间
+     *
      * @return authorizationInfoTime 授权时间
      */
     public Long getAuthorizationInfoTime() {
@@ -166,6 +158,7 @@ public class AuthorizationInfo implements Serializable {
 
     /**
      * 设置 授权时间
+     *
      * @param authorizationInfoTime 授权时间
      * @return 返回 AuthorizationInfo(公众号凭据和授权信息)
      */
