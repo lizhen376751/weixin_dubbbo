@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
+import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
@@ -16,41 +18,11 @@ import java.util.UUID;
  */
 @Service
 public class JSSDKConfig {
-
     /**
-     * 前端jssdk页面配置需要用到的配置参数
-     *
-     * @param url       前段页面传入的url(动态的,当前网页的URL，不包含#及其后面部分）
-     * @param appid     微信的appid
-     * @param appSecret 微信的appSecret
-     * @return map 签名参数
-     * @throws Exception 异常
+     * token的service
      */
-    public HashMap<String, String> jsSDKSign(String appid, String appSecret, String url) throws Exception {
-        AccessToken tokengetTicket = AllWeiXinService.getTokengetTicket(appid, appSecret);
-        //随机字符串
-        String noncestr = createnoncestr();
-        //timestamp（时间戳）
-        String timestamp = String.valueOf(tokengetTicket.getCreateTime());
-        //有效的jsapi_ticket
-        String jsapiticket = tokengetTicket.getTicket();
-        // 对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）并且
-        // 使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串string1
-        String string1 = "jsapi_ticket=" + jsapiticket + "&noncestr=" + noncestr
-                + "&timestamp=" + timestamp + "&url=" + url;
-        //对string1作sha1加密,字段名和字段值都采用原始值，不进行URL 转义。
-        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-        crypt.reset();
-        crypt.update(string1.getBytes("UTF-8"));
-        String signature = byteToHex(crypt.digest());
-        HashMap<String, String> jssdk = new HashMap<String, String>();
-        jssdk.put("appId", appid);
-        jssdk.put("timestamp", timestamp);
-        jssdk.put("nonceStr", noncestr);
-        jssdk.put("signature", signature);
-        return jssdk;
-
-    }
+    @Autowired
+    private AccessTokenService accessTokenService;
 
     /**
      * @param hash ..
@@ -73,6 +45,41 @@ public class JSSDKConfig {
      */
     private static String createnoncestr() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 前端jssdk页面配置需要用到的配置参数
+     *
+     * @param url       前段页面传入的url(动态的,当前网页的URL，不包含#及其后面部分）
+     * @param appid     微信的appid
+     * @param appSecret 微信的appSecret
+     * @return map 签名参数
+     * @throws Exception 异常
+     */
+    public HashMap<String, String> jsSDKSign(String appid, String appSecret, String url) throws Exception {
+        AccessToken tokengetTicket = accessTokenService.getAccessToken(appid, appSecret);
+        //随机字符串
+        String noncestr = createnoncestr();
+        //timestamp（时间戳）
+        String timestamp = String.valueOf(tokengetTicket.getCreateTime());
+        //有效的jsapi_ticket
+        String jsapiticket = tokengetTicket.getTicket();
+        // 对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）并且
+        // 使用URL键值对的格式（即key1=value1&key2=value2…）拼接成字符串string1
+        String string1 = "jsapi_ticket=" + jsapiticket + "&noncestr=" + noncestr
+                + "&timestamp=" + timestamp + "&url=" + url;
+        //对string1作sha1加密,字段名和字段值都采用原始值，不进行URL 转义。
+        MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+        crypt.reset();
+        crypt.update(string1.getBytes("UTF-8"));
+        String signature = byteToHex(crypt.digest());
+        HashMap<String, String> jssdk = new HashMap<String, String>();
+        jssdk.put("appId", appid);
+        jssdk.put("timestamp", timestamp);
+        jssdk.put("nonceStr", noncestr);
+        jssdk.put("signature", signature);
+        return jssdk;
+
     }
 
 }
