@@ -50,7 +50,7 @@ public class AccessTokenService {
      * @param appSecret 微信公众号的appsecret
      * @return token
      */
-    public AccessToken getAuthorizationInfo(String appid, String appSecret) {
+    public AccessToken getAccessToken(String appid, String appSecret) {
         //1.先去数据库查询
         //2.有的话先判断是否过期  1.过期走下面的 2.没有过去直接返回数据库的
         //3.没有的话去获取
