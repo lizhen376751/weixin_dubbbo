@@ -11,7 +11,7 @@
         <result property="createTime" column="createTime"/>
     </resultMap>
 
-    <insert id="getAuthorizationInfo" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" useGeneratedKeys="true"
+    <insert id="addAccessToken" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" useGeneratedKeys="true"
             keyProperty="id" flushCache="true">
         INSERT INTO
         DDWX_AccessToken (
@@ -34,7 +34,7 @@
     </insert>
 
 
-    <select id="getOpenid" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" resultMap="AccessToken">
+    <select id="getAccessToken" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" resultMap="AccessToken">
         select top 1
         id,
           appid,
@@ -53,14 +53,14 @@
 
 
 
-    <delete id="deletAuthorizationInfo" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" flushCache="true">
+    <delete id="deletAccessToken" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" flushCache="true">
         delete from DDWX_AccessToken
         where  appid =  #{appid}
 
     </delete>
 
 
-    <update id="updateAuthorizationInfo" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" flushCache="true">
+    <update id="updateAccessToken" parameterType="com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken" flushCache="true">
         update DDWX_AccessToken
         <trim prefix="set" suffixOverrides=",">
             <if test="appsecret !=null and appsecret != ''">
