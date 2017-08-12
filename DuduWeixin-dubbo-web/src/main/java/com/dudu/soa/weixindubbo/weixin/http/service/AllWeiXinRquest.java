@@ -82,7 +82,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Override
     public AccessToken getTokengetTicket(String appid, String appSecret) {
-        AccessToken tokengetTicket = accessTokenService.getAuthorizationInfo(appid, appSecret);
+        AccessToken tokengetTicket = accessTokenService.getAccessToken(appid, appSecret);
         return tokengetTicket;
     }
 
