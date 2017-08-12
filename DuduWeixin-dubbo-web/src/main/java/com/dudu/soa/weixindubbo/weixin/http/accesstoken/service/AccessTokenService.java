@@ -6,7 +6,6 @@ import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinBaseParamter;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
-import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import com.dudu.soa.weixindubbo.weixin.http.service.HttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,16 +30,11 @@ public class AccessTokenService {
      */
     private static Logger log = LoggerFactory.getLogger(AccessTokenService.class);
     /**
-     * 授权信息的dao层
+     * token信息的dao层
      */
     @Autowired
     private AccessTokenDao accessTokenDao;
 
-    /**
-     * 引用解析的json字符串的方法
-     */
-    @Autowired
-    private AllWeiXinService allWeiXinService;
 
 
     /**

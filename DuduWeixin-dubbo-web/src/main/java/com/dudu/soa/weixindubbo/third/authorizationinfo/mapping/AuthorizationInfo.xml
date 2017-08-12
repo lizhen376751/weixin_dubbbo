@@ -68,7 +68,7 @@
                 authorizerAccessToken = #{authorizerAccessToken},
             </if>
             <if test="authorizerRefreshToken !=null and authorizerRefreshToken != ''">
-                authorizerRefreshToken = #{authorizerRefreshToken}
+                authorizerRefreshToken = #{authorizerRefreshToken},
             </if>
             <if test="authorizationInfoTime !=null and authorizationInfoTime != ''">
                 authorizationInfoTime = #{authorizationInfoTime}
