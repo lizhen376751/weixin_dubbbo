@@ -13,7 +13,7 @@ public interface AccessTokenDao {
      * 获取微信的token
      *
      * @param accessToken 微信的token
-     * @return
+     * @return token信息
      */
     AccessToken getAccessToken(AccessToken accessToken);
 
