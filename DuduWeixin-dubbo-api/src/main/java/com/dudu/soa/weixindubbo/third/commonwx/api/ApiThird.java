@@ -64,15 +64,7 @@ public interface ApiThird {
      * @return 授权相关的信息
      */
     AuthorizationInfo getAuthorizationInfo(ComponentVerifyTicket componentVerifyTicket, String authorizationCode);
-
-    /**
-     * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌）
-     *
-     * @param componentAccessToken 第三方平台的token
-     * @param authorizationInfo    公众号的授权信息
-     * @return 公众号的授权信息
-     */
-    AuthorizationInfo refreshToken(ComponentAccessToken componentAccessToken, AuthorizationInfo authorizationInfo);
+    
 
     /**
      * 获取授权方的帐号基本信息
