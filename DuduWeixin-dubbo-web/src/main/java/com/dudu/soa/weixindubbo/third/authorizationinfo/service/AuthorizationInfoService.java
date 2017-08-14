@@ -102,8 +102,14 @@ public class AuthorizationInfoService implements ApiAuthorizationInfo {
             String funcInfo = allWeiXinService.pareJsonDate(authorizationInfo1, "func_info");
             authorizationInfo.setAuthorizerAppid(authorizerAppid).setAuthorizerRefreshToken(authorizerRefreshToken)
                     .setAuthorizerAccessToken(authorizerAccessToken).setExpiresIn(expiresIn).setFuncInfo(funcInfo).setAuthorizationInfoTime(time - 60);
-            //redis保存授权信息
-            Integer integer = authorizationInfoDao.addAuthorizationInfo(authorizationInfo);
+            AuthorizationInfo authorizationInfo2 = authorizationInfoDao.getAuthorizationInfo(authorizationInfo);
+            Integer integer = null;
+            if (null != authorizationInfo2) {
+                 integer = authorizationInfoDao.updateAuthorizationInfo(authorizationInfo);
+                log.info("之前授权过,进行修改" + authorizationInfo.toString());
+                return authorizationInfo;
+            }
+             integer = authorizationInfoDao.addAuthorizationInfo(authorizationInfo);
             log.info("新增授权id" + integer + ",新增授权信息  = " + authorizationInfo.toString());
         } catch (Exception e) {
             e.printStackTrace();
