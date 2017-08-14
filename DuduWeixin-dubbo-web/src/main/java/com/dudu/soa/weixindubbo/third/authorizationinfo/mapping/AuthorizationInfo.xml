@@ -12,7 +12,7 @@
         <result property="authorizationInfoTime" column="authorizationInfoTime"/>
     </resultMap>
 
-    <insert id="getAuthorizationInfo" parameterType="com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo" useGeneratedKeys="true"
+    <insert id="addAuthorizationInfo" parameterType="com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo" useGeneratedKeys="true"
             keyProperty="id" flushCache="true">
         INSERT INTO
         DDWX_AuthorizationInfo (
@@ -35,7 +35,7 @@
     </insert>
 
 
-    <select id="getOpenid" parameterType="com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo" resultMap="AuthorizationInfo">
+    <select id="getAuthorizationInfo" parameterType="com.dudu.soa.weixindubbo.third.authorizationinfo.module.AuthorizationInfo" resultMap="AuthorizationInfo">
         select top 1
         id,
         authorizerAppid,
@@ -46,8 +46,7 @@
         authorizationInfoTime
         from
         DDWX_AuthorizationInfo
-        WHERE 1=1
-        AND authorizerAppid =  #{authorizerAppid}
+        WHERE  authorizerAppid =  #{authorizerAppid}
 
     </select>
 
