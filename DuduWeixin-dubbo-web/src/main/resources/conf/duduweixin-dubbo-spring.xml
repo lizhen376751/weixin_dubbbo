@@ -27,4 +27,6 @@
 	<dubbo:service interface="com.dudu.soa.weixindubbo.third.commonwx.api.ApiThird" ref = "thirdService" owner = "lizhen"/>
 	<!--公众号的授权信息相关接口-->
 	<dubbo:service interface="com.dudu.soa.weixindubbo.third.authorizationinfo.api.ApiAuthorizationInfo" ref = "authorizationInfoService" owner = "lizhen"/>
+	<!--自定义菜单相关接口-->
+	<dubbo:service interface="com.dudu.soa.weixindubbo.menu.api.ApiWeiXinMenu" ref = "weiXinMenuService" owner = "fengguangxiang"/>
 </beans>
