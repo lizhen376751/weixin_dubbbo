@@ -65,7 +65,7 @@ public class AccessTokenService {
                     return accessToken;
                 }
                 return accessToken;
-            }else{
+            } else {
                 accessToken = addAccessToken(appid, appSecret);
                 Integer integer = accessTokenDao.updateAccessToken(accessToken);
             }
