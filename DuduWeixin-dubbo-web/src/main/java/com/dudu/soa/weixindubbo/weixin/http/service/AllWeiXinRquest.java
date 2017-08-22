@@ -174,7 +174,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     }
 
     /**
-     * 微信消息群发(仅限单条)
+     * 微信图文消息群发(仅限单条)
      *
      * @param paramSendWeChat 接口所需要的参数
      * @return

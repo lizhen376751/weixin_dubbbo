@@ -337,7 +337,7 @@ public class AllWeiXinService {
     }
 
     /**
-     * 微信消息群发
+     * 微信图文消息群发
      *
      * @param paramSendWeChat 微信消息群发所需要的参数
      * @return 返回发送的结果

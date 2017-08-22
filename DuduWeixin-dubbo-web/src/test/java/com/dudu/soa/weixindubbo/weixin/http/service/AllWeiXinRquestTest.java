@@ -14,12 +14,12 @@ import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.TemplateData;
 import com.dudu.soa.wxd.test.TestBase;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -211,7 +211,7 @@ public class AllWeiXinRquestTest extends TestBase {
         btn34.setName("退出账号");
         btn34.setType("view");
         btn34.setUrl(commonUrl + "_logout" + "&response_type=code&scope=snsapi_base&state=1#wechat_redirect");
-
+        CommonButton[] commonButtons = new CommonButton[5];
 
         ComplexButton mainBtn1 = new ComplexButton();
         mainBtn1.setName("车管家");
@@ -445,7 +445,7 @@ public class AllWeiXinRquestTest extends TestBase {
     @Test
     public void getTokengetTicket() throws Exception {
         try {
-            AccessToken tokengetTicket = allWeiXinRquest.getTokengetTicket("wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+            AccessToken tokengetTicket = allWeiXinRquest.getTokengetTicket("wxd2e4688648e2ae13", "e372b3f7050982e8c45c7223d830f9b1");
             log.info("获取开发者的token==========================" + tokengetTicket.toString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -455,9 +455,8 @@ public class AllWeiXinRquestTest extends TestBase {
     //获取openid以及网页授权的token
     @Test
     public void getOauthAccessToken() throws Exception {
-        OauthOpenIdToken oauthAccessToken = allWeiXinRquest.getOauthAccessToken("041yWDoP0dffG92gsToP0cqyoP0yWDox", "wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        OauthOpenIdToken oauthAccessToken = allWeiXinRquest.getOauthAccessToken("001LcZpP1dJQp41QB7qP1rh8qP1LcZpg", "wx465f646a62e6b22d", "237416cc575a0313d5d01c00a9d9eb53");
         log.info("获取网页授权以及openid==========================" + oauthAccessToken.toString());
-        System.out.println("获取网页授权以及openid==========================" + oauthAccessToken.toString());
     }
 
     //获取用户的基本信息
@@ -546,7 +545,16 @@ public class AllWeiXinRquestTest extends TestBase {
 
     @Test
     public void ss() {
-        boolean query_auth_code = StringUtils.startsWithIgnoreCase("QUERY_AUTH_CODE:queryauthcode@@@VVsCRBdcAaqEQzvF-yfKFmgdMUNTf2gccC7IgFnkCAWwNIv9w09eFCLbUpcGyfFmcRezFEYH13LCltl3LxZU9g", "QUERY_AUTH_CODE");
-        System.out.println("==========================="+query_auth_code);
+        String filePath = "E:\\GitWorkspaces\\DuduWeixin\\target\\DuduWeiXin-1.0-SNAPSHOT\\Views\\images\\fengjing.jpg";
+        File file = new File(filePath);
+        if (!file.exists() || !file.isFile()) {
+            System.out.println("没有图片");
+        }
+        // 路径为文件且不为空则进行删除
+        if (file.isFile() && file.exists()) {
+            file.delete();
+        }
+
+
     }
 }

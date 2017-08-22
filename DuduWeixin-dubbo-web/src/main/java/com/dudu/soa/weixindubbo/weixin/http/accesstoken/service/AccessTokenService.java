@@ -1,6 +1,7 @@
 package com.dudu.soa.weixindubbo.weixin.http.accesstoken.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dudu.soa.framework.exception.DuduExceptionUtil;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.mapper.AccessTokenDao;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
@@ -36,7 +37,6 @@ public class AccessTokenService {
     private AccessTokenDao accessTokenDao;
 
 
-
     /**
      * 获取公众号的token
      *
@@ -65,6 +65,9 @@ public class AccessTokenService {
                     return accessToken;
                 }
                 return accessToken;
+            }else{
+                accessToken = addAccessToken(appid, appSecret);
+                Integer integer = accessTokenDao.updateAccessToken(accessToken);
             }
 
         }
@@ -110,24 +113,33 @@ public class AccessTokenService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
-        String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");
-        int expiresin = 0;
-        if (null != expiresin1 && !"".equals(expiresin1)) {
-            expiresin = Integer.parseInt(expiresin1);
-        }
-        // 获取到token并赋值保存
-        accessToken.setCreateTime(System.currentTimeMillis() / 1000)
-                .setToken(accesstoken)
-                .setExpiresIn(expiresin)
-                .setTicket(jsapiticket)
-                .setAppid(appid)
-                .setAppsecret(appSecret);
+        //TODO 后期异常进行处理
+        String tokenerrcode = JSONObject.parseObject(jstoken).getString("errcode");
+        String jsticketerrcode = JSONObject.parseObject(jsticket).getString("errcode");
+        log.debug("token的错误码tokenerrcode" + tokenerrcode + "ticket的错误码jsticketerrcode" + jsticketerrcode);
+        if (null != tokenerrcode && !"null".equals(tokenerrcode) && !"".equals(tokenerrcode) && null != tokenerrcode && !"null".equals(tokenerrcode) && !"".equals(tokenerrcode)) {
+            throw DuduExceptionUtil.throwException("token的错误码tokenerrcode" + tokenerrcode + "ticket的错误码jsticketerrcode" + jsticketerrcode);
+        } else {
+            String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
+            String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");
+            int expiresin = 0;
+            if (null != expiresin1 && !"".equals(expiresin1)) {
+                expiresin = Integer.parseInt(expiresin1);
+            }
+            // 获取到token并赋值保存
+            accessToken.setCreateTime(System.currentTimeMillis() / 1000)
+                    .setToken(accesstoken)
+                    .setExpiresIn(expiresin)
+                    .setTicket(jsapiticket)
+                    .setAppid(appid)
+                    .setAppsecret(appSecret);
 
-        log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
-                + "token为==============================" + accesstoken
-                + "jsticket为==============================" + jsapiticket);
-        return accessToken;
+            log.info(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())
+                    + "token为==============================" + accesstoken
+                    + "jsticket为==============================" + jsapiticket);
+            return accessToken;
+        }
+
     }
 
 
