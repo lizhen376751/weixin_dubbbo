@@ -7,25 +7,26 @@ package com.dudu.soa.weixindubbo.third.message.module;
 
 public class NewsArticles {
     /**
-     *否	图文消息/视频消息/音乐消息/小程序卡片的标题
+     * 否 图文消息/视频消息/音乐消息/小程序卡片的标题
      */
     private String title;
     /**
-     *否	图文消息/视频消息/音乐消息的描述
+     * 否图文消息/视频消息/音乐消息的描述
      */
     private String description;
     /**
-     *否	图文消息被点击后跳转的链接
+     * 否图文消息被点击后跳转的链接
      */
     private String url;
     /**
-     *否	图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
+     * 否图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640*320，小图80*80
      */
     private String picurl;
 
 
     /**
-     *  NewsArticles(客服消息的多图文消息) 字符串形式
+     * NewsArticles(客服消息的多图文消息) 字符串形式
+     *
      * @return NewsArticles(客服消息的多图文消息)字符串
      */
     @Override
@@ -35,6 +36,7 @@ public class NewsArticles {
 
     /**
      * 获取 否图文消息视频消息音乐消息小程序卡片的标题
+     *
      * @return title 否图文消息视频消息音乐消息小程序卡片的标题
      */
     public String getTitle() {
@@ -43,6 +45,7 @@ public class NewsArticles {
 
     /**
      * 设置 否图文消息视频消息音乐消息小程序卡片的标题
+     *
      * @param title 否图文消息视频消息音乐消息小程序卡片的标题
      * @return 返回 NewsArticles(客服消息的多图文消息)
      */
@@ -53,6 +56,7 @@ public class NewsArticles {
 
     /**
      * 获取 否图文消息视频消息音乐消息的描述
+     *
      * @return description 否图文消息视频消息音乐消息的描述
      */
     public String getDescription() {
@@ -61,6 +65,7 @@ public class NewsArticles {
 
     /**
      * 设置 否图文消息视频消息音乐消息的描述
+     *
      * @param description 否图文消息视频消息音乐消息的描述
      * @return 返回 NewsArticles(客服消息的多图文消息)
      */
@@ -71,6 +76,7 @@ public class NewsArticles {
 
     /**
      * 获取 否图文消息被点击后跳转的链接
+     *
      * @return url 否图文消息被点击后跳转的链接
      */
     public String getUrl() {
@@ -79,6 +85,7 @@ public class NewsArticles {
 
     /**
      * 设置 否图文消息被点击后跳转的链接
+     *
      * @param url 否图文消息被点击后跳转的链接
      * @return 返回 NewsArticles(客服消息的多图文消息)
      */
@@ -89,6 +96,7 @@ public class NewsArticles {
 
     /**
      * 获取 否图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640320，小图8080
+     *
      * @return picurl 否图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640320，小图8080
      */
     public String getPicurl() {
@@ -97,6 +105,7 @@ public class NewsArticles {
 
     /**
      * 设置 否图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640320，小图8080
+     *
      * @param picurl 否图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图640320，小图8080
      * @return 返回 NewsArticles(客服消息的多图文消息)
      */
