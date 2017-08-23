@@ -1,7 +1,11 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.util.DuduTestUtil;
+import com.dudu.soa.weixindubbo.third.message.module.CuatomerArticlessss;
+import com.dudu.soa.weixindubbo.third.message.module.CuatomerNews;
+import com.dudu.soa.weixindubbo.third.message.module.NewsArticles;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Button;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.CommonButton;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.ComplexButton;
@@ -516,10 +520,11 @@ public class AllWeiXinRquestTest extends TestBase {
         ParamSendWeChat paramSendWeChat = new ParamSendWeChat();
         paramSendWeChat.setAppid("wxd4e76e01e4a6e3b7");
         paramSendWeChat.setAppSecret("dd1e044b9208d43a5a31238e5ee053c7");
-        paramSendWeChat.setTitle("测试群发消息");
-        paramSendWeChat.setContent("李振测试微信消息群发");
+//        paramSendWeChat.setTitle("测试群发消息");
+//        paramSendWeChat.setContent("李振测试微信消息群发");
         paramSendWeChat.setFilePath("C:/Users/Public/Pictures/Sample Pictures/meiche.jpg");
         paramSendWeChat.setTouser(new String[]{"oSsYXwMun4NrZE8b_OQi6kMaPyg4", "oSsYXwNfsML7Qs5gwcdCpC549l-E"});
+        paramSendWeChat.setContentsourceurl("http://wx.pdu.duduchewang.cn");
         String message = allWeiXinRquest.sendGroupMessage(paramSendWeChat);
         log.info("微信消息群发返回测试结果为:========================================" + message);
     }
@@ -551,6 +556,29 @@ public class AllWeiXinRquestTest extends TestBase {
         ticket.setShopCode("0533001").setSceneStr("测试二维码");
         Ticket ticket1 = allWeiXinRquest.getTicket(ticket);
         log.debug("获取临时二维码ticket1=" + ticket1.toString());
+    }
+
+    //客服接口发送图文消息(外部连接)
+    @Test
+    public void customerSmsSend() throws Exception {
+        AccessToken tokengetTicket = allWeiXinRquest.getTokengetTicket("wxd4e76e01e4a6e3b7", "dd1e044b9208d43a5a31238e5ee053c7");
+        CuatomerNews cuatomerNews = new CuatomerNews();
+        cuatomerNews.setTouser("oSsYXwMun4NrZE8b_OQi6kMaPyg4");
+        cuatomerNews.setMsgtype("news");
+        CuatomerArticlessss customerNewsMessage = new CuatomerArticlessss();
+        List list = new ArrayList<NewsArticles>();
+        NewsArticles newsArticles = new NewsArticles();
+        newsArticles.setDescription("我愛你們!!!!")
+                .setPicurl("http://image.duduchewang.cn/0533001/bill/XS20170821033/work/shigong/4778/158/1503480646583.jpg")
+                .setTitle("客服圖文消息")
+                .setUrl("https://zhidao.baidu.com/question/361355540136762972.html");
+        list.add(0, newsArticles);
+        customerNewsMessage.setArticles(list);
+        cuatomerNews.setNews(customerNewsMessage);
+        String json = JSONObject.toJSONString(cuatomerNews);
+        log.debug(tokengetTicket.getToken() + "客服發送圖文消息=====" + json);
+        String customerSmsSend = allWeiXinRquest.customerSmsSend(tokengetTicket.getToken(), json);
+        log.debug("客服發送圖文消息發送后返回結果=====" + customerSmsSend);
     }
 
     @Test

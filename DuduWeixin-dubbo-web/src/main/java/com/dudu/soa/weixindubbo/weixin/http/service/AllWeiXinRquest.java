@@ -2,7 +2,6 @@ package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
-import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
@@ -197,15 +196,15 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     }
 
     /**
-     * 客服接口-发消息
+     * 客服接口-发送消息
      *
-     * @param token        第三方开发平台的token
-     * @param customerText 文本消息
+     * @param token 第三方开发平台的token
+     * @param json  消息转换为json类型
      * @return 发送成功后的回调
      */
     @Override
-    public String customerSmsSend(String token, CustomerText customerText) {
-        return weChatTask.customerSmsSend(token, customerText);
+    public String customerSmsSend(String token, String json) {
+        return weChatTask.customerSmsSend(token, json);
     }
 
     /**

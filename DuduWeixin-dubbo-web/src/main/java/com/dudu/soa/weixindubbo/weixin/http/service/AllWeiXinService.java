@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.exception.DuduExceptionUtil;
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
-import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
@@ -372,6 +371,7 @@ public class AllWeiXinService {
             article.setThumbmediaid(mediaid);
             article.setContent(paramSendWeChat.getContent());
             article.setTitle(paramSendWeChat.getTitle());
+            article.setContentsourceurl(paramSendWeChat.getContentsourceurl());
             teletextMessage.setArticles(new Articles[]{article});
             //获取上传图文消息素材的id
             String textMessageId = fileUpload.uploadTextMessage(accessToken, teletextMessage);
@@ -445,13 +445,12 @@ public class AllWeiXinService {
     /**
      * 客服接口-发消息
      *
-     * @param token        公众号的token
-     * @param customerText 文本消息
+     * @param token 公众号的token
+     * @param json  消息转换为json类型
      * @return 发送成功后的回调
      */
-    public String customerSmsSend(String token, CustomerText customerText) {
+    public String customerSmsSend(String token, String json) {
         String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + token;
-        String json = JSONObject.toJSONString(customerText);
         String jsonResult = "";
         try {
             jsonResult = HttpUtils.sendPostJson(url, json);

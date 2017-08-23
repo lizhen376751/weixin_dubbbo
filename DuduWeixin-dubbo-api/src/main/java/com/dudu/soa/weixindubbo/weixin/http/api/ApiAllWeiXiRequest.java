@@ -1,7 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.api;
 
 
-import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
@@ -122,11 +121,11 @@ public interface ApiAllWeiXiRequest {
     /**
      * 客服接口-发消息
      *
-     * @param token        第三方开发平台的token
-     * @param customerText 文本消息
+     * @param token 第三方开发平台的token
+     * @param json  消息转换为json类型
      * @return 发送成功后的回调
      */
-    String customerSmsSend(String token, CustomerText customerText);
+    String customerSmsSend(String token, String json);
 
     /**
      * 生成微信的临时二维码
@@ -134,5 +133,5 @@ public interface ApiAllWeiXiRequest {
      * @param ticket 需要传入店铺编码或者联盟编码,以及需要传入的参数
      * @return ticket获取url即可
      */
-     Ticket getTicket(Ticket ticket);
+    Ticket getTicket(Ticket ticket);
 }
