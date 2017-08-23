@@ -1,6 +1,9 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.dudu.soa.framework.exception.DuduExceptionUtil;
+import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
+import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.weixindubbo.third.message.module.CustomerText;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
@@ -10,10 +13,13 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.http.util.MapUtils;
 import com.dudu.soa.weixindubbo.weixin.http.util.PayCommonUtil;
 import com.dudu.soa.weixindubbo.weixin.http.util.XMLUtil;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.service.WeiXinConfigService;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Mpnews;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
@@ -61,6 +67,15 @@ public class AllWeiXinService {
      */
     @Autowired
     private AccessTokenService accessTokenService;
+    /**
+     * 获取店铺信息
+     */
+    @Autowired
+    private ShopInfoService shopInfoService;
+    /**
+     * 联盟微信的配置
+     */
+    private WeiXinConfigService weiXinConfigService;
 
     /**
      * 利用redis获取token
@@ -447,10 +462,51 @@ public class AllWeiXinService {
         return jsonResult;
     }
 
+    /**
+     * 生成微信的临时二维码
+     *
+     * @param ticket 需要传入店铺编码或者联盟编码,以及需要传入的参数
+     * @return ticket获取url即可
+     */
+    public Ticket getTicket(Ticket ticket) {
+//        POST数据例子：{"expire_seconds": 604800, "action_name": "QR_SCENE", "action_info": {"scene": {"scene_id": 123}}}
+//        或者也可以使用以下POST数据创建字符串形式的二维码参数：{"expire_seconds": 604800, "action_name": "QR_STR_SCENE", "action_info": {"scene": {"scene_str": "test"}}}
+        String shopCode = ticket.getShopCode();
+        String lmcode = ticket.getLmcode();
+        String appId = "";
+        String xAppSecret = "";
+        if (!"".equals(shopCode) && null != shopCode && !"null".equals(shopCode)) {
+            ShopInfo shopInfo = shopInfoService.getShopInfo(shopCode);
+            appId = shopInfo.getwXAppId();
+            xAppSecret = shopInfo.getwXAppSecret();
+        } else if (!"".equals(lmcode) && null != lmcode && !"null".equals(lmcode)) {
+            WeiXinConfig weiXinConfig = weiXinConfigService.getWeiXinConfig(lmcode);
+            appId = weiXinConfig.getAppid();
+            xAppSecret = weiXinConfig.getAppserect();
+        }
 
-//    public  void ss(){
-//        String url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=";
-//        HttpUtils.sendPostJson();
-//    }
+        AccessToken tokengetTicket = this.getTokengetTicket(appId, xAppSecret);
+        String url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + tokengetTicket.getToken();
+        String json = "{\"expire_seconds\": 2592000, \"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"" + ticket.getSceneStr() + "\"}}}";
+        try {
+            String sendPostJson = HttpUtils.sendPostJson(url, json);
+            String errcode = JSONObject.parseObject(sendPostJson).getString("errcode");
+            if (!"".equals(errcode) && null != errcode && !"null".equals(errcode)) {
+                String errmsg = JSONObject.parseObject(sendPostJson).getString("errmsg");
+                throw DuduExceptionUtil.throwException("获取二维码错误异常errcode=" + errcode + ",errmsg=" + errmsg);
+            } else {
+                String ticket1 = JSONObject.parseObject(sendPostJson).getString("ticket");
+                String expireSeconds = JSONObject.parseObject(sendPostJson).getString("expire_seconds");
+                String url1 = JSONObject.parseObject(sendPostJson).getString("url");
+                ticket.setTicket(ticket1);
+                ticket.setUrl(url1);
+                ticket.setExpireSeconds(expireSeconds);
+                return ticket;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

@@ -6,6 +6,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
@@ -126,4 +127,12 @@ public interface ApiAllWeiXiRequest {
      * @return 发送成功后的回调
      */
     String customerSmsSend(String token, CustomerText customerText);
+
+    /**
+     * 生成微信的临时二维码
+     *
+     * @param ticket 需要传入店铺编码或者联盟编码,以及需要传入的参数
+     * @return ticket获取url即可
+     */
+     Ticket getTicket(Ticket ticket);
 }

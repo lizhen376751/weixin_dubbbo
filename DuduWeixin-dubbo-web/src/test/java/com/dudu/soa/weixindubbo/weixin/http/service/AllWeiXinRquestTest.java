@@ -9,6 +9,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
@@ -541,6 +542,15 @@ public class AllWeiXinRquestTest extends TestBase {
         DuduTestUtil.printResponseForTest(sweepPay);
         String weixinpay = allWeiXinRquest.weixinpay(sweepPay);
         log.info("微信扫码支付url为:========================================" + weixinpay);
+    }
+
+    //获取微信临时二维码(含参数)
+    @Test
+    public void getTicket() throws Exception {
+        Ticket ticket = new Ticket();
+        ticket.setShopCode("0533001").setSceneStr("测试二维码");
+        Ticket ticket1 = allWeiXinRquest.getTicket(ticket);
+        log.debug("获取临时二维码ticket1=" + ticket1.toString());
     }
 
     @Test

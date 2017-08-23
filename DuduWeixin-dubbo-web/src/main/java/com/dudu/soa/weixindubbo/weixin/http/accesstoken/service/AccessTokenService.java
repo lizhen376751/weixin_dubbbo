@@ -113,7 +113,7 @@ public class AccessTokenService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO 后期异常进行处理
+
         String tokenerrcode = JSONObject.parseObject(jstoken).getString("errcode");
         String jsticketerrcode = JSONObject.parseObject(jsticket).getString("errcode");
         log.debug("token的错误码tokenerrcode" + tokenerrcode + "ticket的错误码jsticketerrcode" + jsticketerrcode);
