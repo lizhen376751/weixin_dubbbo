@@ -120,7 +120,7 @@ public class AccessTokenService {
         if (null != tokenerrcode && !"null".equals(tokenerrcode) && !"".equals(tokenerrcode) && null != tokenerrcode && !"null".equals(tokenerrcode) && !"".equals(tokenerrcode)) {
             String errmsg1 = JSONObject.parseObject(jstoken).getString("errmsg");
             String errmsg2 = JSONObject.parseObject(jsticket).getString("errmsg");
-            throw DuduExceptionUtil.throwException("token的错误码tokenerrcode=" + tokenerrcode + errmsg1 + "ticket的错误码jsticketerrcode" + jsticketerrcode + errmsg2);
+            throw DuduExceptionUtil.throwException("token的错误码tokenerrcode=" + tokenerrcode + errmsg1 + ",ticket的错误码jsticketerrcode" + jsticketerrcode + errmsg2);
         } else {
             String jsapiticket = JSONObject.parseObject(jsticket).getString("ticket");
             String expiresin1 = JSONObject.parseObject(jstoken).getString("expires_in");

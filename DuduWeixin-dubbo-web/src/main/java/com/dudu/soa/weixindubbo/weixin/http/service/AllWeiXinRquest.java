@@ -206,4 +206,6 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     public String customerSmsSend(String token, CustomerText customerText) {
         return weChatTask.customerSmsSend(token, customerText);
     }
+
+
 }
