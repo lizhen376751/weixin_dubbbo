@@ -170,14 +170,18 @@ public final class MsgDispatcher {
                 }
                 return MessageUtil.newsMessageToXml(newmsg);
             }
+
+            //地理推送事件
             if (map.get("Event").equals("LOCATION")) {
                 log.info("==============地理推送事件！");
                 return "地理位置获取";
             }
+            //通过二维码关注事件
             if (map.get("Event").equals("SCAN")) {
                 log.info("==============通过二维码关注事件！");
                 //TODO 通过openid判断是否已经领取,如果没有领取则发送消息
                 article.setDescription("点击图片查看详情"); //图文消息的描述
+                article.setPicUrl("http://www.duduchewang.com/images/banweixin.jpg"); //图文消息图片地址
                 article.setTitle("操作手册");  //图文消息标题
                 article.setUrl("http://image.duduchewang.cn/0533001/baoxian/D21A0247BAE310E9/1/1496903333065.jpg");  //图文url链接
                 List<Article> list = new ArrayList<Article>();
