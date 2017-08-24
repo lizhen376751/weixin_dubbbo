@@ -30,6 +30,7 @@ public class CouponTemplateServiceTest extends TestBase {
 
     /**
      * 测试更新优惠券模板
+     *
      * @throws Exception Exception
      */
     @Test
@@ -45,7 +46,7 @@ public class CouponTemplateServiceTest extends TestBase {
         DuduTestUtil.printRequestForTest(couponTemplate);
 
         Integer integer = couponService.updateElectronicCoupon(couponTemplate);
-        logger.debug("更新结果==============>>>>>>>>>"+integer);
+        logger.debug("更新结果==============>>>>>>>>>" + integer);
     }
 
     /**
@@ -84,6 +85,9 @@ public class CouponTemplateServiceTest extends TestBase {
     public void queryCouponList() throws Exception {
         CouponTemplateParam couponTemplateParam = new CouponTemplateParam();
         couponTemplateParam.setShopCode("0533001");
+        couponTemplateParam.setState(1);
+//        couponTemplateParam.setQueryStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2017-08-24 12:00:00"));
+//        couponTemplateParam.setQueryEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2017-08-24 15:00:00"));
         DuduTestUtil.printRequestForTest(couponTemplateParam);
 
         List<CouponTemplate> couponTemplates = couponService.queryCouponList(couponTemplateParam);

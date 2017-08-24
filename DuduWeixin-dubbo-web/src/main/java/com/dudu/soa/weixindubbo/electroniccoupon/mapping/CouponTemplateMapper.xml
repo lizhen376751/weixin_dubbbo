@@ -107,11 +107,11 @@
             <if test="null != couponName and '' != couponName">
             AND couponName LIKE '%'+#{couponName} +'%'
             </if>
-            <if test="null != validStartTime">
-            AND validStartTime &lt;= #{validStartTime}
+            <if test="null != queryStartTime">
+            AND createTime &gt;= #{queryStartTime}
             </if>
-            <if test="null != validEndTime">
-            AND validStartTime &gt;= #{validEndTime}
+            <if test="null != queryEndTime">
+            AND createTime &lt;= #{queryEndTime}
             </if>
     </select>
 

@@ -5,6 +5,7 @@ import com.dudu.soa.framework.pagehelp.DuduPageHelpUtil;
 import com.dudu.soa.weixindubbo.electroniccoupon.api.ApiElectronicCoupon;
 import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponConnectItem;
 import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponTemplateMapper;
+import com.dudu.soa.weixindubbo.electroniccoupon.mapper.ElectronicCouponMapper;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponConnect;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
@@ -40,6 +41,11 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
      */
     @Autowired
     private CouponConnectItem couponConnectItem;
+    /**
+     * 注入 ElectronicCouponMapper
+     */
+    @Autowired
+    private ElectronicCouponMapper electronicCouponMapper;
 
     /**
      * 设置电子优惠券模板
@@ -105,10 +111,15 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
         return couponTemplateMapper.updateCouponTemplate(couponTemplate);
     }
 
+    /**
+     * 添加电子优惠券
+     * @param electronicCoupon electronicCoupon
+     * @return Integer
+     */
     @Override
     public Integer addCouponCode(ElectronicCoupon electronicCoupon) {
-        return null;
-    }
 
+        return electronicCouponMapper.addCouponCode(electronicCoupon);
+    }
 
 }

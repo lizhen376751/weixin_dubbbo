@@ -87,6 +87,14 @@ public class CouponTemplateParam implements Serializable {
      * 项目和商品标识(1为项目,0为商品)
      */
     private String serviceFlag;
+    /**
+     * 查询开始时间
+     */
+    private Date queryStartTime;
+    /**
+     * 查询结束时间
+     */
+    private Date queryEndTime;
 
     /**
      * CouponTemplateParam(电子优惠券参数类) 字符串形式
@@ -98,7 +106,8 @@ public class CouponTemplateParam implements Serializable {
         return "couponId:" + couponId + ",couponName:" + couponName + ",shopCode:" + shopCode + ",details:" + details + ",createUser:" + createUser
                 + ",validStartTime:" + validStartTime + ",validEndTime:" + validEndTime + ",usedNum:" + usedNum + ",forwardedNum:" + forwardedNum
                 + ",createTime:" + createTime + ",diXiaoJinE:" + diXiaoJinE + ",anotherJinE:" + anotherJinE + ",imageCode:" + imageCode + ",updateTime:" + updateTime
-                + ",updateUser:" + updateUser + ",state:" + state + ",shopCodeLM:" + shopCodeLM + ",serviceCode:" + serviceCode + ",serviceFlag:" + serviceFlag;
+                + ",updateUser:" + updateUser + ",state:" + state + ",shopCodeLM:" + shopCodeLM + ",serviceCode:" + serviceCode + ",serviceFlag:" + serviceFlag
+                + ",queryStartTime:" + queryStartTime + ",queryEndTime:" + queryEndTime;
     }
 
     /**
@@ -478,6 +487,46 @@ public class CouponTemplateParam implements Serializable {
      */
     public CouponTemplateParam setServiceFlag(String serviceFlag) {
         this.serviceFlag = serviceFlag;
+        return this;
+    }
+
+    /**
+     * 获取 查询开始时间
+     *
+     * @return queryStartTime 查询开始时间
+     */
+    public Date getQueryStartTime() {
+        return this.queryStartTime;
+    }
+
+    /**
+     * 设置 查询开始时间
+     *
+     * @param queryStartTime 查询开始时间
+     * @return 返回 CouponTemplateParam(电子优惠券参数类)
+     */
+    public CouponTemplateParam setQueryStartTime(Date queryStartTime) {
+        this.queryStartTime = queryStartTime;
+        return this;
+    }
+
+    /**
+     * 获取 查询结束时间
+     *
+     * @return queryEndTime 查询结束时间
+     */
+    public Date getQueryEndTime() {
+        return this.queryEndTime;
+    }
+
+    /**
+     * 设置 查询结束时间
+     *
+     * @param queryEndTime 查询结束时间
+     * @return 返回 CouponTemplateParam(电子优惠券参数类)
+     */
+    public CouponTemplateParam setQueryEndTime(Date queryEndTime) {
+        this.queryEndTime = queryEndTime;
         return this;
     }
 }
