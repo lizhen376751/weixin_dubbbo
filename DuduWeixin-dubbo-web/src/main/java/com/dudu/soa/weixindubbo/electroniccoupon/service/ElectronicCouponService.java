@@ -92,12 +92,13 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
 
     /**
      * 更新电子优惠券
+     *
      * @param electronicCoupon electronicCoupon
      * @return Integer
      */
     @Override
     public Integer updateElectronicCoupon(ElectronicCoupon electronicCoupon) {
-        if (null ==electronicCoupon.getUpdateUser()){
+        if (null == electronicCoupon.getUpdateUser()) {
             DuduExceptionUtil.throwException("更新人不能为空!");
         }
         return couponTemplateMapper.updateCouponTemplate(electronicCoupon);
