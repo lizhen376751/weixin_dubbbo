@@ -11,6 +11,7 @@ import com.dudu.soa.weixindubbo.weixin.http.module.menu.CommonButton;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.ComplexButton;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.CodeParam;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
@@ -579,6 +580,28 @@ public class AllWeiXinRquestTest extends TestBase {
         String json = JSONObject.toJSONString(cuatomerNews);
         log.debug(tokengetTicket.getToken() + "客服發送圖文消息=====" + json);
         String customerSmsSend = allWeiXinRquest.customerSmsSend(tokengetTicket.getToken(), json);
+        log.debug("客服發送圖文消息發送后返回結果=====" + customerSmsSend);
+    }
+
+    //客服接口发送图文消息(只针对图文消息,详情url做了处理)
+    @Test
+    public void customerSendCard() throws Exception {
+        CodeParam codeParam = new CodeParam();
+        codeParam.setShopCode("0533001").setBussiness("coupon");
+        CuatomerNews cuatomerNews = new CuatomerNews();
+        cuatomerNews.setTouser("oSsYXwMun4NrZE8b_OQi6kMaPyg4");
+        cuatomerNews.setMsgtype("news");
+        CuatomerArticlessss customerNewsMessage = new CuatomerArticlessss();
+        List list = new ArrayList<NewsArticles>();
+        NewsArticles newsArticles = new NewsArticles();
+        newsArticles.setDescription("我愛你們!!!!")
+                .setPicurl("http://image.duduchewang.cn/0533001/bill/XS20170821033/work/shigong/4778/158/1503480646583.jpg")
+                .setTitle("客服圖文消息")
+                .setUrl("/361355540136762972.html");
+        list.add(0, newsArticles);
+        customerNewsMessage.setArticles(list);
+        cuatomerNews.setNews(customerNewsMessage);
+        String customerSmsSend = allWeiXinRquest.customerSendCard(codeParam,cuatomerNews);
         log.debug("客服發送圖文消息發送后返回結果=====" + customerSmsSend);
     }
 

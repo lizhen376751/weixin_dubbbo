@@ -2,12 +2,16 @@ package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.exception.DuduExceptionUtil;
+import com.dudu.soa.weixindubbo.third.message.module.CuatomerArticlessss;
+import com.dudu.soa.weixindubbo.third.message.module.CuatomerNews;
+import com.dudu.soa.weixindubbo.third.message.module.NewsArticles;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinBaseParamter;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.CodeParam;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
@@ -482,11 +486,53 @@ public class AllWeiXinService {
         String jsonResult = "";
         try {
             jsonResult = HttpUtils.sendPostJson(url, json);
-            log.debug("发送客服消息返回的数据为==" + jsonResult);
+            String errcode = JSONObject.parseObject(jsonResult).getString("errcode");
+            String errmsg = JSONObject.parseObject(jsonResult).getString("errmsg");
+            //如果错误码为空
+            if (!"ok".equals(errmsg)) {
+                log.debug("发送客服消息返回的数据为==" + jsonResult);
+                return jsonResult;
+            } else {
+                return "success"; //说明发送成功
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
         return jsonResult;
+    }
+
+    /**
+     * 客服发送图文消息(电子优惠券的详情url做了处理)
+     *
+     * @param codeParam    穿参
+     * @param cuatomerNews 图文消息
+     * @return success或者错误原因
+     */
+    public String customerSendCard(CodeParam codeParam, CuatomerNews cuatomerNews) {
+        AccessToken tokenByCode = allWeiXinRquest.getTokenByCode(codeParam.getShopCode(), codeParam.getLmcode());
+        String token = "";
+        if (null != tokenByCode) {
+            token = tokenByCode.getToken();
+        }
+        String bussiness = codeParam.getBussiness();
+        if ("coupon".equals(bussiness)) {
+            if (null != cuatomerNews) {
+                CuatomerArticlessss news = cuatomerNews.getNews();
+                List<NewsArticles> articles = news.getArticles();
+                for (NewsArticles newsArticles : articles) {
+                    String url = newsArticles.getUrl();
+                    if (null != url && !"".equals(url) && !"null".equals(url)) {
+                        url = urlConfig.getWeixinURL() + url;
+                        log.info("客服消息详情url为======" + url);
+                        newsArticles.setUrl(url);
+                    }
+                }
+            }
+        }
+        String toJSONString = JSONObject.toJSONString(cuatomerNews);
+        String customerSmsSend = this.customerSmsSend(token, toJSONString);
+        return customerSmsSend;
     }
 
     /**

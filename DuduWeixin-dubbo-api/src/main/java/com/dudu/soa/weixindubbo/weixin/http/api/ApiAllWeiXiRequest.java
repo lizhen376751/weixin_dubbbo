@@ -1,8 +1,10 @@
 package com.dudu.soa.weixindubbo.weixin.http.api;
 
 
+import com.dudu.soa.weixindubbo.third.message.module.CuatomerNews;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.CodeParam;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
@@ -145,6 +147,16 @@ public interface ApiAllWeiXiRequest {
      * @return 发送成功后的回调
      */
     String customerSmsSend(String token, String json);
+
+
+    /**
+     * 客服发送图文消息(电子优惠券的详情url做了处理)
+     *
+     * @param codeParam    穿参
+     * @param cuatomerNews 图文消息
+     * @return success或者错误原因
+     */
+    String customerSendCard(CodeParam codeParam, CuatomerNews cuatomerNews);
 
     /**
      * 生成微信的临时二维码

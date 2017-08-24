@@ -3,10 +3,12 @@ package com.dudu.soa.weixindubbo.weixin.http.service;
 import com.dudu.soa.framework.exception.DuduExceptionUtil;
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
+import com.dudu.soa.weixindubbo.third.message.module.CuatomerNews;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.api.ApiAllWeiXiRequest;
 import com.dudu.soa.weixindubbo.weixin.http.module.menu.Menu;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.AccessToken;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.CodeParam;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
@@ -252,6 +254,18 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     @Override
     public String customerSmsSend(String token, String json) {
         return weChatTask.customerSmsSend(token, json);
+    }
+
+    /**
+     * 客服发送图文消息(电子优惠券的详情url做了处理)
+     *
+     * @param codeParam    穿参
+     * @param cuatomerNews 图文消息
+     * @return success或者错误原因
+     */
+    @Override
+    public String customerSendCard(CodeParam codeParam, CuatomerNews cuatomerNews) {
+        return weChatTask.customerSendCard(codeParam, cuatomerNews);
     }
 
     /**
