@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding = "UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponTemplateMapper">
+
+    <!--创建电子优惠券-->
+    <insert id="addCouponTemplate" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon"
+            useGeneratedKeys="true" keyProperty="couponId" flushCache="true">
+        INSERT Data_ElectronicCoupon (
+            couponName,
+            shopCode,
+            details,
+            validStartTime,
+            validEndTime,
+            usedNum,
+            forwardedNum,
+            createUser,
+            createTime,
+            diXiaoJinE,
+            anotherJinE,
+            imageCode,
+            state,
+            shopCodeLM
+        )
+        VALUES
+            (
+                #{couponName},
+                #{shopCode},
+                #{details},
+                #{validStartTime},
+                #{validEndTime},
+                #{usedNum},
+                #{forwardedNum},
+                #{createUser},
+                GETDATE(),
+                #{diXiaoJinE},
+                #{anotherJinE},
+                #{imageCode},
+                1,
+                #{shopCodeLM}
+            )
+    </insert>
+
+    <!--更新电子优惠券模板-->
+    <update id="updateCouponTemplate" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+        UPDATE Data_ElectronicCoupon
+        SET
+        <if test="null != couponName and '' != couponName">
+        couponName = #{couponName},
+        </if>
+        <if test="null != details and '' != details">
+         details = #{details},
+        </if>
+        <if test="null != validEndTime">
+         validEndTime = #{validEndTime},
+        </if>
+        <if test="null != validStartTime">
+         validStartTime = #{validStartTime},
+        </if>
+        <if test="null != diXiaoJinE">
+         diXiaoJinE = #{diXiaoJinE},
+        </if>
+        <if test="null != anotherJinE">
+         anotherJinE = #{anotherJinE},
+        </if>
+        <if test="null != imageCode and '' !=imageCode">
+         imageCode = #{imageCode},
+        </if>
+        <if test="null != state">
+         state = #{state},
+        </if>
+         updateUser = #{updateUser},
+         updateTime = GETDATE()
+        WHERE
+            couponid = #{couponId}
+    </update>
+
+    <!--查询电子优惠券列表-->
+    <select id="queryCouponTemplateList"
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
+            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+        SELECT
+            couponid,
+            couponName,
+            shopCode,
+            details,
+            validEndTime,
+            validStartTime,
+            usedNum,
+            forwardedNum,
+            createTime,
+            createUser,
+            diXiaoJinE,
+            anotherJinE,
+            imageCode,
+            updateUser,
+            updateTime,
+            state,
+            shopCodeLM
+        FROM
+            Data_ElectronicCoupon
+        WHERE
+            shopCode = #{shopCode}
+            <if test="null != state">
+            AND state = #{state}
+            </if>
+            <if test="null != couponName and '' != couponName">
+            AND couponName LIKE '%'+#{couponName} +'%'
+            </if>
+            <if test="null != validStartTime">
+            AND validStartTime &lt;= #{validStartTime}
+            </if>
+            <if test="null != validEndTime">
+            AND validStartTime &gt;= #{validEndTime}
+            </if>
+    </select>
+
+    <!--根据id获取电子优惠券模板-->
+    <select id="getCouponById" parameterType="Integer" resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+        SELECT
+            couponid,
+            couponName,
+            shopCode,
+            details,
+            validEndTime,
+            validStartTime,
+            usedNum,
+            forwardedNum,
+            createTime,
+            createUser,
+            diXiaoJinE,
+            anotherJinE,
+            imageCode,
+            updateUser,
+            updateTime,
+            state,
+            shopCodeLM
+        FROM
+            Data_ElectronicCoupon
+        WHERE
+            couponid=#{0}
+    </select>
+</mapper>
