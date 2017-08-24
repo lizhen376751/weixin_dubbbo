@@ -49,6 +49,15 @@ public interface ApiAllWeiXiRequest {
     AccessToken getTokengetTicket(String appid, String appSecret);
 
     /**
+     * 用店铺编码或者联盟编码获取开发者的token
+     *
+     * @param shopCode 店铺编码
+     * @param lmcode   联盟编码
+     * @return 开发者的token tokenget ticket
+     */
+    AccessToken getTokenByCode(String shopCode, String lmcode);
+
+    /**
      * 获取网页授权access_token及用户的openID
      *
      * @param code      微信code
@@ -58,6 +67,16 @@ public interface ApiAllWeiXiRequest {
      * @throws Exception Exception
      */
     OauthOpenIdToken getOauthAccessToken(String code, String appid, String appSecret);
+
+    /**
+     * 通过OpenID来获取用户基本信息
+     *
+     * @param shopCode 店铺编码
+     * @param lmcode   联盟编码
+     * @param openid   openid
+     * @return 微信用户
+     */
+    WeiXinUserInfo getWeiXinUserInfoByOpenid(String shopCode, String lmcode, String openid);
 
     /**
      * 获取用户的基本信息

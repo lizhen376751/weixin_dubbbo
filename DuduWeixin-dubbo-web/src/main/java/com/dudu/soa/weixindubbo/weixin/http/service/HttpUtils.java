@@ -189,12 +189,16 @@ public final class HttpUtils {
      * @author
      * @date
      */
-    public static String sendGet(String reqUrl, Map<String, String> params)
-            throws Exception {
+    public static String sendGet(String reqUrl, Map<String, String> params) throws Exception {
         InputStream inputStream = null;
         HttpGet request = new HttpGet();
         try {
-            String url = buildUrl(reqUrl, params);
+            String url = "";
+            if (null == params || "".equals(params) || "null".equals(params)) {
+                url = reqUrl;
+            } else {
+                url = buildUrl(reqUrl, params);
+            }
             // 1. 创建 HttpClient 的实例
             HttpClient client = new DefaultHttpClient();
             //2. 创建某种连接方法的实例,构造函数中传入待连接的地址

@@ -2,8 +2,6 @@ package com.dudu.soa.weixindubbo.weixin.http.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dudu.soa.framework.exception.DuduExceptionUtil;
-import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
-import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.HttpMethod;
 import com.dudu.soa.weixindubbo.weixin.http.module.http.WeixinActionMethodDefine;
@@ -17,8 +15,6 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
 import com.dudu.soa.weixindubbo.weixin.http.util.MapUtils;
 import com.dudu.soa.weixindubbo.weixin.http.util.PayCommonUtil;
 import com.dudu.soa.weixindubbo.weixin.http.util.XMLUtil;
-import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
-import com.dudu.soa.weixindubbo.weixin.weixinconfig.service.WeiXinConfigService;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Articles;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Mpnews;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
@@ -66,15 +62,12 @@ public class AllWeiXinService {
      */
     @Autowired
     private AccessTokenService accessTokenService;
+
     /**
-     * 获取店铺信息
+     * 微信相关请求
      */
     @Autowired
-    private ShopInfoService shopInfoService;
-    /**
-     * 联盟微信的配置
-     */
-    private WeiXinConfigService weiXinConfigService;
+    private AllWeiXinRquest allWeiXinRquest;
 
     /**
      * 利用redis获取token
@@ -223,7 +216,6 @@ public class AllWeiXinService {
      * @return WeixinOauth2Token
      * @throws Exception Exception
      */
-//    @Override
     public OauthOpenIdToken getOauthAccessToken(String code, String appid, String appSecret) {
         try {
             WeixinActionMethodDefine weixinActionMethodDefine = new WeixinActionMethodDefine()
@@ -254,8 +246,9 @@ public class AllWeiXinService {
         return null;
     }
 
+
     /**
-     * 获取用户的基本信息
+     * 利用code获取用户的基本信息
      *
      * @param code   权限code
      * @param appid  微信appId
@@ -281,20 +274,7 @@ public class AllWeiXinService {
                     .setWeixinBaseParamter(new WeixinBaseParamter().setAppid(appid).setSecret(secret).setToken(token));
             String s = HttpUtils.request(weixinActionMethodDefine);
             //获取用户的昵称
-            WeiXinUserInfo weiXinUserInfo = new WeiXinUserInfo()
-                    .setCity(pareJsonDate(s, "city"))
-                    .setCountry(pareJsonDate(s, "country"))
-                    .setGroupid(pareJsonDate(s, "groupid"))
-                    .setHeadimgurl(pareJsonDate(s, "headimgurl"))
-                    .setLanguage(pareJsonDate(s, "language"))
-                    .setNickname(pareJsonDate(s, "nickname"))
-                    .setOpenid(pareJsonDate(s, "openid"))
-                    .setProvince(pareJsonDate(s, "province"))
-                    .setRemark(pareJsonDate(s, "remark"))
-                    .setSex(pareJsonDate(s, "sex"))
-                    .setSubscribe(pareJsonDate(s, "subscribe"))
-                    .setSubscribetime(pareJsonDate(s, "subscribe_time"))
-                    .setUnionid(pareJsonDate(s, "unionid"));
+            WeiXinUserInfo weiXinUserInfo = jsonToEntry(s);
             return weiXinUserInfo;
         } catch (IOException e) {
             e.printStackTrace();
@@ -303,6 +283,54 @@ public class AllWeiXinService {
         }
         return null;
     }
+
+
+    /**
+     * 通过OpenID来获取用户基本信息
+     *
+     * @param shopCode 店铺编码
+     * @param lmcode   联盟编码
+     * @param openid   openid
+     * @return 微信用户
+     */
+    public WeiXinUserInfo getWeiXinUserInfoByOpenid(String shopCode, String lmcode, String openid) {
+        AccessToken tokenByCode = allWeiXinRquest.getTokenByCode(shopCode, lmcode);
+        String url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=" + tokenByCode.getToken() + "&openid=" + openid + "&lang=zh_CN";
+        try {
+            String s = HttpUtils.sendGet(url, null);
+            //获取用户的昵称
+            WeiXinUserInfo weiXinUserInfo = jsonToEntry(s);
+            return weiXinUserInfo;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * json字符串转换微信用户信息
+     *
+     * @param s 请求用户信息获取的json字符串
+     * @return 微信用户信息
+     */
+    public WeiXinUserInfo jsonToEntry(String s) {
+        WeiXinUserInfo weiXinUserInfo = new WeiXinUserInfo()
+                .setCity(pareJsonDate(s, "city"))
+                .setCountry(pareJsonDate(s, "country"))
+                .setGroupid(pareJsonDate(s, "groupid"))
+                .setHeadimgurl(pareJsonDate(s, "headimgurl"))
+                .setLanguage(pareJsonDate(s, "language"))
+                .setNickname(pareJsonDate(s, "nickname"))
+                .setOpenid(pareJsonDate(s, "openid"))
+                .setProvince(pareJsonDate(s, "province"))
+                .setRemark(pareJsonDate(s, "remark"))
+                .setSex(pareJsonDate(s, "sex"))
+                .setSubscribe(pareJsonDate(s, "subscribe"))
+                .setSubscribetime(pareJsonDate(s, "subscribe_time"))
+                .setUnionid(pareJsonDate(s, "unionid"));
+        return weiXinUserInfo;
+    }
+
 
 //    /**
 //     * 获取jsticket
@@ -472,19 +500,7 @@ public class AllWeiXinService {
 //        或者也可以使用以下POST数据创建字符串形式的二维码参数：{"expire_seconds": 604800, "action_name": "QR_STR_SCENE", "action_info": {"scene": {"scene_str": "test"}}}
         String shopCode = ticket.getShopCode();
         String lmcode = ticket.getLmcode();
-        String appId = "";
-        String xAppSecret = "";
-        if (!"".equals(shopCode) && null != shopCode && !"null".equals(shopCode)) {
-            ShopInfo shopInfo = shopInfoService.getShopInfo(shopCode);
-            appId = shopInfo.getwXAppId();
-            xAppSecret = shopInfo.getwXAppSecret();
-        } else if (!"".equals(lmcode) && null != lmcode && !"null".equals(lmcode)) {
-            WeiXinConfig weiXinConfig = weiXinConfigService.getWeiXinConfig(lmcode);
-            appId = weiXinConfig.getAppid();
-            xAppSecret = weiXinConfig.getAppserect();
-        }
-
-        AccessToken tokengetTicket = this.getTokengetTicket(appId, xAppSecret);
+        AccessToken tokengetTicket = allWeiXinRquest.getTokenByCode(shopCode, lmcode);
         String url = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=" + tokengetTicket.getToken();
         String json = "{\"expire_seconds\": 2592000, \"action_name\": \"QR_STR_SCENE\", \"action_info\": {\"scene\": {\"scene_str\": \"" + ticket.getSceneStr() + "\"}}}";
         try {

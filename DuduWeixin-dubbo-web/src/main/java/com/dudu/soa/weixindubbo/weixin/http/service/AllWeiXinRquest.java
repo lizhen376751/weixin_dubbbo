@@ -1,5 +1,6 @@
 package com.dudu.soa.weixindubbo.weixin.http.service;
 
+import com.dudu.soa.framework.exception.DuduExceptionUtil;
 import com.dudu.soa.weixindubbo.shopinfo.module.ShopInfo;
 import com.dudu.soa.weixindubbo.shopinfo.service.ShopInfoService;
 import com.dudu.soa.weixindubbo.weixin.http.accesstoken.service.AccessTokenService;
@@ -10,6 +11,8 @@ import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.OauthOpenIdToken;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.SweepPay;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.Ticket;
 import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.module.WeiXinConfig;
+import com.dudu.soa.weixindubbo.weixin.weixinconfig.service.WeiXinConfigService;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.ParamSendWeChat;
 import com.dudu.soa.weixindubbo.weixin.weixinmessage.Template;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,11 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
      */
     @Autowired
     private AccessTokenService accessTokenService;
+    /**
+     * 联盟微信的配置
+     */
+    @Autowired
+    private WeiXinConfigService weiXinConfigService;
 
     /**
      * 将token、timestamp、nonce三个参数进行字典序排序
@@ -86,6 +94,31 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
         return tokengetTicket;
     }
 
+    /**
+     * 用店铺编码或者联盟编码获取开发者的token
+     *
+     * @param shopCode 店铺编码
+     * @param lmcode   联盟编码
+     * @return 开发者的token tokenget ticket
+     */
+    @Override
+    public AccessToken getTokenByCode(String shopCode, String lmcode) {
+        String appId = "";
+        String xAppSecret = "";
+        if (!"".equals(shopCode) && null != shopCode && !"null".equals(shopCode)) {
+            ShopInfo shopInfo = shopInfoService.getShopInfo(shopCode);
+            appId = shopInfo.getwXAppId();
+            xAppSecret = shopInfo.getwXAppSecret();
+        } else if (!"".equals(lmcode) && null != lmcode && !"null".equals(lmcode)) {
+            WeiXinConfig weiXinConfig = weiXinConfigService.getWeiXinConfig(lmcode);
+            appId = weiXinConfig.getAppid();
+            xAppSecret = weiXinConfig.getAppserect();
+        } else {
+            throw DuduExceptionUtil.throwException("微信appid以及appsecret配置未找到...");
+        }
+        AccessToken tokengetTicket = accessTokenService.getAccessToken(appId, xAppSecret);
+        return tokengetTicket;
+    }
 
     /**
      * 获取网页授权access_token及用户的openID
@@ -104,7 +137,7 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     }
 
     /**
-     * 获取用户的基本信息
+     * 利用code获取用户的基本信息
      *
      * @param code   权限code
      * @param appid  微信appId
@@ -115,6 +148,20 @@ public class AllWeiXinRquest implements ApiAllWeiXiRequest {
     @Override
     public WeiXinUserInfo getWeiXinUserInfo(String code, String appid, String secret) {
         WeiXinUserInfo weiXinUserInfo = weChatTask.getWeiXinUserInfo(code, appid, secret);
+        return weiXinUserInfo;
+    }
+
+    /**
+     * 通过OpenID来获取用户基本信息
+     *
+     * @param shopCode 店铺编码
+     * @param lmcode   联盟编码
+     * @param openid   openid
+     * @return 微信用户
+     */
+    @Override
+    public WeiXinUserInfo getWeiXinUserInfoByOpenid(String shopCode, String lmcode, String openid) {
+        WeiXinUserInfo weiXinUserInfo = weChatTask.getWeiXinUserInfoByOpenid(shopCode, lmcode, openid);
         return weiXinUserInfo;
     }
 

@@ -37,6 +37,7 @@ import java.util.Map;
 public class AllWeiXinRquestTest extends TestBase {
 
 
+
     private static Logger log = LoggerFactory.getLogger(AllWeiXinRquestTest.class);
     @Autowired
     private AllWeiXinRquest allWeiXinRquest;
@@ -579,6 +580,12 @@ public class AllWeiXinRquestTest extends TestBase {
         log.debug(tokengetTicket.getToken() + "客服發送圖文消息=====" + json);
         String customerSmsSend = allWeiXinRquest.customerSmsSend(tokengetTicket.getToken(), json);
         log.debug("客服發送圖文消息發送后返回結果=====" + customerSmsSend);
+    }
+
+    @Test
+    public void ss1() throws Exception {
+        WeiXinUserInfo ss = allWeiXinRquest.getWeiXinUserInfoByOpenid("0533001", "", "oSsYXwMun4NrZE8b_OQi6kMaPyg4");
+        log.debug("======"+ss.toString());
     }
 
     @Test

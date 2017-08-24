@@ -32,6 +32,8 @@ public class OauthOpenIdToken implements Serializable {
     private String nickname;
 
 
+
+
     /**
      * OauthOpenIdToken(通过code换取网页授权access_token及用户的openid) 字符串形式
      *
