@@ -8,6 +8,7 @@ import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponTemplateMapper;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponConnect;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,7 +106,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     }
 
     @Override
-    public Integer addCouponCode() {
+    public Integer addCouponCode(ElectronicCoupon electronicCoupon) {
         return null;
     }
 
