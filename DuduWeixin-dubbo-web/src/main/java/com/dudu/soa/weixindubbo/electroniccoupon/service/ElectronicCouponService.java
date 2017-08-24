@@ -6,8 +6,8 @@ import com.dudu.soa.weixindubbo.electroniccoupon.api.ApiElectronicCoupon;
 import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponConnectItem;
 import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponTemplateMapper;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponConnect;
-import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
-import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,65 +43,70 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     /**
      * 设置电子优惠券模板
      *
-     * @param electronicCoupon electronicCoupon
+     * @param couponTemplate couponTemplate
      * @return 返回电子优惠券模板id
      */
     @Override
     @Transactional
-    public Integer installCoupon(ElectronicCoupon electronicCoupon) {
-        couponTemplateMapper.addCouponTemplate(electronicCoupon);
+    public Integer installCoupon(CouponTemplate couponTemplate) {
+        couponTemplateMapper.addCouponTemplate(couponTemplate);
         CouponConnect couponConnect = new CouponConnect();
-        couponConnect.setShopCode(electronicCoupon.getShopCode());
-        if (electronicCoupon.getCouponId() > 0) {
-            couponConnect.setCouponId(electronicCoupon.getCouponId());
+        couponConnect.setShopCode(couponTemplate.getShopCode());
+        if (couponTemplate.getCouponId() > 0) {
+            couponConnect.setCouponId(couponTemplate.getCouponId());
         } else {
             DuduExceptionUtil.throwException("关联失败");
         }
-        couponConnect.setServiceCode(electronicCoupon.getServiceCode());
-        couponConnect.setServiceFlag(electronicCoupon.getServiceFlag());
-        if (StringUtils.hasText(electronicCoupon.getShopCodeLM())) {
-            couponConnect.setShopCodeLM(electronicCoupon.getShopCodeLM());
+        couponConnect.setServiceCode(couponTemplate.getServiceCode());
+        couponConnect.setServiceFlag(couponTemplate.getServiceFlag());
+        if (StringUtils.hasText(couponTemplate.getShopCodeLM())) {
+            couponConnect.setShopCodeLM(couponTemplate.getShopCodeLM());
         }
         Integer integer = couponConnectItem.addConnectWithItem(couponConnect);
         logger.debug("result===================>>>>>>>>>>" + integer);
-        return electronicCoupon.getCouponId();
+        return couponTemplate.getCouponId();
     }
 
     /**
      * 查询优惠券模板列表
      *
-     * @param electronicCouponParam electronicCouponParam
-     * @return List<ElectronicCoupon>
+     * @param couponTemplateParam couponTemplateParam
+     * @return List<CouponTemplate>
      */
     @Override
-    public List<ElectronicCoupon> queryCouponList(ElectronicCouponParam electronicCouponParam) {
+    public List<CouponTemplate> queryCouponList(CouponTemplateParam couponTemplateParam) {
         DuduPageHelpUtil.query("createTime desc");
-        return couponTemplateMapper.queryCouponTemplateList(electronicCouponParam);
+        return couponTemplateMapper.queryCouponTemplateList(couponTemplateParam);
     }
 
     /**
      * 根据id获取电子优惠券模板
      *
-     * @param electronicCouponParam electronicCoupon
-     * @return ElectronicCoupon
+     * @param couponTemplateParam couponTemplate
+     * @return CouponTemplate
      */
     @Override
-    public ElectronicCoupon getCouponById(ElectronicCouponParam electronicCouponParam) {
-        return couponTemplateMapper.getCouponById(electronicCouponParam.getCouponId());
+    public CouponTemplate getCouponById(CouponTemplateParam couponTemplateParam) {
+        return couponTemplateMapper.getCouponById(couponTemplateParam.getCouponId());
     }
 
     /**
      * 更新电子优惠券
      *
-     * @param electronicCoupon electronicCoupon
+     * @param couponTemplate couponTemplate
      * @return Integer
      */
     @Override
-    public Integer updateElectronicCoupon(ElectronicCoupon electronicCoupon) {
-        if (null == electronicCoupon.getUpdateUser()) {
+    public Integer updateElectronicCoupon(CouponTemplate couponTemplate) {
+        if (null == couponTemplate.getUpdateUser()) {
             DuduExceptionUtil.throwException("更新人不能为空!");
         }
-        return couponTemplateMapper.updateCouponTemplate(electronicCoupon);
+        return couponTemplateMapper.updateCouponTemplate(couponTemplate);
+    }
+
+    @Override
+    public Integer addCouponCode() {
+        return null;
     }
 
 

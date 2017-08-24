@@ -1,7 +1,7 @@
 package com.dudu.soa.weixindubbo.electroniccoupon.api;
 
-import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
-import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 
 import java.util.List;
 
@@ -15,34 +15,35 @@ public interface ApiElectronicCoupon {
     /**
      * 设置模板
      *
-     * @param electronicCoupon electronicCoupon
+     * @param couponTemplate couponTemplate
      * @return 返回电子优惠券模板的id
      */
-    Integer installCoupon(ElectronicCoupon electronicCoupon);
+    Integer installCoupon(CouponTemplate couponTemplate);
 
     /**
      * 查询优惠券模板列表
      *
-     * @param electronicCouponParam electronicCouponParam
+     * @param couponTemplateParam couponTemplateParam
      * @return 返回优惠券模板列表
      */
-    List<ElectronicCoupon> queryCouponList(ElectronicCouponParam electronicCouponParam);
+    List<CouponTemplate> queryCouponList(CouponTemplateParam couponTemplateParam);
 
     /**
      * 根据id获取电子优惠券模板
      *
-     * @param electronicCouponParam electronicCoupon
-     * @return ElectronicCoupon
+     * @param couponTemplateParam electronicCoupon
+     * @return CouponTemplate
      */
-    ElectronicCoupon getCouponById(ElectronicCouponParam electronicCouponParam);
+    CouponTemplate getCouponById(CouponTemplateParam couponTemplateParam);
 
     /**
      * 更新电子优惠券
      *
-     * @param electronicCoupon electronicCoupon
+     * @param couponTemplate couponTemplate
      * @return Integer
      */
-    Integer updateElectronicCoupon(ElectronicCoupon electronicCoupon);
+    Integer updateElectronicCoupon(CouponTemplate couponTemplate);
 
+    Integer addCouponCode();
 
 }

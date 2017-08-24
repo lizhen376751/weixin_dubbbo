@@ -4,7 +4,7 @@
 <mapper namespace="com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponTemplateMapper">
 
     <!--创建电子优惠券-->
-    <insert id="addCouponTemplate" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon"
+    <insert id="addCouponTemplate" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate"
             useGeneratedKeys="true" keyProperty="couponId" flushCache="true">
         INSERT Data_ElectronicCoupon (
             couponName,
@@ -42,7 +42,7 @@
     </insert>
 
     <!--更新电子优惠券模板-->
-    <update id="updateCouponTemplate" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+    <update id="updateCouponTemplate" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate">
         UPDATE Data_ElectronicCoupon
         SET
         <if test="null != couponName and '' != couponName">
@@ -77,8 +77,8 @@
 
     <!--查询电子优惠券列表-->
     <select id="queryCouponTemplateList"
-            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
-            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam"
+            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate">
         SELECT
             couponid,
             couponName,
@@ -116,7 +116,7 @@
     </select>
 
     <!--根据id获取电子优惠券模板-->
-    <select id="getCouponById" parameterType="Integer" resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+    <select id="getCouponById" parameterType="Integer" resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate">
         SELECT
             couponid,
             couponName,
