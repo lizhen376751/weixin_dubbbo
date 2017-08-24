@@ -2,6 +2,7 @@ package com.dudu.soa.weixindubbo.electroniccoupon.api;
 
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
 
 import java.util.List;
 
@@ -44,6 +45,11 @@ public interface ApiElectronicCoupon {
      */
     Integer updateElectronicCoupon(CouponTemplate couponTemplate);
 
-    Integer addCouponCode();
+    /**
+     * 添加电子优惠券
+     * @param electronicCoupon electronicCoupon
+     * @return 电子优惠券id
+     */
+    Integer addCouponCode(ElectronicCoupon electronicCoupon);
 
 }
