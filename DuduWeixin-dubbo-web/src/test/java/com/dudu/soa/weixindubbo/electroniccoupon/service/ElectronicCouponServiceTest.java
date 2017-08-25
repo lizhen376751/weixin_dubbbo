@@ -56,9 +56,9 @@ public class ElectronicCouponServiceTest extends TestBase {
     public void addCouponCode() throws Exception {
         ElectronicCoupon electronicCoupon = new ElectronicCoupon();
         electronicCoupon.setShopCode("0533001")
-                .setCouponId(15)
-                .setOpenId("112255")
-                .setCustId(1);
+                .setCouponId(21)
+                .setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g")
+                .setCustId(5940);
 
         Integer integer = couponService.addCouponCode(electronicCoupon);
 
@@ -141,7 +141,7 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Test
     public void getCouponById() throws Exception {
         CouponTemplateParam couponTemplateParam = new CouponTemplateParam();
-        couponTemplateParam.setCouponId(1);
+        couponTemplateParam.setCouponId(21);
         DuduTestUtil.printRequestForTest(couponTemplateParam);
         CouponTemplate couponById = couponService.getCouponById(couponTemplateParam);
         DuduTestUtil.printResponseForTest(couponById);

@@ -189,4 +189,22 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
         return couponCountResult;
     }
 
+    /**
+     * 查看优惠券详情
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return ElectronicCoupon
+     */
+    @Override
+    public ElectronicCoupon getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam) {
+        if (electronicCouponParam.getCouponFlag() == 1) {
+            ElectronicCoupon wxElectronicCouponInfo = electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
+        } else if (electronicCouponParam.getCouponFlag() == 0) {
+            electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
+        } else {
+            DuduExceptionUtil.throwException("查询出错,请检查参数!");
+        }
+        return null;
+    }
+
 }

@@ -62,5 +62,35 @@
         WHERE
             openId = #{openId}
         and couponFlag =#{couponFlag}
+        AND shopCode = #{shopCode}
+        <if test="null != couponId and '' != couponId">
+            AND couponId = #{couponId}
+        </if>
+    </select>
+
+    <!--微信端查询优惠券详情-->
+    <select id="getWXElectronicCouponInfo"
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
+            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+        SELECT
+            id,
+            couponid,
+            openId,
+            belongedOpenId,
+            couponCode,
+            couponStartTime,
+            couponEndTime,
+            couponState,
+            lingquTime,
+            shopCode,
+            couponFlag,
+            custId,
+            shopCodeLM
+        FROM
+            CouponService
+        WHERE
+            openId = #{openId}
+        AND shopCode = #{shopCode}
+        AND couponFlag = #{couponFlag}
     </select>
 </mapper>

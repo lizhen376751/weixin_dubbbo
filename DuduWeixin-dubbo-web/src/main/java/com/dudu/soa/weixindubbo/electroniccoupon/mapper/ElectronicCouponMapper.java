@@ -36,4 +36,11 @@ public interface ElectronicCouponMapper {
      * @return 优惠券数目
      */
     Integer getWeiXinConponCount(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 查看客户详情
+     * @param electronicCouponParam electronicCouponParam
+     * @return ElectronicCoupon
+     */
+    ElectronicCoupon getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam);
 }

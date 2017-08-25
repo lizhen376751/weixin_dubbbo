@@ -49,6 +49,7 @@ public interface ApiElectronicCoupon {
 
     /**
      * 领取电子优惠券
+     *
      * @param electronicCoupon electronicCoupon
      * @return 电子优惠券id
      */
@@ -56,8 +57,17 @@ public interface ApiElectronicCoupon {
 
     /**
      * 微信客户优惠券统计
+     *
      * @param electronicCouponParam electronicCouponParam
      * @return 可使用数量 可转发数量
      */
     CouponCountResult getWeiXinConponCount(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 微信查看优惠券详情
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return 返回优惠券详细信息
+     */
+    ElectronicCoupon getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam);
 }

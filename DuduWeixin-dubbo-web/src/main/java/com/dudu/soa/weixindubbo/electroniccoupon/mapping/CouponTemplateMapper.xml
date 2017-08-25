@@ -118,9 +118,9 @@
     <!--根据id获取电子优惠券模板-->
     <select id="getCouponById" parameterType="Integer" resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate">
         SELECT
-            couponid,
+            ec.couponid couponid,
             couponName,
-            shopCode,
+            ec.shopCode shopCode,
             details,
             validEndTime,
             validStartTime,
@@ -134,10 +134,13 @@
             updateUser,
             updateTime,
             state,
-            shopCodeLM
+            ct.serviceFlag serviceFlag,
+            ct.serviceCode serviceCode,
+            ec.shopCodeLM
         FROM
-            Data_ElectronicCoupon
+            Data_ElectronicCoupon ec
+        LEFT JOIN Coupon_Item ct ON ec.couponid = ct.couponId
         WHERE
-            couponid=#{0}
+            ec.couponid = #{0}
     </select>
 </mapper>
