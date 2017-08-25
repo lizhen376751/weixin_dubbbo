@@ -3,6 +3,7 @@ package com.dudu.soa.weixindubbo.electroniccoupon.service;
 import com.dudu.soa.framework.util.DuduTestUtil;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * Created by zhenglz on 2017/8/24.
  */
-public class CouponTemplateServiceTest extends TestBase {
+public class ElectronicCouponServiceTest extends TestBase {
     /**
      * 打印日志
      */
@@ -27,6 +28,24 @@ public class CouponTemplateServiceTest extends TestBase {
      */
     @Autowired
     private ElectronicCouponService couponService;
+
+    /**
+     * 测试添加couponCode
+     * @throws Exception Exception
+     */
+    @Test
+    public void addCouponCode() throws Exception {
+        ElectronicCoupon electronicCoupon = new ElectronicCoupon();
+        electronicCoupon.setShopCode("0533001")
+                .setCouponId(15)
+                .setBelongedOpenId("2236749274098")
+                .setCustId(1);
+
+        Integer integer = couponService.addCouponCode(electronicCoupon);
+
+
+    }
+
 
     /**
      * 测试更新优惠券模板
@@ -59,7 +78,7 @@ public class CouponTemplateServiceTest extends TestBase {
         CouponTemplate couponTemplate = new CouponTemplate();
         couponTemplate.setShopCode("0533001")
                 .setAnotherJinE(new BigDecimal("0.5"))
-                .setCouponName("正式测试")
+                .setCouponName("insert into测试")
                 .setCreateUser("zlz")
                 .setDetails("这是一个坑")
                 .setForwardedNum(5)

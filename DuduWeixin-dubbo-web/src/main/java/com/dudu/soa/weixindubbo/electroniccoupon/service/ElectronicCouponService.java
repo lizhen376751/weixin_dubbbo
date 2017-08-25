@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -112,14 +114,60 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     }
 
     /**
-     * 添加电子优惠券
+     * 领取电子优惠券
+     *
      * @param electronicCoupon electronicCoupon
      * @return Integer
      */
     @Override
+    @Transactional
     public Integer addCouponCode(ElectronicCoupon electronicCoupon) {
-
-        return electronicCouponMapper.addCouponCode(electronicCoupon);
+        List<ElectronicCoupon> list = new ArrayList<>();
+        CouponTemplate couponById = couponTemplateMapper.getCouponById(electronicCoupon.getCouponId());
+        int mixNum = couponById.getUsedNum() + couponById.getForwardedNum();
+        Long couponCode = null;
+        for (int i = 0; i < mixNum; i++) {
+            if (i == 0) {
+                //随机生成三位数字
+                int threeNum = (int) (Math.random() * 900) + 100;
+                //日期戳去掉一位数字,100年以内不会有影响
+                couponCode = new Date().getTime() - 1300000000000L;
+                list.add(new ElectronicCoupon()
+                        .setShopCode(electronicCoupon.getShopCode())
+                        .setOpenId(electronicCoupon.getBelongedOpenId())
+                        .setCouponFlag(1)
+                        .setBelongedOpenId(electronicCoupon.getBelongedOpenId())
+                        .setCouponId(electronicCoupon.getCouponId())
+                        .setCouponCode(couponCode.toString() + threeNum)
+                        .setCouponEndTime(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000))
+                        .setCouponStartTime(new Date())
+                        .setLingquTime(new Date())
+                        .setCouponState("2")
+                        .setCustId(electronicCoupon.getCustId())
+                );
+            } else {
+                //随机生成三位数字
+                int threeNum = (int) (Math.random() * 900) + 100;
+                //日期戳去掉一位数字,100年以内不会有影响
+                couponCode = new Date().getTime() - 1300000000000L;
+                list.add(new ElectronicCoupon()
+                        .setShopCode(electronicCoupon.getShopCode())
+                        .setBelongedOpenId(electronicCoupon.getBelongedOpenId())
+                        .setCouponFlag(0)
+                        .setCouponId(electronicCoupon.getCouponId())
+                        .setCouponCode(couponCode.toString() + threeNum)
+                        .setCouponEndTime(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000))
+                        .setCouponStartTime(new Date())
+                        .setCouponState("1")
+                );
+            }
+        }
+        if (list.size() > 0) {
+            Integer integer = electronicCouponMapper.addCouponCode(list);
+        } else {
+            DuduExceptionUtil.throwException("领取失败");
+        }
+        return electronicCoupon.getId();
     }
 
 }

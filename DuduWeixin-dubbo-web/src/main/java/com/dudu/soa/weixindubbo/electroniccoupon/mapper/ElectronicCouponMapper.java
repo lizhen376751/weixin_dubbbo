@@ -1,6 +1,9 @@
 package com.dudu.soa.weixindubbo.electroniccoupon.mapper;
 
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
+
+import java.util.List;
 
 /**
  * 电子优惠券操作mapper
@@ -13,8 +16,16 @@ public interface ElectronicCouponMapper {
     /**
      * 添加电子优惠券
      *
-     * @param electronicCoupon electronicCoupon
+     * @param electronicCouponList electronicCouponList
      * @return Integer
      */
-    Integer addCouponCode(ElectronicCoupon electronicCoupon);
+    Integer addCouponCode(List<ElectronicCoupon> electronicCouponList);
+
+    /**
+     * 查询当天店铺所有产生的couponCode
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return Integer
+     */
+    Integer getCouponCountInshopOneDay(ElectronicCouponParam electronicCouponParam);
 }

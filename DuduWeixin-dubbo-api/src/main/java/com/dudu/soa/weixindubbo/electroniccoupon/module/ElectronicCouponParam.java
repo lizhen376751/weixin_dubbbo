@@ -9,7 +9,7 @@ import java.util.Date;
  * @Author: 郑岭志
  * @Date: 2017年08月24 19:38
  */
-public class ElectronicCoupon implements Serializable {
+public class ElectronicCouponParam implements Serializable {
     /**
      * 服务id
      */
@@ -87,7 +87,7 @@ public class ElectronicCoupon implements Serializable {
      * @param id 服务id
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setId(int id) {
+    public ElectronicCouponParam setId(int id) {
         this.id = id;
         return this;
     }
@@ -105,7 +105,7 @@ public class ElectronicCoupon implements Serializable {
      * @param couponId 优惠券模板id
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCouponId(Integer couponId) {
+    public ElectronicCouponParam setCouponId(Integer couponId) {
         this.couponId = couponId;
         return this;
     }
@@ -123,7 +123,7 @@ public class ElectronicCoupon implements Serializable {
      * @param openId 领取优惠券微信openId
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setOpenId(String openId) {
+    public ElectronicCouponParam setOpenId(String openId) {
         this.openId = openId;
         return this;
     }
@@ -141,7 +141,7 @@ public class ElectronicCoupon implements Serializable {
      * @param belongedOpenId 被领取优惠券微信openId
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setBelongedOpenId(String belongedOpenId) {
+    public ElectronicCouponParam setBelongedOpenId(String belongedOpenId) {
         this.belongedOpenId = belongedOpenId;
         return this;
     }
@@ -159,7 +159,7 @@ public class ElectronicCoupon implements Serializable {
      * @param couponCode 优惠券编码
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCouponCode(String couponCode) {
+    public ElectronicCouponParam setCouponCode(String couponCode) {
         this.couponCode = couponCode;
         return this;
     }
@@ -177,7 +177,7 @@ public class ElectronicCoupon implements Serializable {
      * @param couponStartTime 领取优惠券有效开始日期
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCouponStartTime(Date couponStartTime) {
+    public ElectronicCouponParam setCouponStartTime(Date couponStartTime) {
         this.couponStartTime = couponStartTime;
         return this;
     }
@@ -195,7 +195,7 @@ public class ElectronicCoupon implements Serializable {
      * @param couponEndTime 领取的优惠券失效时间
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCouponEndTime(Date couponEndTime) {
+    public ElectronicCouponParam setCouponEndTime(Date couponEndTime) {
         this.couponEndTime = couponEndTime;
         return this;
     }
@@ -213,7 +213,7 @@ public class ElectronicCoupon implements Serializable {
      * @param couponState 优惠券状态:0:已失效1:已领取 2:未领取
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCouponState(String couponState) {
+    public ElectronicCouponParam setCouponState(String couponState) {
         this.couponState = couponState;
         return this;
     }
@@ -231,7 +231,7 @@ public class ElectronicCoupon implements Serializable {
      * @param lingquTime 领取时间
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setLingquTime(Date lingquTime) {
+    public ElectronicCouponParam setLingquTime(Date lingquTime) {
         this.lingquTime = lingquTime;
         return this;
     }
@@ -249,7 +249,7 @@ public class ElectronicCoupon implements Serializable {
      * @param shopCode 店铺编码
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setShopCode(String shopCode) {
+    public ElectronicCouponParam setShopCode(String shopCode) {
         this.shopCode = shopCode;
         return this;
     }
@@ -267,7 +267,7 @@ public class ElectronicCoupon implements Serializable {
      * @param custId 店铺客户id
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCustId(Integer custId) {
+    public ElectronicCouponParam setCustId(Integer custId) {
         this.custId = custId;
         return this;
     }
@@ -285,7 +285,7 @@ public class ElectronicCoupon implements Serializable {
      * @param couponFlag 优惠券标识(1可使用0:可转发)
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setCouponFlag(Integer couponFlag) {
+    public ElectronicCouponParam setCouponFlag(Integer couponFlag) {
         this.couponFlag = couponFlag;
         return this;
     }
@@ -303,7 +303,7 @@ public class ElectronicCoupon implements Serializable {
      * @param shopCodeLM 联盟编码
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
-    public ElectronicCoupon setShopCodeLM(String shopCodeLM) {
+    public ElectronicCouponParam setShopCodeLM(String shopCodeLM) {
         this.shopCodeLM = shopCodeLM;
         return this;
     }

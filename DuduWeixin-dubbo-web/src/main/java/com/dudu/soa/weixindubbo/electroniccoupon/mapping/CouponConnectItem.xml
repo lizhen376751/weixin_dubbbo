@@ -5,7 +5,7 @@
 
     <insert id="addConnectWithItem" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.CouponConnect"
             useGeneratedKeys="true" keyProperty="id" flushCache="true">
-        INSERT Coupon_Item (
+        INSERT INTO Coupon_Item (
             serviceCode,
             couponId,
             shopCode,

@@ -46,7 +46,7 @@ public interface ApiElectronicCoupon {
     Integer updateElectronicCoupon(CouponTemplate couponTemplate);
 
     /**
-     * 添加电子优惠券
+     * 领取电子优惠券
      * @param electronicCoupon electronicCoupon
      * @return 电子优惠券id
      */
