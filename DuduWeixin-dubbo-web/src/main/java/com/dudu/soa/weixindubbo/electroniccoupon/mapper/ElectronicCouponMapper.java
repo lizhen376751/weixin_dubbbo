@@ -28,4 +28,12 @@ public interface ElectronicCouponMapper {
      * @return Integer
      */
     Integer getCouponCountInshopOneDay(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 微信客户优惠券统计
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return 优惠券数目
+     */
+    Integer getWeiXinConponCount(ElectronicCouponParam electronicCouponParam);
 }

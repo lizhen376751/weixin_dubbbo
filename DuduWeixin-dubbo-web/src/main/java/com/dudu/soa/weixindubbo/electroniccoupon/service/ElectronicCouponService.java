@@ -7,9 +7,11 @@ import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponConnectItem;
 import com.dudu.soa.weixindubbo.electroniccoupon.mapper.CouponTemplateMapper;
 import com.dudu.soa.weixindubbo.electroniccoupon.mapper.ElectronicCouponMapper;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponConnect;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponCountResult;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,9 +136,9 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
                 couponCode = new Date().getTime() - 1300000000000L;
                 list.add(new ElectronicCoupon()
                         .setShopCode(electronicCoupon.getShopCode())
-                        .setOpenId(electronicCoupon.getBelongedOpenId())
+                        .setOpenId(electronicCoupon.getOpenId())
                         .setCouponFlag(1)
-                        .setBelongedOpenId(electronicCoupon.getBelongedOpenId())
+                        .setBelongedOpenId(electronicCoupon.getOpenId())
                         .setCouponId(electronicCoupon.getCouponId())
                         .setCouponCode(couponCode.toString() + threeNum)
                         .setCouponEndTime(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000))
@@ -152,8 +154,9 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
                 couponCode = new Date().getTime() - 1300000000000L;
                 list.add(new ElectronicCoupon()
                         .setShopCode(electronicCoupon.getShopCode())
-                        .setBelongedOpenId(electronicCoupon.getBelongedOpenId())
+                        .setBelongedOpenId(electronicCoupon.getOpenId())
                         .setCouponFlag(0)
+                        .setOpenId(electronicCoupon.getOpenId())
                         .setCouponId(electronicCoupon.getCouponId())
                         .setCouponCode(couponCode.toString() + threeNum)
                         .setCouponEndTime(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000))
@@ -168,6 +171,22 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
             DuduExceptionUtil.throwException("领取失败");
         }
         return electronicCoupon.getId();
+    }
+
+    /**
+     * 微信客户优惠券统计
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return 可是使用数目 可赚发数目
+     */
+    @Override
+    public CouponCountResult getWeiXinConponCount(ElectronicCouponParam electronicCouponParam) {
+        CouponCountResult couponCountResult = new CouponCountResult();
+        electronicCouponParam.setCouponFlag(0);
+        couponCountResult.setForwardNum(electronicCouponMapper.getWeiXinConponCount(electronicCouponParam));
+        electronicCouponParam.setCouponFlag(1);
+        couponCountResult.setUserNum(electronicCouponMapper.getWeiXinConponCount(electronicCouponParam));
+        return couponCountResult;
     }
 
 }

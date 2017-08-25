@@ -64,7 +64,8 @@ public class ElectronicCoupon implements Serializable {
     private String shopCodeLM;
 
     /**
-     *  ElectronicCoupon(电子优惠券实体类) 字符串形式
+     * ElectronicCoupon(电子优惠券实体类) 字符串形式
+     *
      * @return ElectronicCoupon(电子优惠券实体类)字符串
      */
     @Override
@@ -76,6 +77,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 服务id
+     *
      * @return id 服务id
      */
     public int getId() {
@@ -84,6 +86,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 服务id
+     *
      * @param id 服务id
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -94,6 +97,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 优惠券模板id
+     *
      * @return couponId 优惠券模板id
      */
     public Integer getCouponId() {
@@ -102,6 +106,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 优惠券模板id
+     *
      * @param couponId 优惠券模板id
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -112,6 +117,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 领取优惠券微信openId
+     *
      * @return openId 领取优惠券微信openId
      */
     public String getOpenId() {
@@ -120,6 +126,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 领取优惠券微信openId
+     *
      * @param openId 领取优惠券微信openId
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -130,6 +137,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 被领取优惠券微信openId
+     *
      * @return belongedOpenId 被领取优惠券微信openId
      */
     public String getBelongedOpenId() {
@@ -138,6 +146,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 被领取优惠券微信openId
+     *
      * @param belongedOpenId 被领取优惠券微信openId
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -148,6 +157,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 优惠券编码
+     *
      * @return couponCode 优惠券编码
      */
     public String getCouponCode() {
@@ -156,6 +166,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 优惠券编码
+     *
      * @param couponCode 优惠券编码
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -166,6 +177,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 领取优惠券有效开始日期
+     *
      * @return couponStartTime 领取优惠券有效开始日期
      */
     public Date getCouponStartTime() {
@@ -174,6 +186,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 领取优惠券有效开始日期
+     *
      * @param couponStartTime 领取优惠券有效开始日期
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -184,6 +197,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 领取的优惠券失效时间
+     *
      * @return couponEndTime 领取的优惠券失效时间
      */
     public Date getCouponEndTime() {
@@ -192,6 +206,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 领取的优惠券失效时间
+     *
      * @param couponEndTime 领取的优惠券失效时间
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -202,6 +217,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 优惠券状态:0:已失效1:已领取 2:未领取
+     *
      * @return couponState 优惠券状态:0:已失效1:已领取 2:未领取
      */
     public String getCouponState() {
@@ -210,6 +226,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 优惠券状态:0:已失效1:已领取 2:未领取
+     *
      * @param couponState 优惠券状态:0:已失效1:已领取 2:未领取
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -220,6 +237,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 领取时间
+     *
      * @return lingquTime 领取时间
      */
     public Date getLingquTime() {
@@ -228,6 +246,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 领取时间
+     *
      * @param lingquTime 领取时间
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -238,6 +257,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 店铺编码
+     *
      * @return shopCode 店铺编码
      */
     public String getShopCode() {
@@ -246,6 +266,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 店铺编码
+     *
      * @param shopCode 店铺编码
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -256,6 +277,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 店铺客户id
+     *
      * @return custId 店铺客户id
      */
     public Integer getCustId() {
@@ -264,6 +286,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 店铺客户id
+     *
      * @param custId 店铺客户id
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -274,6 +297,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 优惠券标识(1可使用0:可转发)
+     *
      * @return couponFlag 优惠券标识(1可使用0:可转发)
      */
     public Integer getCouponFlag() {
@@ -282,6 +306,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 优惠券标识(1可使用0:可转发)
+     *
      * @param couponFlag 优惠券标识(1可使用0:可转发)
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */
@@ -292,6 +317,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 获取 联盟编码
+     *
      * @return shopCodeLM 联盟编码
      */
     public String getShopCodeLM() {
@@ -300,6 +326,7 @@ public class ElectronicCoupon implements Serializable {
 
     /**
      * 设置 联盟编码
+     *
      * @param shopCodeLM 联盟编码
      * @return 返回 ElectronicCoupon(电子优惠券实体类)
      */

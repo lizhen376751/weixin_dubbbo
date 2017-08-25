@@ -1,8 +1,10 @@
 package com.dudu.soa.weixindubbo.electroniccoupon.api;
 
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponCountResult;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 
 import java.util.List;
 
@@ -52,4 +54,10 @@ public interface ApiElectronicCoupon {
      */
     Integer addCouponCode(ElectronicCoupon electronicCoupon);
 
+    /**
+     * 微信客户优惠券统计
+     * @param electronicCouponParam electronicCouponParam
+     * @return 可使用数量 可转发数量
+     */
+    CouponCountResult getWeiXinConponCount(ElectronicCouponParam electronicCouponParam);
 }

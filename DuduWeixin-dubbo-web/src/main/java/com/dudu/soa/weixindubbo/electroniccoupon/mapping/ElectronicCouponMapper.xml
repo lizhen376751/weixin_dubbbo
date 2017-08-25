@@ -7,39 +7,41 @@
     <insert id="addCouponCode" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon"
             useGeneratedKeys="true" keyProperty="couponId" flushCache="true">
         INSERT INTO CouponService (
-            couponid,
-            openId,
-            belongedOpenId,
-            couponCode,
-            couponStartTime,
-            couponEndTime,
-            couponState,
-            lingquTime,
-            shopCode,
-            custId,
-            couponFlag,
-            shopCodeLM
+        couponid,
+        openId,
+        belongedOpenId,
+        couponCode,
+        couponStartTime,
+        couponEndTime,
+        couponState,
+        lingquTime,
+        shopCode,
+        custId,
+        couponFlag,
+        shopCodeLM
         )
         VALUES
         <foreach collection="list" item="item" index="index" separator=",">
-        (
-                #{item.couponId},
-                #{item.openId},
-                #{item.belongedOpenId},
-                #{item.couponCode},
-                #{item.couponStartTime},
-                #{item.couponEndTime},
-                #{item.couponState},
-                #{item.lingquTime},
-                #{item.shopCode},
-                #{item.custId},
-                #{item.couponFlag},
-                #{item.shopCodeLM}
+            (
+            #{item.couponId},
+            #{item.openId},
+            #{item.belongedOpenId},
+            #{item.couponCode},
+            #{item.couponStartTime},
+            #{item.couponEndTime},
+            #{item.couponState},
+            #{item.lingquTime},
+            #{item.shopCode},
+            #{item.custId},
+            #{item.couponFlag},
+            #{item.shopCodeLM}
             )
         </foreach>
     </insert>
 
-    <select id="getCouponCountInshopOneDay" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam" resultType="Integer">
+    <!--查询当天店铺所有产生的couponCode-->
+    <select id="getCouponCountInshopOneDay"
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam" resultType="Integer">
         SELECT
             COUNT (1)
         FROM
@@ -49,4 +51,16 @@
         AND CONVERT (VARCHAR(10), lingquTime, 120) LIKE '%' + #{lingquTime} + '%'
     </select>
 
+    <!--微信客户优惠券统计-->
+    <select id="getWeiXinConponCount"
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
+            resultType="Integer">
+        SELECT
+            COUNT(1)
+        FROM
+            CouponService
+        WHERE
+            openId = #{openId}
+        and couponFlag =#{couponFlag}
+    </select>
 </mapper>

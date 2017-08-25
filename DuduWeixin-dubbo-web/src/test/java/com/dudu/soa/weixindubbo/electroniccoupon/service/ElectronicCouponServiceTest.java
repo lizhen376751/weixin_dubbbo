@@ -1,9 +1,11 @@
 package com.dudu.soa.weixindubbo.electroniccoupon.service;
 
 import com.dudu.soa.framework.util.DuduTestUtil;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponCountResult;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -29,8 +31,25 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Autowired
     private ElectronicCouponService couponService;
 
+
+
+
+    /**
+     * 测试统计优惠券数量
+     *
+     * @throws Exception Exception
+     */
+    @Test
+    public void getWeiXinConponCount() throws Exception {
+        ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
+        electronicCouponParam.setOpenId("112255");
+        CouponCountResult weiXinConponCount = couponService.getWeiXinConponCount(electronicCouponParam);
+        DuduTestUtil.printResponseForTest(weiXinConponCount);
+    }
+
     /**
      * 测试添加couponCode
+     *
      * @throws Exception Exception
      */
     @Test
@@ -38,7 +57,7 @@ public class ElectronicCouponServiceTest extends TestBase {
         ElectronicCoupon electronicCoupon = new ElectronicCoupon();
         electronicCoupon.setShopCode("0533001")
                 .setCouponId(15)
-                .setBelongedOpenId("2236749274098")
+                .setOpenId("112255")
                 .setCustId(1);
 
         Integer integer = couponService.addCouponCode(electronicCoupon);
