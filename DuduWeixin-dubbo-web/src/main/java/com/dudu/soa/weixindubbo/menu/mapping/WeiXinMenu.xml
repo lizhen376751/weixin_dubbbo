@@ -20,6 +20,14 @@
         WHERE
             shopCode = #{shopCode}
     </select>
+    <select id="getMenuId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+            TOP 1 id
+        FROM
+            DATA_weixin_caidan
+        WHERE
+            historyId = #{id};
+    </select>
     <!--添加自定义菜单-->
     <insert id="addWeiXinMenu" parameterType="com.dudu.soa.weixindubbo.menu.module.AddWeiXinMenu" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO DATA_weixin_caidan

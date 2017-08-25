@@ -20,6 +20,15 @@ public interface WeiXinMenuDao {
 
     /**
      * 冯广祥
+     * 查询主键ID
+     *
+     * @param id 传参
+     * @return 返回ID
+     */
+    Integer getMenuId(Integer id);
+
+    /**
+     * 冯广祥
      * 添加自定义菜单
      *
      * @param param 传参

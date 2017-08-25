@@ -64,7 +64,7 @@ public class WeiXinMenuTest extends TestBase {
                             .setMenuUrl("new.duduchewang.com")
                             .setModuleLayer(aa)
                             .setSequence(i)
-                            .setId(i + 157)
+                            .setHistoryId(i);
                     ;
                     list.add(param);
                 } else {

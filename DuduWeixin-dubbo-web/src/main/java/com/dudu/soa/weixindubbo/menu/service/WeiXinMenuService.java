@@ -61,6 +61,7 @@ public class WeiXinMenuService implements ApiWeiXinMenu {
                         id = 0;
                     }
                     addWeiXinMenu.setModuleUpId(id);
+                    addWeiXinMenu.setId(weiXinMenuDao.getMenuId(addWeiXinMenu.getHistoryId()));
                     // 判断id是否传参
                     if (null != addWeiXinMenu.getId() && !"".equals(addWeiXinMenu.getId())) {
                         if (addWeiXinMenu.getModuleLayer() == 2) {
