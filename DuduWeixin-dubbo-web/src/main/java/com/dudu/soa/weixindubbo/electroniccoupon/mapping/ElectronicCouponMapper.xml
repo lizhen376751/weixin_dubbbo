@@ -60,42 +60,52 @@
         FROM
         CouponService
         WHERE
+        shopCode = #{shopCode}
+        <if test="null != openId">
         openId = #{openId}
+        </if>
+        <if test="null != couponFlag">
         and couponFlag =#{couponFlag}
-        AND shopCode = #{shopCode}
+        </if>
         <if test="null != couponId and '' != couponId">
             AND couponId = #{couponId}
+        </if>
+        <if test="null != belongedOpenId">
+            AND  belongedOpenId = #{belongedOpenId}
+        </if>
+        <if test="null != couponState">
+            AND couponState = #{couponState}
         </if>
     </select>
 
     <!--微信端查询优惠券列表-->
-    <select id="queryWXElectronicCouponInfo"
+    <select id="queryWXElectronicCouponList"
             parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
-            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.WeiXinCouponInfo">
         SELECT
-        id,
-        couponid,
-        openId,
-        belongedOpenId,
-        couponCode,
-        couponStartTime,
-        couponEndTime,
-        couponState,
-        lingquTime,
-        shopCode,
-        couponFlag,
-        custId,
-        shopCodeLM
+            cs.openId openId,
+            cs.belongedOpenId belongedOpenId,
+            cs.couponState couponState,
+            cs.shopCode shopCode,
+            cs.couponFlag couponFlag,
+            cs.couponStartTime couponStartTime,
+            cs.couponEndTime couponEndTime,
+            cs.couponCode couponCode,
+            ec.couponName couponName,
+            ec.diXiaoJinE diXiaoJinE,
+            ec.anotherJinE anotherJinE,
+            ec.details details
         FROM
-        CouponService
+            CouponService cs
+        LEFT JOIN Data_ElectronicCoupon ec ON cs.couponid = ec.couponid
         WHERE
-        openId = #{openId}
-        AND shopCode = #{shopCode}
+            cs.openId = #{openId}
+        AND cs.shopCode = #{shopCode}
         <if test="null != couponId">
-            AND couponId= #{couponId}
+            AND cs.couponId= #{couponId}
         </if>
         <if test="null != couponFlag">
-            AND couponFlag = #{couponFlag}
+            AND cs.couponFlag = #{couponFlag}
         </if>
     </select>
 
@@ -131,6 +141,7 @@
             ) t
     </select>
 
+    <!--查询领取记录-->
     <select id="queryReceiveRecords"
             parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
             resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ReceiveRecords">
@@ -151,4 +162,9 @@
         AND cs.couponState = 2
         AND cs.belongedOpenId != cs.openId
     </select>
+
+    <!--修改优惠券服务-->
+    <update id="updateCouponService" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+
+    </update>
 </mapper>

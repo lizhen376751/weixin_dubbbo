@@ -54,4 +54,20 @@ public interface ElectronicCouponMapper {
      * @return List<ReceiveRecords>
      */
     List<ReceiveRecords> queryReceiveRecords(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 查询优惠券详情列表
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return List<WeiXinCouponInfo>
+     */
+    List<WeiXinCouponInfo> queryWXElectronicCouponList(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 更新电子优惠券服务
+     *
+     * @param electronicCoupon electronicCoupon
+     * @return Integer
+     */
+    Integer updateCouponService(ElectronicCoupon electronicCoupon);
 }

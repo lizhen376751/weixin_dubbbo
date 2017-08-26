@@ -74,10 +74,25 @@ public interface ApiElectronicCoupon {
     WeiXinCouponInfo getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam);
 
     /**
+     * 查询微信优惠券列表
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return List<WeiXinCouponInfo>
+     */
+    List<WeiXinCouponInfo> queryWXElectronicCouponList(ElectronicCouponParam electronicCouponParam);
+
+    /**
      * 查询领取记录列表
      *
      * @param electronicCouponParam electronicCouponParam
      * @return List<ReceiveRecords>
      */
     List<ReceiveRecords> queryReceiveRecords(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 领取优惠券
+     * @param  electronicCoupon electronicCoupon
+     * @return Integer
+     */
+    Integer lingQuCoupon(ElectronicCoupon electronicCoupon);
 }

@@ -208,7 +208,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
      */
     @Override
     public WeiXinCouponInfo getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam) {
-        WeiXinCouponInfo wxElectronicCouponInfo = null;
+        WeiXinCouponInfo wxElectronicCouponInfo = new WeiXinCouponInfo();
         if (null != electronicCouponParam.getCouponFlag()) {
             if (1 == electronicCouponParam.getCouponFlag()) {
                 wxElectronicCouponInfo = electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
@@ -226,10 +226,21 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     }
 
     /**
+     * 查询微信端优惠券列表
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return List<WeiXinCouponInfo>
+     */
+    @Override
+    public List<WeiXinCouponInfo> queryWXElectronicCouponList(ElectronicCouponParam electronicCouponParam) {
+        return electronicCouponMapper.queryWXElectronicCouponList(electronicCouponParam);
+    }
+
+    /**
      * 查询领取记录列表
      *
      * @param electronicCouponParam electronicCouponParam
-     * @return
+     * @return List<ReceiveRecords>
      */
     @Override
     public List<ReceiveRecords> queryReceiveRecords(ElectronicCouponParam electronicCouponParam) {
@@ -240,6 +251,34 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
             records.setWeiXinUserName(weiXinUserInfoByOpenid.getNickname());
         }
         return receiveRecords;
+    }
+
+    @Override
+    @Transactional
+    public Integer lingQuCoupon(ElectronicCoupon electronicCoupon) {
+        ElectronicCouponParam param1 = new ElectronicCouponParam();
+        param1.setBelongedOpenId(electronicCoupon.getBelongedOpenId());
+//        electronicCoupon.setCouponId(electronicCoupon.getCouponId());
+        param1.setShopCode(electronicCoupon.getShopCode());
+        electronicCoupon.setCouponId(electronicCoupon.getCouponId());
+        param1.setCouponFlag(0);
+        Integer canLingQuNum = electronicCouponMapper.getWeiXinConponCount(param1);
+        if (canLingQuNum > 0) {
+            ElectronicCouponParam param2 = new ElectronicCouponParam();
+            param2.setShopCode(electronicCoupon.getShopCode());
+            param2.setCouponId(electronicCoupon.getCouponId());
+            param2.setOpenId(electronicCoupon.getOpenId());
+            param2.setCouponState("2");
+            Integer whetherYiLing = electronicCouponMapper.getWeiXinConponCount(param2);
+            if (whetherYiLing > 0) {
+                DuduExceptionUtil.throwException("你已领取!");
+            } else {
+
+            }
+        } else {
+            DuduExceptionUtil.throwException("优惠券已领完!");
+        }
+        return null;
     }
 
 }
