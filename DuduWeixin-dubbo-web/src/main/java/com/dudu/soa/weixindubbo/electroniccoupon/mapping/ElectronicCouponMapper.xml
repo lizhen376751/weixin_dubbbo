@@ -62,7 +62,7 @@
         WHERE
         shopCode = #{shopCode}
         <if test="null != openId">
-        openId = #{openId}
+         and openId = #{openId}
         </if>
         <if test="null != couponFlag">
         and couponFlag =#{couponFlag}
