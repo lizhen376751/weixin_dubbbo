@@ -37,6 +37,7 @@ public class ElectronicCouponServiceTest extends TestBase {
 
     /**
      * 测试领取优惠券
+     *
      * @throws Exception Exception
      */
     @Test

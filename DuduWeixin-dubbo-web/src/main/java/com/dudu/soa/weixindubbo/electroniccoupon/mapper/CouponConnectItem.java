@@ -12,10 +12,10 @@ public interface CouponConnectItem {
 
     /**
      * 添加优惠券和项目或商品的关联关系
+     *
      * @param couponConnect couponConnect
      * @return Integer
      */
     Integer addConnectWithItem(CouponConnect couponConnect);
-
 
 }

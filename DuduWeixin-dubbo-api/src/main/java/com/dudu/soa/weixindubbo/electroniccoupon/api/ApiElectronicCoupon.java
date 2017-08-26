@@ -91,7 +91,8 @@ public interface ApiElectronicCoupon {
 
     /**
      * 领取优惠券
-     * @param  electronicCoupon electronicCoupon
+     *
+     * @param electronicCoupon electronicCoupon
      * @return Integer
      */
     Integer lingQuCoupon(ElectronicCoupon electronicCoupon);

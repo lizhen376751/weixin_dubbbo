@@ -255,10 +255,15 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
         return receiveRecords;
     }
 
+    /**
+     * 领取优惠券
+     * @param electronicCoupon electronicCoupon
+     * @return 结果
+     */
     @Override
     @Transactional
     public Integer lingQuCoupon(ElectronicCoupon electronicCoupon) {
-        int result =0;
+        int result = 0;
         ElectronicCouponParam param1 = new ElectronicCouponParam();
         param1.setBelongedOpenId(electronicCoupon.getBelongedOpenId());
 //        electronicCoupon.setCouponId(electronicCoupon.getCouponId());
