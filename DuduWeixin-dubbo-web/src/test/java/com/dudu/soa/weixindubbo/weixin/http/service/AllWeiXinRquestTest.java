@@ -473,6 +473,13 @@ public class AllWeiXinRquestTest extends TestBase {
         log.info("用户的别名为:==========================" + weiXinUserInfo);
     }
 
+    //根据openid获取微信用户的基本信息
+    @Test
+    public void ss1() throws Exception {
+        WeiXinUserInfo ss = allWeiXinRquest.getWeiXinUserInfoByOpenid("0533001", "", "oSsYXwMun4NrZE8b_OQi6kMaPyg4");
+        log.debug("======"+ss.toString());
+    }
+
     //模板消息的发送
     @Test
     public void sendTemplateMsg() throws Exception {
@@ -605,11 +612,7 @@ public class AllWeiXinRquestTest extends TestBase {
         log.debug("客服發送圖文消息發送后返回結果=====" + customerSmsSend);
     }
 
-    @Test
-    public void ss1() throws Exception {
-        WeiXinUserInfo ss = allWeiXinRquest.getWeiXinUserInfoByOpenid("0533001", "", "oSsYXwMun4NrZE8b_OQi6kMaPyg4");
-        log.debug("======"+ss.toString());
-    }
+
 
     @Test
     public void ss() {

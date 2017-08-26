@@ -1,11 +1,13 @@
 package com.dudu.soa.weixindubbo.third.message.module;
 
+import java.io.Serializable;
+
 /**
  * 客服消息的多图文消息
  * Created by lizhen on 2017/8/23.
  */
 
-public class NewsArticles {
+public class NewsArticles implements Serializable{
     /**
      * 否 图文消息/视频消息/音乐消息/小程序卡片的标题
      */
