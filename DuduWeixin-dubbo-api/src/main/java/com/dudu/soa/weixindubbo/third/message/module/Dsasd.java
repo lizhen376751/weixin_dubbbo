@@ -1,10 +1,12 @@
 package com.dudu.soa.weixindubbo.third.message.module;
 
+import java.io.Serializable;
+
 /**
- * Created by Administrator on 2017/7/24.
+ * Created by lizhen on 2017/7/24.
  */
 
-public class Dsasd {
+public class Dsasd implements Serializable{
     /**
      * 普通用户openid
      */
