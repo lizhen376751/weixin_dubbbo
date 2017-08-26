@@ -35,7 +35,19 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Autowired
     private ElectronicCouponService couponService;
 
-
+    /**
+     * 测试领取优惠券
+     * @throws Exception Exception
+     */
+    @Test
+    public void lingQuCoupon() throws Exception {
+        ElectronicCoupon electronicCoupon = new ElectronicCoupon();
+        electronicCoupon.setShopCode("0533001")
+                .setBelongedOpenId("oSsYXwNHJ9in8afIrkOv2PdK_IPU") //领取谁的优惠券
+                .setOpenId("123")   //领取人openId
+                .setCouponId(23); //领取哪个券
+        Integer integer = couponService.lingQuCoupon(electronicCoupon);
+    }
 
     /**
      * 测试查询优惠券列表

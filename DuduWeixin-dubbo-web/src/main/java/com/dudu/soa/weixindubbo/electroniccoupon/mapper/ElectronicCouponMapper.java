@@ -64,10 +64,10 @@ public interface ElectronicCouponMapper {
     List<WeiXinCouponInfo> queryWXElectronicCouponList(ElectronicCouponParam electronicCouponParam);
 
     /**
-     * 更新电子优惠券服务
+     * 领取电子优惠券服务
      *
      * @param electronicCoupon electronicCoupon
      * @return Integer
      */
-    Integer updateCouponService(ElectronicCoupon electronicCoupon);
+    Integer lingQuCoupon(ElectronicCoupon electronicCoupon);
 }

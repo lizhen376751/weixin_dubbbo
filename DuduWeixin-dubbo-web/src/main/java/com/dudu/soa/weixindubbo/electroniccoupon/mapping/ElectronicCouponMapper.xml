@@ -164,8 +164,32 @@
         AND cs.belongedOpenId != cs.openId
     </select>
 
-    <!--修改优惠券服务-->
-    <update id="updateCouponService" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
-
+    <!--领取优惠券服务-->
+    <update id="lingQuCoupon" parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
+        UPDATE CouponService
+        SET openId = #{openId},
+         lingquTime = GETDATE(),
+         couponStartTime = GETDATE(),
+         couponEndTime = #{couponEndTime},
+         couponState = '2',
+         couponFlag =1
+        WHERE
+            id = (
+                SELECT
+                    id
+                FROM
+                    CouponService
+                WHERE
+                    id = (
+                        SELECT
+                            MIN (id)
+                        FROM
+                            CouponService
+                        WHERE
+                            shopCode = #{shopCode}
+                        AND belongedOpenId = #{belongedOpenId}
+                        AND couponFlag = 0
+                    )
+            )
     </update>
 </mapper>

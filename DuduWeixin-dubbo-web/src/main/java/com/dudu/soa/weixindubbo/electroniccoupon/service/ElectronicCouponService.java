@@ -134,6 +134,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     @Override
     @Transactional
     public Integer addCouponCode(ElectronicCoupon electronicCoupon) {
+        String result = "";
         List<ElectronicCoupon> list = new ArrayList<>();
         CouponTemplate couponById = couponTemplateMapper.getCouponById(electronicCoupon.getCouponId());
         int mixNum = couponById.getUsedNum() + couponById.getForwardedNum();
@@ -144,6 +145,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
                 int threeNum = (int) (Math.random() * 900) + 100;
                 //日期戳去掉一位数字,100年以内不会有影响
                 couponCode = new Date().getTime() - 1300000000000L;
+                result = couponCode.toString() + threeNum;
                 list.add(new ElectronicCoupon()
                         .setShopCode(electronicCoupon.getShopCode())
                         .setOpenId(electronicCoupon.getOpenId())
@@ -256,6 +258,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     @Override
     @Transactional
     public Integer lingQuCoupon(ElectronicCoupon electronicCoupon) {
+        int result =0;
         ElectronicCouponParam param1 = new ElectronicCouponParam();
         param1.setBelongedOpenId(electronicCoupon.getBelongedOpenId());
 //        electronicCoupon.setCouponId(electronicCoupon.getCouponId());
@@ -271,14 +274,18 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
             param2.setCouponState("2");
             Integer whetherYiLing = electronicCouponMapper.getWeiXinConponCount(param2);
             if (whetherYiLing > 0) {
-                DuduExceptionUtil.throwException("你已领取!");
+                DuduExceptionUtil.throwException("你已领取该优惠券!");
             } else {
-                DuduExceptionUtil.throwException("你已领取!");
+                CouponTemplateParam param3 = new CouponTemplateParam();
+                param3.setCouponId(electronicCoupon.getCouponId());
+                CouponTemplate couponById = getCouponById(param3);
+                electronicCoupon.setCouponEndTime(couponById.getValidEndTime());
+                result = electronicCouponMapper.lingQuCoupon(electronicCoupon);
             }
         } else {
             DuduExceptionUtil.throwException("优惠券已领完!");
         }
-        return null;
+        return result;
     }
 
 }
