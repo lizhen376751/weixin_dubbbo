@@ -5,6 +5,8 @@ import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponCountResult;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ReceiveRecords;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.WeiXinCouponInfo;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
@@ -20,6 +22,8 @@ import java.util.List;
  * Created by zhenglz on 2017/8/24.
  */
 public class ElectronicCouponServiceTest extends TestBase {
+
+
     /**
      * 打印日志
      */
@@ -31,8 +35,54 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Autowired
     private ElectronicCouponService couponService;
 
+    /**
+     * 测试页面详情接口
+     *
+     * @throws Exception Exception
+     */
+    @Test
+    public void getWXElectronicCouponInfo() throws Exception {
+        ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
+        electronicCouponParam.setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g");
+        electronicCouponParam.setCouponId(21);
+        electronicCouponParam.setCouponFlag(0);
+        DuduTestUtil.printRequestForTest(electronicCouponParam);
+        WeiXinCouponInfo wxElectronicCouponInfo = couponService.getWXElectronicCouponInfo(electronicCouponParam);
+        DuduTestUtil.printResponseForTest(wxElectronicCouponInfo);
+    }
 
+    /**
+     * 测试查询领取记录接口
+     *
+     * @throws Exception Exception
+     */
+    @Test
+    public void queryReceiveRecords() throws Exception {
+        ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
+        electronicCouponParam.setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g");
+        DuduTestUtil.printRequestForTest(electronicCouponParam);
+        List<ReceiveRecords> receiveRecordss = couponService.queryReceiveRecords(electronicCouponParam);
+        DuduTestUtil.printResponseForTest(receiveRecordss);
+    }
 
+    /**
+     * 测试查询微信页面优惠券详情
+     *
+     * @throws Exception Exception
+     */
+    @Test
+    public void queryWXElectronicCouponInfo() throws Exception {
+        ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
+        electronicCouponParam.setCouponId(21);
+        electronicCouponParam.setShopCode("0533001");
+        electronicCouponParam.setCouponFlag(1);
+        electronicCouponParam.setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g");
+        DuduTestUtil.printRequestForTest(electronicCouponParam);
+
+        WeiXinCouponInfo wxWeiXinCouponInfo = couponService.getWXElectronicCouponInfo(electronicCouponParam);
+
+        DuduTestUtil.printResponseForTest(wxWeiXinCouponInfo);
+    }
 
     /**
      * 测试统计优惠券数量
@@ -48,7 +98,7 @@ public class ElectronicCouponServiceTest extends TestBase {
     }
 
     /**
-     * 测试添加couponCode
+     * 测试生成优惠券Code
      *
      * @throws Exception Exception
      */
@@ -57,14 +107,13 @@ public class ElectronicCouponServiceTest extends TestBase {
         ElectronicCoupon electronicCoupon = new ElectronicCoupon();
         electronicCoupon.setShopCode("0533001")
                 .setCouponId(21)
-                .setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g")
-                .setCustId(5940);
+                .setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g");
+//                .setCustId(5940);
 
         Integer integer = couponService.addCouponCode(electronicCoupon);
 
 
     }
-
 
     /**
      * 测试更新优惠券模板
@@ -93,7 +142,7 @@ public class ElectronicCouponServiceTest extends TestBase {
      * @throws Exception Exception
      */
     @Test
-    public void testInstallCouponTemplate() throws Exception {
+    public void installCoupon() throws Exception {
         CouponTemplate couponTemplate = new CouponTemplate();
         couponTemplate.setShopCode("0533001")
                 .setAnotherJinE(new BigDecimal("0.5"))

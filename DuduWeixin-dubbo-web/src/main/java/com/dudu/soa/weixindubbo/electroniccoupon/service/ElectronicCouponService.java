@@ -12,6 +12,10 @@ import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ReceiveRecords;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.WeiXinCouponInfo;
+import com.dudu.soa.weixindubbo.weixin.http.module.parammodule.WeiXinUserInfo;
+import com.dudu.soa.weixindubbo.weixin.http.service.AllWeiXinService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +54,12 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
      */
     @Autowired
     private ElectronicCouponMapper electronicCouponMapper;
+
+    /**
+     * 注入AllWeiXinService
+     */
+    @Autowired
+    private AllWeiXinService weiXinService;
 
     /**
      * 设置电子优惠券模板
@@ -189,22 +199,47 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
         return couponCountResult;
     }
 
+
     /**
      * 查看优惠券详情
      *
      * @param electronicCouponParam electronicCouponParam
-     * @return ElectronicCoupon
+     * @return List<ElectronicCoupon>
      */
     @Override
-    public ElectronicCoupon getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam) {
-        if (electronicCouponParam.getCouponFlag() == 1) {
-            ElectronicCoupon wxElectronicCouponInfo = electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
-        } else if (electronicCouponParam.getCouponFlag() == 0) {
-            electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
+    public WeiXinCouponInfo getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam) {
+        WeiXinCouponInfo wxElectronicCouponInfo = null;
+        if (null != electronicCouponParam.getCouponFlag()) {
+            if (1 == electronicCouponParam.getCouponFlag()) {
+                wxElectronicCouponInfo = electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
+            } else if (0 == electronicCouponParam.getCouponFlag()) {
+                wxElectronicCouponInfo = electronicCouponMapper.getWXElectronicCouponInfo(electronicCouponParam);
+                List<ReceiveRecords> receiveRecordss = queryReceiveRecords(electronicCouponParam);
+                if (null != receiveRecordss && null != wxElectronicCouponInfo) {
+                    wxElectronicCouponInfo.setList(receiveRecordss);
+                }
+            }
         } else {
-            DuduExceptionUtil.throwException("查询出错,请检查参数!");
+            DuduExceptionUtil.throwException("参数传错!");
         }
-        return null;
+        return wxElectronicCouponInfo;
+    }
+
+    /**
+     * 查询领取记录列表
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return
+     */
+    @Override
+    public List<ReceiveRecords> queryReceiveRecords(ElectronicCouponParam electronicCouponParam) {
+
+        List<ReceiveRecords> receiveRecords = electronicCouponMapper.queryReceiveRecords(electronicCouponParam);
+        for (ReceiveRecords records : receiveRecords) {
+            WeiXinUserInfo weiXinUserInfoByOpenid = weiXinService.getWeiXinUserInfoByOpenid(records.getShopCode(), "", records.getOpenId());
+            records.setWeiXinUserName(weiXinUserInfoByOpenid.getNickname());
+        }
+        return receiveRecords;
     }
 
 }

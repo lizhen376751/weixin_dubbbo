@@ -1,11 +1,13 @@
 package com.dudu.soa.weixindubbo.electroniccoupon.module;
 
+import java.io.Serializable;
+
 /**
  * 优惠券统计类
  * @Author: 郑岭志
  * @Date: 2017年08月25 11:53
  */
-public class CouponCountResult {
+public class CouponCountResult implements Serializable {
     /**
      * 可转发数量
      */

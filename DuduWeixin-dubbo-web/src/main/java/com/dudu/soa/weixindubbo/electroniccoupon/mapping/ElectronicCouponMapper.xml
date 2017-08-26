@@ -56,11 +56,11 @@
             parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
             resultType="Integer">
         SELECT
-            COUNT(1)
+        COUNT(1)
         FROM
-            CouponService
+        CouponService
         WHERE
-            openId = #{openId}
+        openId = #{openId}
         and couponFlag =#{couponFlag}
         AND shopCode = #{shopCode}
         <if test="null != couponId and '' != couponId">
@@ -68,29 +68,87 @@
         </if>
     </select>
 
-    <!--微信端查询优惠券详情-->
-    <select id="getWXElectronicCouponInfo"
+    <!--微信端查询优惠券列表-->
+    <select id="queryWXElectronicCouponInfo"
             parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
             resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon">
         SELECT
-            id,
-            couponid,
-            openId,
-            belongedOpenId,
-            couponCode,
-            couponStartTime,
-            couponEndTime,
-            couponState,
-            lingquTime,
-            shopCode,
-            couponFlag,
-            custId,
-            shopCodeLM
+        id,
+        couponid,
+        openId,
+        belongedOpenId,
+        couponCode,
+        couponStartTime,
+        couponEndTime,
+        couponState,
+        lingquTime,
+        shopCode,
+        couponFlag,
+        custId,
+        shopCodeLM
         FROM
-            CouponService
+        CouponService
         WHERE
-            openId = #{openId}
+        openId = #{openId}
         AND shopCode = #{shopCode}
-        AND couponFlag = #{couponFlag}
+        <if test="null != couponId">
+            AND couponId= #{couponId}
+        </if>
+        <if test="null != couponFlag">
+            AND couponFlag = #{couponFlag}
+        </if>
+    </select>
+
+    <!--微信优惠券详情页面-->
+    <select id="getWXElectronicCouponInfo"
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
+            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.WeiXinCouponInfo">
+        SELECT
+            TOP 1 *
+        FROM
+            (
+                SELECT
+                    cs.openId openId,
+                    cs.belongedOpenId belongedOpenId,
+                    cs.couponState couponState,
+                    cs.shopCode shopCode,
+                    cs.couponFlag couponFlag,
+                    cs.couponStartTime couponStartTime,
+                    cs.couponEndTime couponEndTime,
+                    cs.couponCode couponCode,
+                    ec.couponName couponName,
+                    ec.diXiaoJinE diXiaoJinE,
+                    ec.anotherJinE anotherJinE,
+                    ec.details details
+                FROM
+                    CouponService cs
+                LEFT JOIN Data_ElectronicCoupon ec ON cs.couponid = ec.couponid
+                WHERE
+                    openId = #{openId}
+                AND cs.shopCode = #{shopCode}
+                AND cs.couponId = #{couponId}
+                AND cs.couponFlag = #{couponFlag}
+            ) t
+    </select>
+
+    <select id="queryReceiveRecords"
+            parameterType="com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam"
+            resultType="com.dudu.soa.weixindubbo.electroniccoupon.module.ReceiveRecords">
+        SELECT
+            cs.openId,
+            cs.lingquTime,
+            cs.shopCode,
+            cs.belongedOpenId,
+            cs.couponCode,
+            ec.couponName,
+            ec.diXiaoJinE,
+            ec.anotherJinE
+        FROM
+            CouponService cs
+        LEFT JOIN Data_ElectronicCoupon ec ON cs.couponid = ec.couponid
+        WHERE
+            cs.belongedOpenId = #{openId}
+        AND cs.couponState = 2
+        AND cs.belongedOpenId != cs.openId
     </select>
 </mapper>

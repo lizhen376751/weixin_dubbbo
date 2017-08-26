@@ -1,6 +1,8 @@
 package com.dudu.soa.weixindubbo.electroniccoupon.mapper;
 
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ReceiveRecords;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.WeiXinCouponInfo;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 
 import java.util.List;
@@ -39,8 +41,17 @@ public interface ElectronicCouponMapper {
 
     /**
      * 查看客户详情
+     *
      * @param electronicCouponParam electronicCouponParam
-     * @return ElectronicCoupon
+     * @return List<ElectronicCoupon>
      */
-    ElectronicCoupon getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam);
+    WeiXinCouponInfo getWXElectronicCouponInfo(ElectronicCouponParam electronicCouponParam);
+
+    /**
+     * 查询领取记录列表
+     *
+     * @param electronicCouponParam electronicCouponParam
+     * @return List<ReceiveRecords>
+     */
+    List<ReceiveRecords> queryReceiveRecords(ElectronicCouponParam electronicCouponParam);
 }
