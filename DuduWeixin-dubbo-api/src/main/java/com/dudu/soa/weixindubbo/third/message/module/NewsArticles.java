@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Created by lizhen on 2017/8/23.
  */
 
-public class NewsArticles implements Serializable{
+public class NewsArticles implements Serializable {
     /**
      * 否 图文消息/视频消息/音乐消息/小程序卡片的标题
      */
