@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by lizhen on 2017/7/24.
  */
 
-public class Dsasd implements Serializable{
+public class Dsasd implements Serializable {
     /**
      * 普通用户openid
      */
