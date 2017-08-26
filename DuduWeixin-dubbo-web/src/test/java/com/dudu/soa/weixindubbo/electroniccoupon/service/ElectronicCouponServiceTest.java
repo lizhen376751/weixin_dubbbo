@@ -61,8 +61,8 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Test
     public void getWXElectronicCouponInfo() throws Exception {
         ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
-        electronicCouponParam.setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g");
-        electronicCouponParam.setCouponId(21);
+        electronicCouponParam.setOpenId("oSsYXwNHJ9in8afIrkOv2PdK_IPU");
+        electronicCouponParam.setCouponId(23);
         electronicCouponParam.setShopCode("0533001");
         electronicCouponParam.setCouponFlag(0);
         DuduTestUtil.printRequestForTest(electronicCouponParam);
@@ -93,7 +93,7 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Test
     public void getWeiXinConponCount() throws Exception {
         ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
-        electronicCouponParam.setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g")
+        electronicCouponParam.setOpenId("oSsYXwNHJ9in8afIrkOv2PdK_IPU")
                 .setShopCode("0533001");
 //                .setCouponId(21);
         CouponCountResult weiXinConponCount = couponService.getWeiXinConponCount(electronicCouponParam);

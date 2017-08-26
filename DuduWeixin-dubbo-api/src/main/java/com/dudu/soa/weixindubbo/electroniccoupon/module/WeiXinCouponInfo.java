@@ -64,6 +64,10 @@ public class WeiXinCouponInfo implements Serializable {
      * 领取记录列表
      */
     private List<ReceiveRecords> list;
+    /**
+     * 图片路径
+     */
+    private String imageUrl;
 
     /**
      *  WeiXinCouponInfo(优惠券详情实体类) 字符串形式
@@ -73,7 +77,7 @@ public class WeiXinCouponInfo implements Serializable {
     public String toString() {
         return "diXiaoJinE:" + diXiaoJinE + ",anotherJinE:" + anotherJinE + ",couponStartTime:" + couponStartTime + ",couponEndTime:" + couponEndTime
                 + ",couponCode:" + couponCode + ",details:" + details + ",openId:" + openId + ",belongedOpenId:" + belongedOpenId + ",couponState:" + couponState
-                + ",shopCode:" + shopCode + ",couponFlag:" + couponFlag + ",couponName:" + couponName + ",list:" + list;
+                + ",shopCode:" + shopCode + ",couponFlag:" + couponFlag + ",couponName:" + couponName + ",list:" + list + ",imageUrl:" + imageUrl;
     }
 
     /**
@@ -307,6 +311,24 @@ public class WeiXinCouponInfo implements Serializable {
      */
     public WeiXinCouponInfo setList(List<ReceiveRecords> list) {
         this.list = list;
+        return this;
+    }
+
+    /**
+     * 获取 图片路径
+     * @return imageUrl 图片路径
+     */
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    /**
+     * 设置 图片路径
+     * @param imageUrl 图片路径
+     * @return 返回 WeiXinCouponInfo(优惠券详情实体类)
+     */
+    public WeiXinCouponInfo setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
         return this;
     }
 }
