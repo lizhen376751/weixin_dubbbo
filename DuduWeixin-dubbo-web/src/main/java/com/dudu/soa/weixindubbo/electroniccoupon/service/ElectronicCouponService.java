@@ -273,7 +273,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
             if (whetherYiLing > 0) {
                 DuduExceptionUtil.throwException("你已领取!");
             } else {
-
+                DuduExceptionUtil.throwException("你已领取!");
             }
         } else {
             DuduExceptionUtil.throwException("优惠券已领完!");
