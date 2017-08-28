@@ -83,8 +83,8 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
         if (StringUtils.hasText(couponTemplate.getShopCodeLM())) {
             couponConnect.setShopCodeLM(couponTemplate.getShopCodeLM());
         }
+        //把优惠券模板表和项目相关联
         Integer integer = couponConnectItem.addConnectWithItem(couponConnect);
-        logger.debug("result===================>>>>>>>>>>" + integer);
         return couponTemplate.getCouponId();
     }
 
@@ -112,7 +112,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     }
 
     /**
-     * 更新电子优惠券
+     * 更新电子优惠券模板
      *
      * @param couponTemplate couponTemplate
      * @return Integer
@@ -126,14 +126,14 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
     }
 
     /**
-     * 领取电子优惠券
+     * 发送优惠券
      *
-     * @param electronicCoupon electronicCoupon
+     * @param electronicCoupon openid shopCode conpenId custId
      * @return Integer
      */
     @Override
     @Transactional
-    public Integer addCouponCode(ElectronicCoupon electronicCoupon) {
+    public String addCouponCode(ElectronicCoupon electronicCoupon) {
         String result = "";
         List<ElectronicCoupon> list = new ArrayList<>();
         CouponTemplate couponById = couponTemplateMapper.getCouponById(electronicCoupon.getCouponId());
@@ -153,7 +153,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
                         .setBelongedOpenId(electronicCoupon.getOpenId())
                         .setCouponId(electronicCoupon.getCouponId())
                         .setCouponCode(couponCode.toString() + threeNum)
-                        .setCouponEndTime(new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000))
+                        .setCouponEndTime(couponById.getValidEndTime())
                         .setCouponStartTime(new Date())
                         .setLingquTime(new Date())
                         .setCouponState("2")
@@ -177,26 +177,34 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
                 );
             }
         }
+        Integer i = null;
         if (list.size() > 0) {
-            Integer integer = electronicCouponMapper.addCouponCode(list);
+            i = electronicCouponMapper.addCouponCode(list);
         } else {
-            DuduExceptionUtil.throwException("领取失败");
+            DuduExceptionUtil.throwException("发送失败");
         }
-        return electronicCoupon.getId();
+        if (i > 0) {
+            return result;
+        } else {
+            return "";
+        }
+
     }
 
     /**
      * 微信客户优惠券统计
      *
-     * @param electronicCouponParam electronicCouponParam
-     * @return 可是使用数目 可赚发数目
+     * @param electronicCouponParam shopCode openId (couponId)
+     * @return 可是使用数目 可转发数目
      */
     @Override
     public CouponCountResult getWeiXinConponCount(ElectronicCouponParam electronicCouponParam) {
         CouponCountResult couponCountResult = new CouponCountResult();
         electronicCouponParam.setCouponFlag(0);
+        electronicCouponParam.setCouponState("1");
         couponCountResult.setForwardNum(electronicCouponMapper.getWeiXinConponCount(electronicCouponParam));
         electronicCouponParam.setCouponFlag(1);
+        electronicCouponParam.setCouponState("2");
         couponCountResult.setUserNum(electronicCouponMapper.getWeiXinConponCount(electronicCouponParam));
         return couponCountResult;
     }
@@ -257,6 +265,7 @@ public class ElectronicCouponService implements ApiElectronicCoupon {
 
     /**
      * 领取优惠券
+     *
      * @param electronicCoupon electronicCoupon
      * @return 结果
      */

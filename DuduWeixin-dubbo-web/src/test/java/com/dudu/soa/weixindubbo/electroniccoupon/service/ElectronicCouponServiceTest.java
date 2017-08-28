@@ -5,9 +5,9 @@ import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponCountResult;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplate;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.CouponTemplateParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCoupon;
+import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.ReceiveRecords;
 import com.dudu.soa.weixindubbo.electroniccoupon.module.WeiXinCouponInfo;
-import com.dudu.soa.weixindubbo.electroniccoupon.module.ElectronicCouponParam;
 import com.dudu.soa.wxd.test.TestBase;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -97,7 +97,6 @@ public class ElectronicCouponServiceTest extends TestBase {
         DuduTestUtil.printResponseForTest(receiveRecordss);
     }
 
-
     /**
      * 测试统计优惠券数量
      *
@@ -106,9 +105,9 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Test
     public void getWeiXinConponCount() throws Exception {
         ElectronicCouponParam electronicCouponParam = new ElectronicCouponParam();
-        electronicCouponParam.setOpenId("oSsYXwNHJ9in8afIrkOv2PdK_IPU")
-                .setShopCode("0533001");
-//                .setCouponId(21);
+        electronicCouponParam.setOpenId("oSsYXwNHJ9in8afIrkOv2PdK_IPU") //查询哪个人
+                .setShopCode("0533001"); //店铺编码必传
+//                .setCouponId(21); //加上标识统计何种券
         CouponCountResult weiXinConponCount = couponService.getWeiXinConponCount(electronicCouponParam);
         DuduTestUtil.printResponseForTest(weiXinConponCount);
     }
@@ -121,14 +120,13 @@ public class ElectronicCouponServiceTest extends TestBase {
     @Test
     public void addCouponCode() throws Exception {
         ElectronicCoupon electronicCoupon = new ElectronicCoupon();
-        electronicCoupon.setShopCode("0533001")
-                .setCouponId(21)
-                .setOpenId("olpAj1PmKtPQ8-QqTNVu9XfANp8g");
-//                .setCustId(5940);
+        electronicCoupon.setShopCode("0533001") //必传
+                .setCouponId(22) //必传
+                .setOpenId("oVfyxuKJ0h7B5fOV1ERa_Pc9chdA"); //必传
+        DuduTestUtil.printRequestForTest(electronicCoupon);
+        String integer = couponService.addCouponCode(electronicCoupon);
 
-        Integer integer = couponService.addCouponCode(electronicCoupon);
-
-
+        logger.debug("可使用couponCode为======>>>" + integer);
     }
 
     /**

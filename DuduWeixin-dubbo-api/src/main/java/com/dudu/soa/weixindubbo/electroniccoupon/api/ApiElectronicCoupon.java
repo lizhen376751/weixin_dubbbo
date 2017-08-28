@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface ApiElectronicCoupon {
     /**
-     * 设置模板
+     * 设置电子优惠券模板
      *
      * @param couponTemplate couponTemplate
      * @return 返回电子优惠券模板的id
@@ -42,7 +42,7 @@ public interface ApiElectronicCoupon {
     CouponTemplate getCouponById(CouponTemplateParam couponTemplateParam);
 
     /**
-     * 更新电子优惠券
+     * 更新电子优惠券模板
      *
      * @param couponTemplate couponTemplate
      * @return Integer
@@ -50,12 +50,12 @@ public interface ApiElectronicCoupon {
     Integer updateElectronicCoupon(CouponTemplate couponTemplate);
 
     /**
-     * 领取电子优惠券
+     * 发送电子优惠券
      *
      * @param electronicCoupon electronicCoupon
-     * @return 电子优惠券id
+     * @return 可使用优惠券Code
      */
-    Integer addCouponCode(ElectronicCoupon electronicCoupon);
+    String addCouponCode(ElectronicCoupon electronicCoupon);
 
     /**
      * 微信客户优惠券统计
@@ -96,4 +96,6 @@ public interface ApiElectronicCoupon {
      * @return Integer
      */
     Integer lingQuCoupon(ElectronicCoupon electronicCoupon);
+
+
 }
