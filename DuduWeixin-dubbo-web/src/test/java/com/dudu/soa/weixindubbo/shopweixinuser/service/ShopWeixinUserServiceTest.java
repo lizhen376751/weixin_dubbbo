@@ -21,8 +21,9 @@ public class ShopWeixinUserServiceTest extends TestBase {
     public void queryShopWeixinUser() throws Exception {
 
         ShopWeixinUser shopWeixinUser = new ShopWeixinUser();
-        shopWeixinUser.setUserName("鲁A2032");
-        shopWeixinUser.setShopcode("0533001");
+//        shopWeixinUser.setUserName("鲁A2032");
+//        shopWeixinUser.setShopcode("0533001");
+        shopWeixinUser.setOpenId("oSsYXwKtaVsQU3BPf1h-N2T3Mej0");
         ArrayList<ShopWeixinUser> shopWeixinUsers = shopWeixinUserService.queryShopWeixinUser(shopWeixinUser);
         if (shopWeixinUsers.size() > 0) {
             log.info("查询结果=========================" + shopWeixinUsers.get(0).toString());
